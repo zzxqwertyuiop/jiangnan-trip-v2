@@ -133,24 +133,27 @@ const placeThemes = {
 function getTheme(dayId, mood) {
   const place = placeThemes[dayId] || placeThemes.d25;
   const mode = moodThemes[mood] || moodThemes.comfort;
-  const accent = mood === "rain" ? "#69e8d6" : mood === "active" ? "#12f3bd" : "#23e3c4";
-  const accentDeep = mood === "rain" ? "#2fb7b0" : mood === "active" ? "#03b98f" : "#0fb49c";
+  const accent = mood === "rain" ? "#69e8d6" : mood === "active" ? "#12f3bd" : "#20e8c8";
+  const accentDeep = mood === "rain" ? "#2fb7b0" : mood === "active" ? "#03b98f" : "#16d4b8";
   return {
     ...mode,
     placeName: place.name,
     placeZh: place.zh,
-    bg: "linear-gradient(180deg,#d7dade 0%,#cbd0d6 48%,#bfc6cf 100%)",
-    shell: "linear-gradient(180deg,rgba(255,255,255,.40) 0%,rgba(244,247,250,.22) 100%)",
-    glass: "rgba(242,245,248,.58)",
-    card: "rgba(255,255,255,.62)",
-    tint: "rgba(255,255,255,.42)",
+    bg: "linear-gradient(180deg,#a7abb1 0%,#969ca4 48%,#858c96 100%)",
+    shell: "linear-gradient(180deg,rgba(18,20,25,.96) 0%,rgba(14,16,20,.98) 100%)",
+    glass: "rgba(18,20,25,.82)",
+    card: "linear-gradient(180deg,rgba(18,20,25,.90),rgba(24,27,33,.82))",
+    tint: "linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72))",
     accent,
     accent2: "#b8fff4",
     gradient: `linear-gradient(135deg,${accent} 0%,${accentDeep} 100%)`,
-    chipDark: "rgba(13,14,18,.88)",
-    softDark: "rgba(18,20,25,.72)",
-    deepDark: "#0d0e12",
-    line: "rgba(255,255,255,.42)",
+    chipDark: "rgba(11,12,15,.92)",
+    softDark: "linear-gradient(180deg,rgba(17,19,24,.90),rgba(23,26,32,.84))",
+    deepDark: "#0b1012",
+    line: "rgba(255,255,255,.08)",
+    text: "rgba(255,255,255,.96)",
+    text2: "rgba(235,239,245,.78)",
+    text3: "rgba(205,211,220,.58)",
   };
 }
 
@@ -291,10 +294,48 @@ const days = [
 
 const tabs = [["home", "Today", "首页"], ["route", "Route", "路线"], ["taste", "Taste", "味道"], ["culture", "Story", "文化"], ["go", "Go", "出发"]];
 
+function normalizeMapQuery(query) {
+  const raw = String(query || "").trim();
+  const rules = [
+    ["上海浦西万怡", "上海浦西万怡酒店"],
+    ["Courtyard by Marriott", "上海浦西万怡酒店"],
+    ["外滩家宴", "外滩家宴上海菜 城隍庙"],
+    ["李百蟹", "李百蟹外滩江景餐厅"],
+    ["Professor", "Professor Lee 港汇恒隆"],
+    ["人和馆", "人和馆 枫林路 上海"],
+    ["玉兰厢", "玉兰厢 豫园"],
+    ["杭州龙禧", "杭州龙禧福朋喜来登酒店"],
+    ["Four Points", "杭州龙禧福朋喜来登酒店"],
+    ["福缘居", "福缘居酒楼 文三西路店"],
+    ["群乐", "群乐饭店 滨安路店"],
+    ["竹间三喜", "竹间三喜 良渚"],
+    ["龙井茶园", "龙井茶园 杭州"],
+    ["龙井村", "龙井村 杭州"],
+    ["法喜寺", "杭州上天竺法喜讲寺"],
+    ["灵隐寺", "灵隐寺 杭州"],
+    ["国家版本馆", "杭州国家版本馆"],
+    ["良渚文化村", "良渚文化村 杭州"],
+    ["玉鸟集", "玉鸟集 良渚"],
+    ["乌镇西栅", "乌镇西栅景区"],
+    ["木心美术馆", "木心美术馆 乌镇"],
+    ["湖州南浔站", "湖州南浔站"],
+    ["杭州西站", "杭州西站"],
+    ["上海南站", "上海南站"],
+    ["徐家汇天主堂", "徐家汇天主堂"],
+    ["徐家汇书院", "徐家汇书院"],
+    ["南京东路", "南京东路步行街"],
+    ["豫园", "豫园"],
+    ["外滩", "外滩"],
+  ];
+  const hit = rules.find(([key]) => raw.includes(key));
+  return hit ? hit[1] : raw;
+}
+
 function mapLinks(query) {
-  const q = encodeURIComponent(query);
+  const safeQuery = normalizeMapQuery(query);
+  const q = encodeURIComponent(safeQuery);
   const me = encodeURIComponent("我的位置");
-  return { amap: `https://uri.amap.com/search?keyword=${q}&callnative=1`, baidu: `https://api.map.baidu.com/direction?origin=${me}&destination=${q}&mode=driving&region=${encodeURIComponent("全国")}&output=html&src=jiangnan-trip`, apple: `https://maps.apple.com/?daddr=${q}&dirflg=d`, google: `https://www.google.com/maps/dir/?api=1&destination=${q}&travelmode=driving` };
+  return { amap: `https://uri.amap.com/search?keyword=${q}&src=jiangnan-trip&callnative=1`, baidu: `https://api.map.baidu.com/direction?origin=${me}&destination=${q}&mode=driving&region=${encodeURIComponent("全国")}&output=html&src=jiangnan-trip`, apple: `https://maps.apple.com/?daddr=${q}&dirflg=d`, google: `https://www.google.com/maps/dir/?api=1&destination=${q}&travelmode=driving`, label: safeQuery };
 }
 
 function SmartImage({ src, alt, className }) {
@@ -303,11 +344,11 @@ function SmartImage({ src, alt, className }) {
 }
 
 function Pair({ en, zh, className = "" }) {
-  return <div className={className}><div>{en}</div><div className="text-neutral-500">{zh}</div></div>;
+  return <div className={className}><div className="text-white/86">{en}</div><div className="text-white/56">{zh}</div></div>;
 }
 
 function Badge({ children, style }) {
-  return <span className="inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black shadow-sm backdrop-blur-xl" style={{ background: "rgba(255,255,255,.70)", color: "#121316", border: "1px solid rgba(255,255,255,.45)", ...style }}>{children}</span>;
+  return <span className="inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black shadow-sm backdrop-blur-xl" style={{ background: "rgba(255,255,255,.10)", color: "rgba(255,255,255,.90)", border: "1px solid rgba(255,255,255,.10)", ...style }}>{children}</span>;
 }
 
 function DynamicIcon({ children, theme, size = "md", active = false, dark = false }) {
@@ -322,7 +363,7 @@ function DynamicIcon({ children, theme, size = "md", active = false, dark = fals
 }
 
 function SectionTitle({ kicker, title, zh, right }) {
-  return <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[0.18em] text-neutral-500">{kicker}</p><h2 className="mt-1 text-[22px] font-black leading-tight tracking-[-0.04em]">{title}</h2>{zh && <p className="text-sm font-semibold text-neutral-500">{zh}</p>}</div>{right}</div>;
+  return <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[0.18em] text-white/42">{kicker}</p><h2 className="mt-1 text-[22px] font-black leading-tight tracking-[-0.04em] text-white">{title}</h2>{zh && <p className="text-sm font-semibold text-white/56">{zh}</p>}</div>{right}</div>;
 }
 
 function SmoothStyles() {
@@ -367,7 +408,13 @@ function SmoothStyles() {
       .dynamic-icon__dot { position: absolute; left: 50%; top: 50%; z-index: 1; height: 6px; width: 6px; border-radius: 999px; background: rgba(255,255,255,.78); animation: orbit 3.6s linear infinite; }
       .dynamic-icon.is-active .dynamic-icon__emoji { animation-duration: 1.25s; }
       .hero-scan::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent); animation: scanLine 4.8s ease-in-out infinite; }
-      .glass-card { border: 1px solid rgba(255,255,255,.38); box-shadow: 0 22px 70px rgba(22,28,36,.13), inset 0 1px 0 rgba(255,255,255,.30); backdrop-filter: blur(22px); }
+      .glass-card { border: 1px solid rgba(255,255,255,.08); box-shadow: 0 18px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.10); backdrop-filter: blur(22px); }
+      .heavy-card { background: linear-gradient(180deg,rgba(18,20,25,.90),rgba(24,27,33,.82)); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 18px 48px rgba(0,0,0,.22); backdrop-filter: blur(18px); }
+      .heavy-soft { background: linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72)); border: 1px solid rgba(255,255,255,.07); box-shadow: 0 12px 34px rgba(0,0,0,.18); backdrop-filter: blur(14px); }
+      .text-strong { color: rgba(255,255,255,.96); }
+      .text-mid { color: rgba(235,239,245,.78); }
+      .text-soft { color: rgba(205,211,220,.58); }
+      .mint-panel { background: linear-gradient(135deg,#20e8c8 0%,#16d4b8 100%); color: #0b1012; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 14px 30px rgba(20,214,184,.22); }
       .hero-glow { animation: heroGlow 4.5s ease-in-out infinite; }
     `}</style>
   );
@@ -384,9 +431,12 @@ function MapButtons({ query }) {
         <a href={links.apple} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Apple Maps</a>
       </div>
       {more && (
-        <div className="grid grid-cols-2 gap-2">
-          <a href={links.baidu} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(13,14,18,.88)", color: "white" }}>Baidu / 百度</a>
-          <a href={links.google} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Google Maps</a>
+        <div className="space-y-2">
+          <div className="grid grid-cols-2 gap-2">
+            <a href={links.baidu} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(13,14,18,.88)", color: "white" }}>Baidu / 百度</a>
+            <a href={links.google} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Google Maps</a>
+          </div>
+          <div className="rounded-2xl px-3 py-2 text-[11px] font-bold leading-5 text-neutral-600" style={{ background: "rgba(255,255,255,.46)" }}>Search keyword / 地图搜索词：{links.label}</div>
         </div>
       )}
       <button onClick={() => setMore(!more)} className="w-full rounded-2xl py-2 text-[11px] font-black transition active:scale-95" style={{ background: "rgba(13,14,18,.08)", color: "#343840", border: "1px solid rgba(255,255,255,.34)" }}>
@@ -443,58 +493,58 @@ function getMoodAdvice(day, mood) {
 
 function MoodSwitch({ mood, setMood, theme, day }) {
   const advice = getMoodAdvice(day, mood);
-  return <section className="rounded-[32px] p-4 shadow-[0_18px_50px_rgba(75,91,180,0.10)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route Mode" title="Choose the pace" zh="选择今天的节奏" right={<Badge>{theme.placeName} / {theme.placeZh}</Badge>} /><div className="grid grid-cols-3 gap-2">{Object.entries(moodThemes).map(([key, item]) => {
+  return <section className="heavy-card rounded-[32px] p-4"><SectionTitle kicker="Route Mode" title="Choose the pace" zh="选择今天的节奏" right={<Badge>{theme.placeName} / {theme.placeZh}</Badge>} /><div className="grid grid-cols-3 gap-2">{Object.entries(moodThemes).map(([key, item]) => {
     const active = mood === key;
-    return <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={{ background: active ? theme.gradient : theme.tint, color: active ? "white" : "#333", boxShadow: active ? "0 14px 35px rgba(70,90,220,.18)" : "none" }}><span className={`block text-base ${active ? "active-emoji" : ""}`}>{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-80">{item.zh}</span></button>;
-  })}</div><div key={`${day.id}-${mood}-advice`} className="view-switch mt-3 rounded-2xl p-3 text-sm leading-6 text-neutral-700" style={{ background: theme.tint }}><strong>{advice.action[0]}</strong><br /><span className="text-neutral-500">{advice.action[1]}</span><div className="mt-2">{advice.en}<br /><span className="text-neutral-500">{advice.zh}</span></div></div></section>;
+    return <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={{ background: active ? theme.gradient : "linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72))", color: active ? theme.deepDark : "rgba(255,255,255,.82)", boxShadow: active ? "0 14px 35px rgba(20,214,184,.18)" : "none", border: active ? "1px solid rgba(255,255,255,.12)" : "1px solid rgba(255,255,255,.06)" }}><span className={`block text-base ${active ? "active-emoji" : ""}`}>{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-75">{item.zh}</span></button>;
+  })}</div><div key={`${day.id}-${mood}-advice`} className="view-switch heavy-soft mt-3 rounded-2xl p-3 text-sm leading-6"><strong className="text-white/95">{advice.action[0]}</strong><br /><span className="text-white/56">{advice.action[1]}</span><div className="mt-2 text-white/78">{advice.en}<br /><span className="text-white/56">{advice.zh}</span></div></div></section>;
 }
 
 function Hero({ day, theme, openGuide }) {
   return (
-    <button onClick={openGuide} className="hero-card hero-scan group relative h-[430px] w-full overflow-hidden rounded-[42px] text-left shadow-[0_28px_90px_rgba(36,42,52,.22)] transition active:scale-[.99]">
+    <button onClick={openGuide} className="hero-card hero-scan group relative h-[470px] w-full overflow-hidden rounded-[42px] text-left shadow-[0_28px_90px_rgba(36,42,52,.22)] transition active:scale-[.99]">
       <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,17,20,.16)_0%,rgba(16,17,20,.20)_38%,rgba(16,17,20,.78)_100%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(35,227,196,.22),transparent_30%)]" />
-      <div className="hero-glow absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#23e3c4]/30 blur-3xl" />
-      <div className="hero-glow absolute left-[-34px] top-[150px] h-28 w-28 rounded-full bg-white/20 blur-3xl" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,12,.10)_0%,rgba(8,10,12,.24)_38%,rgba(8,10,12,.62)_72%,rgba(8,10,12,.84)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(31,231,200,.12),transparent_30%)]" />
+      <div className="hero-glow absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#23e3c4]/24 blur-3xl" />
+      <div className="hero-glow absolute left-[-34px] top-[150px] h-28 w-28 rounded-full bg-white/12 blur-3xl" />
 
       <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-black/34 text-white backdrop-blur-xl">‹</div>
-        <div className="mint-shimmer flex items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black shadow-[0_10px_30px_rgba(35,227,196,.24)]" style={{ background: theme.gradient, color: theme.deepDark }}>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-black/26 text-white backdrop-blur-xl">‹</div>
+        <div className="mint-shimmer flex max-w-[230px] items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black shadow-[0_10px_30px_rgba(35,227,196,.22)]" style={{ background: theme.gradient, color: theme.deepDark }}>
           <DynamicIcon theme={theme} size="sm" dark>✈️</DynamicIcon>
-          <div className="leading-tight"><div>{day.city} active route</div><div className="text-[10px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
+          <div className="min-w-0 leading-tight"><div className="truncate">{day.city} active route</div><div className="truncate text-[10px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
         </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-black/34 text-white backdrop-blur-xl">⌾</div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-black/26 text-white backdrop-blur-xl">⌾</div>
       </div>
 
-      <div className="absolute left-5 right-5 top-[120px]">
-        <p className="mb-2 text-[12px] font-black uppercase tracking-[0.22em] text-white/70">Jiangnan private guide</p>
-        <h2 className="max-w-[82%] text-[35px] font-black leading-[.95] tracking-[-.055em] text-white">{day.title}</h2>
-        <p className="mt-2 text-base font-semibold text-white/82">{day.titleZh}</p>
+      <div className="absolute left-5 top-[118px] max-w-[72%]">
+        <p className="mb-2 text-[12px] font-black uppercase tracking-[0.22em] text-white/68">Jiangnan private guide</p>
+        <h2 className="text-[34px] font-black leading-[.95] tracking-[-.055em] text-white">{day.title}</h2>
+        <p className="mt-2 text-[15px] font-semibold text-white/82">{day.titleZh}</p>
       </div>
 
-      <div className="absolute bottom-5 left-5 right-5">
-        <div className="glass-card rounded-[34px] p-4" style={{ background: theme.softDark }}>
-          <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="absolute bottom-6 left-5 right-[72px]">
+        <div className="glass-card rounded-[30px] p-4" style={{ background: "linear-gradient(180deg,rgba(17,19,24,.88),rgba(23,26,32,.82))", border: "1px solid rgba(255,255,255,.08)", boxShadow: "0 18px 50px rgba(0,0,0,.28)", backdropFilter: "blur(18px)" }}>
+          <div className="mb-3 flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-xs font-black uppercase tracking-[.16em] text-white/50">Main line</div>
-              <div className="mt-1 text-lg font-black leading-tight text-white">{day.route}</div>
-              <div className="mt-1 text-sm font-semibold text-white/58">{day.routeZh}</div>
+              <div className="text-[11px] font-black uppercase tracking-[.16em] text-white/48">Main line</div>
+              <div className="mt-1 line-clamp-2 text-[20px] font-black leading-[1.08] text-white">{day.route}</div>
+              <div className="mt-1 line-clamp-2 text-[13px] font-semibold text-white/58">{day.routeZh}</div>
             </div>
-            <Badge style={{ background: "rgba(255,255,255,.10)", color: "white", borderColor: "rgba(255,255,255,.12)" }}>{day.tab}</Badge>
+            <Badge style={{ background: "rgba(255,255,255,.08)", color: "white", border: "1px solid rgba(255,255,255,.12)" }}>{day.tab}</Badge>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-[28px] p-4" style={{ background: theme.gradient, color: theme.deepDark }}>
+            <div className="rounded-[24px] p-3.5 mint-panel">
               <div className="mb-2"><DynamicIcon theme={theme} size="sm" active>{theme.emoji}</DynamicIcon></div>
-              <div className="text-xs font-black opacity-70">Route mode</div>
-              <div className="mt-1 text-[26px] font-black leading-none">{theme.label}</div>
-              <div className="mt-1 text-xs font-bold opacity-70">{theme.zh}</div>
+              <div className="text-[11px] font-black opacity-70">Route mode</div>
+              <div className="mt-1 text-[18px] font-black leading-none">{theme.label}</div>
+              <div className="mt-1 text-[12px] font-bold opacity-70">{theme.zh}</div>
             </div>
-            <div className="rounded-[28px] border border-white/10 bg-white/10 p-4 text-white">
+            <div className="rounded-[24px] border border-white/10 bg-white/8 p-3.5 text-white">
               <div className="mb-2"><DynamicIcon theme={theme} size="sm" dark>↗</DynamicIcon></div>
-              <div className="text-xs font-black uppercase tracking-[.14em] text-white/58">Open</div>
-              <div className="mt-1 text-[26px] font-black leading-none">Guide</div>
-              <div className="mt-1 text-xs font-bold text-white/58">Tap for details</div>
+              <div className="text-[11px] font-black uppercase tracking-[.14em] text-white/58">Open</div>
+              <div className="mt-1 text-[18px] font-black leading-none">Guide</div>
+              <div className="mt-1 text-[12px] font-bold text-white/58">Tap details</div>
             </div>
           </div>
         </div>
