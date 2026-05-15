@@ -379,6 +379,11 @@ function SmoothStyles() {
       @keyframes orbit { from { transform: rotate(0deg) translateX(18px) rotate(0deg); } to { transform: rotate(360deg) translateX(18px) rotate(-360deg); } }
       @keyframes heroGlow { 0%,100% { opacity: .20; transform: scale(1) translateY(0); } 50% { opacity: .38; transform: scale(1.08) translateY(-6px); } }
       @keyframes scanLine { 0% { transform: translateY(-120%); opacity: 0; } 28% { opacity: .55; } 100% { transform: translateY(120%); opacity: 0; } }
+      @keyframes mapDraw { from { stroke-dashoffset: 1200; } to { stroke-dashoffset: 0; } }
+      @keyframes mapDrift { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.015); } }
+      @keyframes routeDash { from { stroke-dashoffset: 90; } to { stroke-dashoffset: 0; } }
+      @keyframes pinPulse { 0%,100% { transform: scale(.72); opacity: .28; } 50% { transform: scale(1.25); opacity: .78; } }
+      @keyframes loadingFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
       .app-shell { -webkit-tap-highlight-color: transparent; }
       .app-shell section, .app-shell article { transition: transform .22s ease, box-shadow .22s ease, background .45s ease; color: rgba(235,239,245,.82); }
       .app-shell { color: rgba(235,239,245,.82); }
@@ -424,6 +429,12 @@ function SmoothStyles() {
       .text-soft { color: rgba(205,211,220,.58); }
       .mint-panel { background: linear-gradient(135deg,#20e8c8 0%,#16d4b8 100%); color: #0b1012; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 14px 30px rgba(20,214,184,.22); }
       .hero-glow { animation: heroGlow 4.5s ease-in-out infinite; }
+      .china-map-wrap { animation: loadingFloat 5s ease-in-out infinite; }
+      .china-map-outline { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: mapDraw 2.4s cubic-bezier(.2,.8,.2,1) forwards; }
+      .china-route { stroke-dasharray: 12 10; animation: routeDash 1.6s linear infinite; }
+      .china-pin-halo { transform-box: fill-box; transform-origin: center; animation: pinPulse 1.8s ease-in-out infinite; }
+      .china-pin-halo.delay-1 { animation-delay: .28s; }
+      .china-pin-halo.delay-2 { animation-delay: .56s; }
       .app-shell .text-neutral-950, .app-shell .text-neutral-900, .app-shell .text-neutral-800 { color: rgba(255,255,255,.94) !important; }
       .app-shell .text-neutral-700, .app-shell .text-neutral-600 { color: rgba(235,239,245,.76) !important; }
       .app-shell .text-neutral-500 { color: rgba(205,211,220,.56) !important; }
@@ -465,36 +476,94 @@ function preloadOneImage(src, timeout = 6500) {
   });
 }
 
+function ChinaMapGraphic({ progress }) {
+  const pct = Math.max(0, Math.min(100, Math.round(progress || 0)));
+  return (
+    <div className="china-map-wrap pointer-events-none absolute inset-0 flex items-center justify-center opacity-95">
+      <svg viewBox="0 0 430 760" className="h-full w-full" role="img" aria-label="Animated China route map">
+        <defs>
+          <linearGradient id="mapMint" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stopColor="#20e8c8" />
+            <stop offset="100%" stopColor="#16d4b8" />
+          </linearGradient>
+          <radialGradient id="mapGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#20e8c8" stopOpacity="0.42" />
+            <stop offset="100%" stopColor="#20e8c8" stopOpacity="0" />
+          </radialGradient>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="7" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+        </defs>
+
+        <circle cx="215" cy="382" r="260" fill="url(#mapGlow)" opacity="0.28" />
+        <path
+          className="china-map-outline"
+          d="M148 175 C183 143 234 139 279 158 C322 176 346 207 353 251 C383 273 382 314 360 345 C376 378 358 417 324 431 C317 474 285 505 239 513 C220 552 169 552 143 519 C105 523 77 492 86 452 C51 426 53 381 86 356 C72 315 91 273 128 258 C119 226 126 196 148 175 Z"
+          fill="rgba(255,255,255,.055)"
+          stroke="url(#mapMint)"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          filter="url(#softGlow)"
+        />
+        <path d="M122 302 C165 291 214 293 250 316 C289 340 313 366 333 407" fill="none" stroke="rgba(255,255,255,.10)" strokeWidth="22" strokeLinecap="round" />
+        <path className="china-route" d="M259 372 C268 380 275 391 282 405 C270 416 255 424 236 430 C225 424 218 414 214 401 C222 387 239 377 259 372 Z" fill="none" stroke="url(#mapMint)" strokeWidth="4" strokeLinecap="round" />
+        <path className="china-route" d="M259 372 C246 377 232 387 214 401 C207 412 198 423 188 436" fill="none" stroke="url(#mapMint)" strokeWidth="3" strokeLinecap="round" opacity=".88" />
+
+        {[[259,372,"Shanghai","上海",""],[236,430,"Wuzhen","乌镇","delay-1"],[188,436,"Hangzhou","杭州","delay-2"]].map(([x,y,en,zh,delay]) => (
+          <g key={en}>
+            <circle className={`china-pin-halo ${delay}`} cx={x} cy={y} r="17" fill="#20e8c8" opacity=".26" />
+            <circle cx={x} cy={y} r="7" fill="#20e8c8" stroke="#0b1012" strokeWidth="3" />
+            <text x={Number(x) + 15} y={Number(y) - 6} fill="rgba(255,255,255,.92)" fontSize="12" fontWeight="800">{en}</text>
+            <text x={Number(x) + 15} y={Number(y) + 9} fill="rgba(235,239,245,.58)" fontSize="10" fontWeight="700">{zh}</text>
+          </g>
+        ))}
+
+        <g transform="translate(62 590)">
+          <rect width="306" height="86" rx="28" fill="rgba(11,12,15,.62)" stroke="rgba(255,255,255,.10)" />
+          <text x="24" y="32" fill="rgba(255,255,255,.52)" fontSize="11" fontWeight="900" letterSpacing="2.8">ROUTE PRELOAD</text>
+          <text x="24" y="58" fill="white" fontSize="22" fontWeight="900">Shanghai → Wuzhen → Hangzhou</text>
+          <rect x="24" y="68" width="258" height="5" rx="3" fill="rgba(255,255,255,.10)" />
+          <rect x="24" y="68" width={(258 * pct) / 100} height="5" rx="3" fill="url(#mapMint)" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
 function SplashScreen({ progress, onEnter }) {
   const pct = Math.max(0, Math.min(100, Math.round(progress || 0)));
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-[#9aa0a8] px-6 text-white">
+    <div className="fixed inset-0 z-[999] overflow-hidden bg-[#0b0d10] text-white">
       <SmoothStyles />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(32,232,200,.22),transparent_34%),linear-gradient(180deg,#a5a9af_0%,#8d939b_100%)]" />
-      <div className="hero-glow absolute -top-20 right-[-80px] h-64 w-64 rounded-full bg-[#20e8c8]/24 blur-3xl" />
-      <div className="hero-glow absolute bottom-[-90px] left-[-80px] h-72 w-72 rounded-full bg-white/14 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(32,232,200,.18),transparent_32%),linear-gradient(180deg,#1a1d23_0%,#0b0d10_68%,#050607_100%)]" />
+      <div className="hero-glow absolute -top-24 right-[-90px] h-72 w-72 rounded-full bg-[#20e8c8]/22 blur-3xl" />
+      <div className="hero-glow absolute bottom-[-100px] left-[-90px] h-80 w-80 rounded-full bg-white/8 blur-3xl" />
 
-      <div className="relative w-full max-w-[430px] overflow-hidden rounded-[44px] border border-white/10 bg-[#0f1115]/92 p-5 shadow-[0_30px_100px_rgba(0,0,0,.34)] backdrop-blur-2xl">
-        <div className="mb-10 flex items-center justify-between">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/6 text-xl">‹</div>
-          <div className="mint-shimmer flex items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>
+      <ChinaMapGraphic progress={pct} />
+
+      <div className="relative z-10 flex min-h-screen flex-col justify-between px-6 py-8">
+        <div className="flex items-center justify-between">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl backdrop-blur-xl">‹</div>
+          <div className="mint-shimmer flex items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black shadow-[0_12px_32px_rgba(32,232,200,.20)]" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0b1012] text-white">✈️</span>
             <span>Loading private guide</span>
           </div>
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/6 text-xl">⌾</div>
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-xl backdrop-blur-xl">⌾</div>
         </div>
 
-        <div className="mb-10">
-          <p className="mb-3 text-[12px] font-black uppercase tracking-[.24em] text-white/46">Jiangnan Trip</p>
-          <h1 className="text-[42px] font-black leading-[.92] tracking-[-.06em] text-white">Shanghai · Wuzhen<br />Hangzhou Guide</h1>
-          <p className="mt-4 max-w-[310px] text-sm font-medium leading-6 text-white/64">正在优先加载首日路线图、餐厅图和景点图片，进入 App 后其余图片继续按需加载。</p>
+        <div className="mb-8">
+          <p className="mb-3 text-[12px] font-black uppercase tracking-[.26em] text-white/46">Jiangnan Trip</p>
+          <h1 className="text-[46px] font-black leading-[.90] tracking-[-.065em] text-white">China Map<br />Loading</h1>
+          <p className="mt-4 max-w-[330px] text-sm font-medium leading-6 text-white/64">正在优先加载首日路线图、餐厅图和景点图片。进入 App 后，其余图片继续按需加载。</p>
         </div>
 
-        <div className="glass-card rounded-[30px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.88),rgba(19,21,26,.82))" }}>
+        <div className="glass-card rounded-[32px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.78),rgba(14,16,20,.72))" }}>
           <div className="mb-3 flex items-center justify-between">
             <div>
               <p className="text-[11px] font-black uppercase tracking-[.16em] text-white/46">Image preload</p>
-              <p className="mt-1 text-lg font-black text-white">Loading assets</p>
+              <p className="mt-1 text-lg font-black text-white">Route assets</p>
             </div>
             <div className="rounded-full px-3 py-1 text-sm font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>{pct}%</div>
           </div>
@@ -502,9 +571,9 @@ function SplashScreen({ progress, onEnter }) {
             <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "linear-gradient(135deg,#20e8c8,#16d4b8)" }} />
           </div>
           <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-black text-white/60">
-            <div className="rounded-2xl bg-white/6 py-3">Maps<br /><span className="text-white/34">地图</span></div>
-            <div className="rounded-2xl bg-white/6 py-3">Food<br /><span className="text-white/34">美食</span></div>
-            <div className="rounded-2xl bg-white/6 py-3">Story<br /><span className="text-white/34">文化</span></div>
+            <div className="rounded-2xl bg-white/5 py-3">Maps<br /><span className="text-white/35">地图</span></div>
+            <div className="rounded-2xl bg-white/5 py-3">Food<br /><span className="text-white/35">美食</span></div>
+            <div className="rounded-2xl bg-white/5 py-3">Story<br /><span className="text-white/35">文化</span></div>
           </div>
           {pct >= 96 && <button onClick={onEnter} className="mt-4 w-full rounded-2xl py-3 text-sm font-black transition active:scale-95" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>Enter guide / 进入行程</button>}
         </div>
@@ -632,7 +701,7 @@ function Hero({ day, theme, openGuide }) {
 }
 
 function RouteCard({ step, index, theme, open, onToggle }) {
-  return <article className="overflow-hidden rounded-[34px] shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70" style={{ background: theme.card }}><button onClick={onToggle} className="relative h-40 w-full overflow-hidden bg-neutral-200"><SmartImage src={step.image} alt={step.zh} className={`h-full w-full object-cover transition duration-700 ${open ? "scale-105" : "scale-100"}`} /><div className="absolute inset-0 bg-gradient-to-t from-[#17307a]/50 to-transparent" /><div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white"><span className="text-xs font-black uppercase tracking-[.14em]">{step.part} / {step.partZh}</span><span className="rounded-full bg-white/92 px-3 py-1 text-xs font-black text-neutral-900">Loose plan / 大致安排</span></div></button><button onClick={onToggle} className="w-full p-4 text-left"><div className="mb-3 flex items-start gap-3"><DynamicIcon theme={theme} size="md" active={open}>{String(index + 1).padStart(2, "0")}</DynamicIcon><div className="min-w-0 flex-1"><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{step.title}</h3><p className="mt-0.5 text-sm font-semibold text-neutral-500">{step.zh}</p></div><div className={`route-toggle rounded-full bg-white/70 px-2 py-1 text-xs font-black ${open ? "open" : ""}`}>{open ? "−" : "+"}</div></div><div className="space-y-2"><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-neutral-500">Place / 地点</span><Pair en={step.place} zh={step.placeZh} /></div><div className="rounded-2xl p-3 text-sm leading-6 text-blue-950" style={{ background: "rgba(226,236,255,.76)" }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-blue-500">Transit / 交通</span><Pair en={step.transit} zh={step.transitZh} /></div></div></button>{open && <div className="space-y-3 border-t border-white/70 p-4 pt-3"><div className="rounded-2xl bg-white/66 p-3 text-sm leading-6 text-neutral-700"><strong>Why it matters / 为什么值得去</strong><Pair en={step.why} zh={step.whyZh} /></div>{step.legs?.map(([enTitle, en, zhTitle, zh]) => <div key={enTitle} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{enTitle}</strong><p>{en}</p><p className="mt-1 text-neutral-500"><strong>{zhTitle}</strong>：{zh}</p></div>)}</div>}</article>;
+  return <article className="overflow-hidden rounded-[34px] shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70" style={{ background: theme.card }}><button onClick={onToggle} className="relative h-40 w-full overflow-hidden bg-neutral-200"><SmartImage src={step.image} alt={step.zh} className={`h-full w-full object-cover transition duration-700 ${open ? "scale-105" : "scale-100"}`} /><div className="absolute inset-0 bg-gradient-to-t from-[#17307a]/50 to-transparent" /><div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white"><span className="text-xs font-black uppercase tracking-[.14em]">{step.part} / {step.partZh}</span><span className="rounded-full bg-white/92 px-3 py-1 text-xs font-black text-neutral-900">Loose plan / 大致安排</span></div></button><button onClick={onToggle} className="w-full p-4 text-left"><div className="mb-3 flex items-start gap-3"><DynamicIcon theme={theme} size="md" active={open}>{String(index + 1).padStart(2, "0")}</DynamicIcon><div className="min-w-0 flex-1"><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{step.title}</h3><p className="mt-0.5 text-sm font-semibold text-neutral-500">{step.zh}</p></div><div className={`route-toggle rounded-full bg-white/70 px-2 py-1 text-xs font-black ${open ? "open" : ""}`}>{open ? "−" : "+"}</div></div><div className="space-y-2"><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: "linear-gradient(180deg,rgba(28,31,38,.94),rgba(20,23,29,.90))", border: "1px solid rgba(255,255,255,.08)" }}><span className="text-[11px] font-black uppercase tracking-[.12em]" style={{ color: "rgba(235,239,245,.62)" }}>Place / 地点</span><Pair en={step.place} zh={step.placeZh} /></div><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: "linear-gradient(180deg,rgba(28,31,38,.94),rgba(20,23,29,.90))", border: "1px solid rgba(255,255,255,.08)" }}><span className="text-[11px] font-black uppercase tracking-[.12em]" style={{ color: "rgba(235,239,245,.62)" }}>Transit / 交通</span><Pair en={step.transit} zh={step.transitZh} /></div></div></button>{open && <div className="space-y-3 border-t border-white/70 p-4 pt-3"><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: "linear-gradient(180deg,rgba(28,31,38,.94),rgba(20,23,29,.90))", border: "1px solid rgba(255,255,255,.08)", color: "rgba(235,239,245,.82)" }}><strong>Why it matters / 为什么值得去</strong><Pair en={step.why} zh={step.whyZh} /></div>{step.legs?.map(([enTitle, en, zhTitle, zh]) => <div key={enTitle} className="rounded-2xl p-3 text-sm leading-6" style={{ background: "linear-gradient(180deg,rgba(28,31,38,.94),rgba(20,23,29,.90))", border: "1px solid rgba(255,255,255,.08)", color: "rgba(235,239,245,.82)" }}><strong>{enTitle}</strong><p>{en}</p><p className="mt-1" style={{ color: "rgba(205,211,220,.62)" }}><strong>{zhTitle}</strong>：{zh}</p></div>)}</div>}</article>;
 }
 
 function FoodCard({ item, theme, onOpen }) {
