@@ -26,7 +26,7 @@ const IMG = {
   dongpo: wiki("Dongpo pork by superturtle.jpg"),
   dongpoHangzhou: wiki("Dongpo pork (a Hangzhou dish).jpg"),
   longjingShrimp: wiki("Zhi Wei Guan, Longjing Shrimps.jpg"),
-  westLakeFish: wiki("West Lake Fish in Vinegar Gravy Feb 2026.jpg"),
+  westLakeFish: wiki("West Lake Fish in Vinegar Gravy.jpg"),
   wuzhenFood: wiki("Wuzhen Town 014.JPG"),
   bundFamily: "https://ak-d.tripcdn.com/images/1mh5x12000rinwbcu3C6B_C_340_230_R5.jpg?proc=source%2Ftrip",
   liBaiCrab: "https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/vfleykgwtgid3m9aucy4.webp",
@@ -163,17 +163,17 @@ const days = [
         why: "Use the hotel as the anchor point before the first-night skyline route.", whyZh: "先把酒店作为集合和回程锚点，再出发去外滩夜景。",
         legs: [
           ["Arrival point → Hotel", "If arriving at Shanghai Railway Station, taxi is usually about 5–10 min. From Hongqiao hub, reserve about 35–55 min by taxi.", "抵达点 → 酒店", "从上海站到酒店打车通常约5–10分钟；从虹桥枢纽打车建议预留35–55分钟。"],
-          ["Metro reference", "Get to Hanzhong Road Station, then walk about 5–8 min to the hotel.", "地铁参考", "到汉中路站后，步行约5–8分钟到酒店。"],
+          ["Taxi fallback", "If traffic is heavy, ask the driver to stop near Hanzhong Road / Hengfeng Road and walk the final 5–8 min.", "打车备选", "如果堵车，可以让司机停在汉中路/恒丰路附近，最后步行约5–8分钟。"],
         ],
       },
       {
         part: "Evening", partZh: "晚上", title: "Dinner near the Bund + skyline walk", zh: "外滩附近晚餐 + 夜景慢走", image: IMG.bundHero,
         place: "Hotel → Bund dinner → The Bund", placeZh: "酒店 → 外滩附近晚餐 → 外滩",
-        transit: "Taxi 20–35 min each way. Metro takes about 30–45 min including walking.", transitZh: "打车单程约20–35分钟；地铁含步行约30–45分钟。",
+        transit: "Taxi 20–35 min each way. Use direct taxi for this evening route.", transitZh: "打车单程约20–35分钟；这晚建议直接打车，不安排地铁。",
         why: "The Bund is Shanghai’s symbolic riverfront: historic banks and trading houses face the modern skyline across the river.", whyZh: "外滩是上海最具代表性的滨水地标：历史银行、洋行建筑与对岸现代天际线形成强烈对照。",
         legs: [
           ["Taxi route", "Hotel → Yan’an Elevated Road / central route → Bund area. Best for the first night.", "打车路线", "酒店 → 延安高架/市中心路线 → 外滩区域，第一晚最省心。"],
-          ["Metro route", "Hanzhong Road Station → Line 1 to People’s Square → Line 2 to East Nanjing Road → walk to the Bund.", "地铁路线", "汉中路站 → 1号线人民广场 → 换2号线南京东路 → 步行到外滩。"],
+          ["Drop-off + walk", "Ask the driver to drop off near the Bund / East Nanjing Road side, then walk 8–15 min along the riverfront.", "下车后步行", "打车到外滩/南京东路一侧下车，再沿江步行约8–15分钟。"],
         ],
       },
     ],
@@ -192,8 +192,8 @@ const days = [
     route: "Hotel → Xujiahui → Lunch → Yu Garden → Dinner", routeZh: "酒店 → 徐家汇 → 午餐 → 豫园 → 晚餐",
     intro: "Architecture, books, garden views, and old-city food — a compact Shanghai culture day.", introZh: "建筑、书院、园林和老城厢美食，组成一个紧凑但不特种兵的上海文化日。",
     plan: [
-      { part: "Morning", partZh: "上午", title: "Xujiahui Cathedral + Library", zh: "徐家汇天主堂 + 徐家汇书院", image: IMG.xujiahui, place: "Hotel → Xujiahui Cathedral → Xujiahui Library", placeZh: "酒店 → 徐家汇天主堂 → 徐家汇书院", transit: "Taxi 30–40 min. Metro 35–45 min.", transitZh: "打车约30–40分钟；地铁约35–45分钟。", why: "Xujiahui was shaped by Jesuit history, education, and science. The cathedral and library show two sides of that legacy.", whyZh: "徐家汇和耶稣会、教育、科学传统有关。天主堂和书院正好呈现这种历史与当代的两面。", legs: [["Metro route", "Hanzhong Road Station → Line 1 to Xujiahui Station → walk about 8–12 min.", "地铁路线", "汉中路站 → 1号线徐家汇站 → 步行约8–12分钟。"], ["Walking link", "Cathedral → Library: about 5–10 min on foot.", "步行连接", "天主堂 → 书院：步行约5–10分钟。"]] },
-      { part: "Afternoon", partZh: "下午", title: "Yu Garden", zh: "豫园", image: IMG.yuyuanPond, place: "Lunch → Yu Garden / Old City Bazaar", placeZh: "午餐 → 豫园/城隍庙区域", transit: "Taxi 25–40 min from Xujiahui. Metro 35–45 min.", transitZh: "从徐家汇打车约25–40分钟；地铁约35–45分钟。", why: "Yu Garden is a Ming-dynasty private garden built around rockeries, ponds, corridors, and framed views.", whyZh: "豫园是明代私家园林，核心看山石、水池、廊道和被框景组织起来的视线。", legs: [["Taxi route", "Xujiahui area → Yu Garden. Keep the afternoon focused in the old-city area.", "打车路线", "徐家汇区域 → 豫园，下午尽量集中在老城厢。"], ["Metro reference", "Line 1 to People’s Square, then transfer or taxi toward Yu Garden.", "地铁参考", "1号线到人民广场，再换乘或打车前往豫园。"]] },
+      { part: "Morning", partZh: "上午", title: "Xujiahui Cathedral + Library", zh: "徐家汇天主堂 + 徐家汇书院", image: IMG.xujiahui, place: "Hotel → Xujiahui Cathedral → Xujiahui Library", placeZh: "酒店 → 徐家汇天主堂 → 徐家汇书院", transit: "Taxi 30–40 min. Use taxi as the main transfer.", transitZh: "打车约30–40分钟；本路线以打车为主。", why: "Xujiahui was shaped by Jesuit history, education, and science. The cathedral and library show two sides of that legacy.", whyZh: "徐家汇和耶稣会、教育、科学传统有关。天主堂和书院正好呈现这种历史与当代的两面。", legs: [["Taxi drop-off", "Hotel → Xujiahui Cathedral area by taxi. After getting off, walk 5–12 min between the cathedral and library.", "打车落点", "酒店 → 徐家汇天主堂区域打车到达；下车后天主堂和书院之间步行约5–12分钟。"], ["Walking link", "Cathedral → Library: about 5–10 min on foot.", "步行连接", "天主堂 → 书院：步行约5–10分钟。"]] },
+      { part: "Afternoon", partZh: "下午", title: "Yu Garden", zh: "豫园", image: IMG.yuyuanPond, place: "Lunch → Yu Garden / Old City Bazaar", placeZh: "午餐 → 豫园/城隍庙区域", transit: "Taxi 25–40 min from Xujiahui. Keep the afternoon transfer simple.", transitZh: "从徐家汇打车约25–40分钟；下午转场尽量简单。", why: "Yu Garden is a Ming-dynasty private garden built around rockeries, ponds, corridors, and framed views.", whyZh: "豫园是明代私家园林，核心看山石、水池、廊道和被框景组织起来的视线。", legs: [["Taxi route", "Xujiahui area → Yu Garden. Keep the afternoon focused in the old-city area.", "打车路线", "徐家汇区域 → 豫园，下午尽量集中在老城厢。"], ["Drop-off + walk", "Ask the driver to stop near Yu Garden / Old City Bazaar, then walk inside the pedestrian area.", "下车后步行", "打车到豫园/城隍庙附近下车，再进入步行区慢逛。"]] },
       { part: "Evening", partZh: "晚上", title: "Dinner near Yu Garden", zh: "豫园附近晚餐", image: IMG.yulanxiang, place: "Yu Garden → Magnolia Chamber / snacks → Hotel", placeZh: "豫园 → 玉兰厢/附近小吃 → 回酒店", transit: "Taxi 15–30 min back to hotel.", transitZh: "回酒店打车约15–30分钟。", why: "Old-city Shanghai food fits here: dim sum, crab roe noodles, pan-fried buns, and soy-braised dishes.", whyZh: "豫园周边适合吃老城厢味道：点心、蟹黄面、生煎包和本帮红烧。" },
     ],
     food: [
@@ -212,7 +212,7 @@ const days = [
     route: "Shanghai hotel → Shanghai South Station → Huzhou Nanxun Station → Wuzhen Xizha", routeZh: "上海酒店 → 上海南站 → 湖州南浔站 → 乌镇西栅",
     intro: "The trip shifts from city lights to Jiangnan canals: bridges, water lanes, white walls, and slower night views.", introZh: "从城市灯光切换到江南水巷：石桥、水道、白墙和更慢的夜景。",
     plan: [
-      { part: "Morning", partZh: "上午", title: "Transfer to Wuzhen", zh: "上海 → 乌镇转场", image: IMG.wuzhenStreet, place: "Shanghai hotel → Shanghai South Station → Huzhou Nanxun Station → Xizha hotel", placeZh: "上海酒店 → 上海南站 → 湖州南浔站 → 西栅酒店", transit: "Taxi + high-speed train + taxi. Total moving time is about 2 hr 11 min, plus station buffer.", transitZh: "打车+高铁+打车。纯移动时间约2小时11分钟，另加候车缓冲。", why: "This was the fastest and most balanced transfer plan from the earlier route notes.", whyZh: "这是前面整理里性价比和速度最平衡的上海南站方案。", legs: [["1. Hotel → Shanghai South Station", "Taxi about 30 min, around ¥43. Public transit about 35 min if saving budget.", "1. 酒店 → 上海南站", "打车约30分钟，约43元；公交/地铁约35分钟，适合预算优先。"], ["2. Shanghai South → Huzhou Nanxun", "High-speed train about 43 min, tickets from about ¥58. Reserve at least 45 min for security and boarding.", "2. 上海南 → 湖州南浔", "高铁约43分钟，票价58元起；建议至少提前45分钟到站安检候车。"], ["3. Huzhou Nanxun Station → Xizha hotel", "Taxi about 23 min, around ¥54. Direct to the hotel or scenic-area entrance.", "3. 湖州南浔站 → 西栅酒店", "打车约23分钟，约54元，直达酒店或景区入口。"]] },
+      { part: "Morning", partZh: "上午", title: "Transfer to Wuzhen", zh: "上海 → 乌镇转场", image: IMG.wuzhenStreet, place: "Shanghai hotel → Shanghai South Station → Huzhou Nanxun Station → Xizha hotel", placeZh: "上海酒店 → 上海南站 → 湖州南浔站 → 西栅酒店", transit: "Taxi + high-speed train + taxi. Pure moving time is about 1 hr 35 min; plan 2–2.5 hr with station buffer.", transitZh: "打车+高铁+打车。纯移动时间约1小时35分钟；加上进站候车，建议按2–2.5小时预留。", why: "This was the fastest and most balanced transfer plan from the earlier route notes.", whyZh: "这是前面整理里性价比和速度最平衡的上海南站方案。", legs: [["1. Hotel → Shanghai South Station", "Taxi about 30 min, around ¥43. If traffic is heavy, still keep taxi as the default and leave earlier.", "1. 酒店 → 上海南站", "打车约30分钟，约43元；如果遇到堵车，仍建议以打车为主，只是提前出发。"], ["2. Shanghai South → Huzhou Nanxun", "High-speed train about 43 min, tickets from about ¥58. Reserve at least 45 min for security and boarding.", "2. 上海南 → 湖州南浔", "高铁约43分钟，票价58元起；建议至少提前45分钟到站安检候车。"], ["3. Huzhou Nanxun Station → Xizha hotel", "Taxi about 23 min, around ¥54. Direct to the hotel or scenic-area entrance.", "3. 湖州南浔站 → 西栅酒店", "打车约23分钟，约54元，直达酒店或景区入口。"]] },
       { part: "Afternoon", partZh: "下午", title: "Xizha slow walk + Muxin Art Museum", zh: "西栅慢逛 + 木心美术馆", image: IMG.muxin, place: "Xizha Service Center → water lanes → Muxin Art Museum", placeZh: "西栅服务中心 → 水巷 → 木心美术馆", transit: "Inside Xizha: walk or scenic shuttle, about 5–20 min between stops.", transitZh: "西栅内部步行或景区车，点位间约5–20分钟。", why: "Xizha is the polished night-view side of Wuzhen; Muxin Art Museum adds a quieter literary stop.", whyZh: "西栅适合夜游和慢逛，木心美术馆让水乡路线更有文学气质。", legs: [["Suggested walk", "Xizha Service Center → Water Market → Wuzhen Post Office → bridge streets → Muxin Art Museum.", "建议步行线", "西栅服务中心 → 水上集市 → 乌镇邮局 → 桥区水巷 → 木心美术馆。"], ["Optional stops", "Water Theater, Qiaoliqiao, Zhaoming Academy, Grass and Wood Dye Workshop.", "可选小点", "水剧场、桥里桥、昭明书院、草木染坊。"]] },
       { part: "Evening", partZh: "晚上", title: "Dinner + Xizha night view", zh: "晚餐 + 西栅夜景", image: IMG.wuzhenHero, place: "Dinner → optional boat ride → night-view walk → hotel", placeZh: "晚餐 → 可选摇橹船 → 夜景慢走 → 回酒店", transit: "Walk or boat inside the scenic area. Boat adds about 20–40 min plus queue.", transitZh: "景区内步行或坐船；坐船另加约20–40分钟和排队时间。", why: "Wuzhen’s night view is the main event: warm lights, bridges, and reflections on the canal.", whyZh: "乌镇夜景是重点：灯光、石桥和水面倒影是水乡最有记忆点的部分。" },
     ],
@@ -231,13 +231,13 @@ const days = [
     route: "Wuzhen Xizha → Huzhou Nanxun Station → Hangzhou West Station → Hangzhou hotel", routeZh: "乌镇西栅 → 湖州南浔站 → 杭州西站 → 杭州酒店",
     intro: "A transfer-and-culture day: move from the water town into Hangzhou, then keep the visit focused on one or two cultural areas.", introZh: "转场加文化日：从水乡进入杭州，游览集中在一到两个文化片区。",
     plan: [
-      { part: "Morning", partZh: "上午", title: "Transfer to Hangzhou", zh: "乌镇 → 杭州转场", image: IMG.versionHall, place: "Xizha hotel → Huzhou Nanxun Station → Hangzhou West Station → hotel", placeZh: "西栅酒店 → 湖州南浔站 → 杭州西站 → 酒店", transit: "Taxi + high-speed train + taxi. Total moving time about 3 hr 41 min including the hotel leg.", transitZh: "打车+高铁+打车。含酒店段参考约3小时41分钟。", why: "This follows the earlier route note: it is faster and more comfortable than a long public-bus transfer.", whyZh: "按照前面给的路线，这比全程公交接驳更快也更省心。", legs: [["1. Xizha / Shui Xiang Yi → Huzhou Nanxun Station", "Taxi about 26 min, around ¥55. Direct to the station entrance is the easiest option.", "1. 西栅/水巷驿 → 湖州南浔高铁站", "打车约26分钟，约55元，直达进站口最省心。"], ["2. Huzhou Nanxun → Hangzhou West", "High-speed train about 33 min, tickets from about ¥50. Many daily trains; buy ahead if possible.", "2. 湖州南浔 → 杭州西", "高铁约33分钟，票价50元起，全天班次较多，建议提前购票。"], ["3. Hangzhou West → Four Points Binjiang", "Taxi about 39 min, around ¥127. Direct to the hotel is the lazy and comfortable choice.", "3. 杭州西站 → 杭州龙禧福朋喜来登酒店", "打车约39分钟，约127元，直达酒店门口，懒人首选。"]] },
+      { part: "Morning", partZh: "上午", title: "Transfer to Hangzhou", zh: "乌镇 → 杭州转场", image: IMG.versionHall, place: "Xizha hotel → Huzhou Nanxun Station → Hangzhou West Station → hotel", placeZh: "西栅酒店 → 湖州南浔站 → 杭州西站 → 酒店", transit: "Taxi + high-speed train + taxi. Pure moving time is about 1 hr 40 min; plan 2.5–3.5 hr with luggage and station buffer.", transitZh: "打车+高铁+打车。纯移动时间约1小时40分钟；加上行李、进站和候车，建议按2.5–3.5小时预留。", why: "This follows the earlier route note: it is faster and more comfortable than a long ground transfer.", whyZh: "按照前面给的路线，这比全程地面接驳更快也更省心。", legs: [["1. Xizha / Shui Xiang Yi → Huzhou Nanxun Station", "Taxi about 26 min, around ¥55. Direct to the station entrance is the easiest option.", "1. 西栅/水巷驿 → 湖州南浔高铁站", "打车约26分钟，约55元，直达进站口最省心。"], ["2. Huzhou Nanxun → Hangzhou West", "High-speed train about 33 min, tickets from about ¥50. Many daily trains; buy ahead if possible.", "2. 湖州南浔 → 杭州西", "高铁约33分钟，票价50元起，全天班次较多，建议提前购票。"], ["3. Hangzhou West → Four Points Binjiang", "Taxi about 39 min, around ¥127. Direct to the hotel is the lazy and comfortable choice.", "3. 杭州西站 → 杭州龙禧福朋喜来登酒店", "打车约39分钟，约127元，直达酒店门口，懒人首选。"]] },
       { part: "Afternoon", partZh: "下午", title: "National Archives + Liangzhu", zh: "杭州国家版本馆 + 良渚", image: IMG.liangzhu, place: "Hotel / station area → Hangzhou National Archives → Liangzhu Cultural Village", placeZh: "酒店/车站方向 → 杭州国家版本馆 → 良渚文化村", transit: "Use taxi between these cultural areas. Each transfer can take about 15–45 min depending on starting point.", transitZh: "这些文化片区之间建议打车，视出发点每段约15–45分钟。", why: "The National Archives focuses on books and textual heritage; Liangzhu connects to jade ritual objects, rice agriculture, and ancient water systems.", whyZh: "版本馆看典籍与中华文脉，良渚看玉器礼制、稻作农业和古代水利系统。" },
       { part: "Evening", partZh: "晚上", title: "Dinner near hotel", zh: "酒店附近晚餐", image: IMG.dongpoHangzhou, place: "Hotel area dinner → rest", placeZh: "酒店附近晚餐 → 休息", transit: "Walk or short taxi, about 5–15 min.", transitZh: "步行或短打车，约5–15分钟。", why: "After a transfer day, choose a close meal: noodles, home-style Hangzhou dishes, and seasonal vegetables.", whyZh: "转场日结束后，晚餐适合靠近酒店：片儿川、家常杭帮菜和时蔬。" },
     ],
     food: [
-      { name: "Zhujiansanxi", zh: "竹间三喜", tag: "Liangzhu main", tagZh: "良渚主推", image: IMG.teaCup, map: "竹间三喜 良渚 杭州", story: "For Liangzhu, location matters: a relaxed restaurant near the cultural village saves energy and fits the slow cultural-area rhythm.", storyZh: "良渚当天餐厅位置比名气更重要，靠近文化村能减少转场，也更符合慢节奏文化片区。", try: [["Creative local dishes", "创意菜"], ["Tea or dessert", "茶饮甜品"], ["Seasonal dishes", "时令菜"]] },
-      { name: "Hangzhou cuisine", zh: "杭帮菜方向", tag: "Local flavor", tagZh: "当地特色", image: IMG.longjingShrimp, map: "杭州 杭帮菜 东坡肉 龙井虾仁 片儿川", story: "Hangzhou cuisine is gentle and seasonal: Dongpo pork, Longjing shrimp, West Lake vinegar fish, and Song Sao fish soup are classic menu names.", storyZh: "杭帮菜偏清雅、重时令。东坡肉、龙井虾仁、西湖醋鱼、宋嫂鱼羹都是经典菜名。", try: [["Dongpo pork", "东坡肉"], ["Longjing shrimp", "龙井虾仁"], ["Pian’erchuan noodles", "片儿川"]] },
+      { name: "Zhujiansanxi", zh: "竹间三喜", tag: "Liangzhu main", tagZh: "良渚主推", image: IMG.teaCup, map: "竹间三喜 良渚 杭州", story: "For Liangzhu, location matters: a relaxed restaurant near the cultural village saves energy. Tea drinks and gentle desserts also fit the slow cultural-area rhythm better than a heavy meal.", storyZh: "良渚当天餐厅位置比名气更重要，靠近文化村能减少转场。茶饮和清爽甜品也更符合文化片区的慢节奏，比吃得太重更舒服。", try: [["Longjing tea drink", "龙井茶饮"], ["Osmanthus dessert", "桂花甜品"], ["Seasonal creative dishes", "时令创意菜"]] },
+      { name: "Hangzhou cuisine", zh: "杭帮菜方向", tag: "Local flavor", tagZh: "当地特色", image: IMG.longjingShrimp, map: "杭州 杭帮菜 东坡肉 龙井虾仁 西湖醋鱼 宋嫂鱼羹", story: "Hangzhou cuisine is gentle and seasonal: Dongpo pork, Longjing shrimp, West Lake vinegar fish, and Song Sao fish soup are classic menu names.", storyZh: "杭帮菜偏清雅、重时令。东坡肉、龙井虾仁、西湖醋鱼、宋嫂鱼羹都是经典菜名。", try: [["Dongpo pork", "东坡肉"], ["Longjing shrimp", "龙井虾仁"], ["Song Sao fish soup", "宋嫂鱼羹"]] },
     ],
     references: { en: "Liangzhu nearby references", zh: "良渚附近参考", items: [["玉鸟集", "Lifestyle block", "良渚商业街区"], ["良玉邻家", "Local homestyle food", "本地家常菜"], ["村民食堂", "Simple local meal", "简餐/家常饭"], ["一面面馆", "Noodles", "面馆"], ["庆春朴门", "Vegetarian / light meal", "素食/轻餐"], ["十方苑", "Tea / vegetarian option", "茶食/素食参考"]] },
     jumps: [["🚄", "Huzhou Nanxun Station", "湖州南浔站", "湖州南浔站"], ["🚉", "Hangzhou West Station", "杭州西站", "杭州西站"], ["🏛️", "National Archives", "杭州国家版本馆", "杭州国家版本馆"], ["🌿", "Liangzhu Cultural Village", "良渚文化村", "良渚文化村 杭州"], ["🍵", "Zhujiansanxi", "竹间三喜", "竹间三喜 良渚 杭州"]],
@@ -250,7 +250,7 @@ const days = [
     route: "Hotel → Lingyin / Faxi temple area → Longjing Tea Fields → Hotel", routeZh: "酒店 → 灵隐/法喜寺庙区 → 龙井茶园 → 回酒店",
     intro: "A quiet final day: wooded temple paths, Buddhist courtyards, tea fields, and a soft ending.", introZh: "最后一天安静收尾：山林寺庙、佛寺院落、茶园和轻松晚餐。",
     plan: [
-      { part: "Morning", partZh: "上午", title: "Lingyin temple route", zh: "灵隐寺庙线", image: IMG.lingyin, place: "Hotel → Lingyin / Faxi area", placeZh: "酒店 → 灵隐/法喜寺区域", transit: "Taxi 35–55 min from hotel. Public transit takes longer and requires transfers.", transitZh: "酒店打车约35–55分钟；公交地铁时间更长且换乘较多。", why: "Lingyin is one of Hangzhou’s classic Buddhist temple areas, set between wooded hills and stone grotto scenery.", whyZh: "灵隐是杭州经典佛寺区域之一，山林、寺庙和石刻景观联系在一起。", legs: [["Long version", "Beigao Peak Cableway → Ling Shun Temple → Taoguang Temple → Yongfu Temple → Lingyin Temple → Faxi direction.", "完整线", "北高峰索道 → 灵顺寺 → 韬光寺 → 永福寺 → 灵隐寺 → 法喜寺方向。"], ["Short version", "Lingyin Temple → Faxi Temple. Better if the group wants a softer morning.", "轻松线", "灵隐寺 → 法喜寺。如果想轻松一点，这个版本更合适。"]] },
+      { part: "Morning", partZh: "上午", title: "Lingyin temple route", zh: "灵隐寺庙线", image: IMG.lingyin, place: "Hotel → Lingyin / Faxi area", placeZh: "酒店 → 灵隐/法喜寺区域", transit: "Taxi 35–55 min from hotel. Use taxi here; it is simpler for this group.", transitZh: "酒店打车约35–55分钟；这一段直接打车，更适合这组人。", why: "Lingyin is one of Hangzhou’s classic Buddhist temple areas, set between wooded hills and stone grotto scenery.", whyZh: "灵隐是杭州经典佛寺区域之一，山林、寺庙和石刻景观联系在一起。", legs: [["Long version", "Beigao Peak Cableway → Ling Shun Temple → Taoguang Temple → Yongfu Temple → Lingyin Temple → Faxi direction.", "完整线", "北高峰索道 → 灵顺寺 → 韬光寺 → 永福寺 → 灵隐寺 → 法喜寺方向。"], ["Short version", "Lingyin Temple → Faxi Temple. Better if the group wants a softer morning.", "轻松线", "灵隐寺 → 法喜寺。如果想轻松一点，这个版本更合适。"]] },
       { part: "Afternoon", partZh: "下午", title: "Longjing Tea Fields", zh: "龙井茶园", image: IMG.longjingField, place: "Temple area → Longjing Tea Fields / Longjing Village", placeZh: "寺庙区域 → 龙井茶园/龙井村", transit: "Taxi 20–35 min from the West Lake / Faxi side. Return to hotel about 40–60 min.", transitZh: "从西湖/法喜寺方向打车约20–35分钟；回酒店约40–60分钟。", why: "Longjing is tied to West Lake Dragon Well tea. The landscape is the point: tea terraces, village lanes, and roasting aromas.", whyZh: "龙井对应西湖龙井茶，重点不是单个建筑，而是茶田、村路和炒茶香气。" },
       { part: "Evening", partZh: "晚上", title: "Dinner + easy ending", zh: "晚餐 + 轻松收尾", image: IMG.teaCup, place: "Longjing / hotel direction → dinner", placeZh: "龙井/回酒店方向 → 晚餐", transit: "Choose a restaurant on the way back. Avoid another far detour.", transitZh: "晚餐尽量选在回酒店方向，避免再绕远路。", why: "The final meal should be close and comforting: noodles, wontons, light Hangzhou dishes, or tea dessert.", whyZh: "最后一餐适合近、简单、舒服：片儿川、馄饨、轻杭帮菜或茶点甜品。" },
     ],
@@ -265,7 +265,7 @@ const days = [
   },
 ];
 
-const tabs = [["home", "Today", "首页"], ["route", "Route", "路线"], ["taste", "Taste", "味道"], ["culture", "Culture", "文化"], ["go", "Go", "出发"]];
+const tabs = [["home", "Today", "首页"], ["route", "Route", "路线"], ["taste", "Taste", "味道"], ["culture", "Story", "文化"], ["go", "Go", "出发"]];
 
 function mapLinks(query) {
   const q = encodeURIComponent(query);
@@ -291,9 +291,26 @@ function SectionTitle({ kicker, title, zh, right }) {
 }
 
 function MapButtons({ query }) {
+  const [more, setMore] = useState(false);
   const links = mapLinks(query);
   const item = "rounded-2xl py-2.5 text-center text-xs font-black transition active:scale-95";
-  return <div className="grid grid-cols-2 gap-2"><a href={links.amap} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#c98aaf,#657dca)" }}>Amap / 高德</a><a href={links.baidu} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#7487cc,#5269b9)" }}>Baidu / 百度</a><a href={links.apple} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Apple Maps</a><a href={links.google} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Google Maps</a></div>;
+  return (
+    <div className="space-y-2">
+      <div className="grid grid-cols-2 gap-2">
+        <a href={links.amap} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#c98aaf,#657dca)" }}>Amap / 高德</a>
+        <a href={links.apple} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Apple Maps</a>
+      </div>
+      {more && (
+        <div className="grid grid-cols-2 gap-2">
+          <a href={links.baidu} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#7487cc,#5269b9)" }}>Baidu / 百度</a>
+          <a href={links.google} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Google Maps</a>
+        </div>
+      )}
+      <button onClick={() => setMore(!more)} className="w-full rounded-2xl bg-white/50 py-2 text-[11px] font-black text-neutral-600 transition active:scale-95">
+        {more ? "Hide maps / 收起地图" : "More maps / 更多地图"}
+      </button>
+    </div>
+  );
 }
 
 function getMoodAdvice(day, mood) {
@@ -329,7 +346,7 @@ function getMoodAdvice(day, mood) {
     },
     d28: {
       comfort: ["Version Museum + one Liangzhu area stop", "版本馆 + 良渚一个片区即可"],
-      active: ["Add Yniao Collection / Liangzhu walk", "加玉鸟集或良渚短散步"],
+      active: ["Add Yuniao Collection / Liangzhu walk", "加玉鸟集或良渚短散步"],
       rain: ["Version Museum first, Liangzhu optional", "优先版本馆，良渚改可选"],
     },
     d29: {
@@ -450,6 +467,97 @@ function CulturePage({ day, theme }) {
   );
 }
 
+function getMapSegments(day) {
+  const maps = {
+    d25: [
+      { mode: "drive", icon: "🚕", title: "Hotel → Bund dinner", zh: "酒店 → 外滩晚餐", time: "20–35 min", note: "Direct taxi. Ask to stop near the restaurant or Bund entrance.", noteZh: "直接打车，到餐厅或外滩入口附近下车。", query: "外滩家宴 上海 外滩" },
+      { mode: "walk", icon: "🚶", title: "Dinner → The Bund riverfront", zh: "晚餐 → 外滩滨江", time: "8–20 min", note: "Slow walk after dinner. Keep the route along the riverfront and photo spots.", noteZh: "饭后慢走，沿滨江和拍照点移动。", query: "外滩 上海" },
+      { mode: "walk", icon: "📸", title: "Bund photo walk", zh: "外滩拍照慢走", time: "30–60 min", note: "Best views: historic façades behind you, Lujiazui skyline across the river.", noteZh: "最佳视角：背后是历史建筑，对岸是陆家嘴天际线。", query: "外滩观景平台 上海" },
+      { mode: "drive", icon: "🚕", title: "The Bund → Hotel", zh: "外滩 → 酒店", time: "20–35 min", note: "Taxi back. Avoid adding another far stop on the first night.", noteZh: "打车回酒店，第一晚不再加远距离点。", query: "上海浦西万怡酒店 静安区恒丰路338号" },
+    ],
+    d26: [
+      { mode: "drive", icon: "🚕", title: "Hotel → Xujiahui Cathedral", zh: "酒店 → 徐家汇天主堂", time: "30–40 min", note: "Taxi directly to the cathedral area. Start the morning with the architecture stop.", noteZh: "直接打车到天主堂区域，上午从建筑点开始。", query: "徐家汇天主堂 上海" },
+      { mode: "walk", icon: "🚶", title: "Cathedral → Xujiahui Library", zh: "天主堂 → 徐家汇书院", time: "5–12 min", note: "Short walking link. Keep it slow and look for the quiet corners around the library.", noteZh: "短步行连接，慢慢走，找书院里的安静角落。", query: "徐家汇书院 上海" },
+      { mode: "drive", icon: "🚕", title: "Xujiahui lunch → Yu Garden", zh: "徐家汇午餐 → 豫园", time: "25–40 min", note: "Taxi to Yu Garden / Old City Bazaar. Drop off outside the pedestrian zone.", noteZh: "打车到豫园/城隍庙区域，在步行区外下车。", query: "豫园 上海" },
+      { mode: "walk", icon: "🏮", title: "Yu Garden + old-city walk", zh: "豫园 + 老城厢慢逛", time: "60–120 min", note: "Walk inside the garden and nearby bazaar. Look for framed views, ponds and rockeries.", noteZh: "在园内和周边慢逛，重点看框景、池水和假山。", query: "豫园 上海" },
+      { mode: "drive", icon: "🚕", title: "Yu Garden dinner → Hotel", zh: "豫园晚餐 → 酒店", time: "15–30 min", note: "Taxi back after dinner. Keep the evening simple.", noteZh: "晚餐后打车回酒店，晚上保持轻松。", query: "上海浦西万怡酒店 静安区恒丰路338号" },
+    ],
+    d27: [
+      { mode: "drive", icon: "🚕", title: "Shanghai hotel → Shanghai South Station", zh: "上海酒店 → 上海南站", time: "about 30 min", note: "Taxi is the default. Leave enough time for station entry and security.", noteZh: "默认打车，预留进站和安检时间。", query: "上海南站" },
+      { mode: "train", icon: "🚄", title: "Shanghai South → Huzhou Nanxun", zh: "上海南 → 湖州南浔", time: "about 43 min", note: "High-speed train. Buy tickets ahead if possible.", noteZh: "高铁段，建议提前购票。", query: "湖州南浔站" },
+      { mode: "drive", icon: "🚕", title: "Huzhou Nanxun Station → Xizha hotel", zh: "湖州南浔站 → 西栅酒店", time: "about 23 min", note: "Taxi directly to the hotel or Xizha scenic-area entrance.", noteZh: "打车直达酒店或西栅景区入口。", query: "乌镇西栅" },
+      { mode: "walk", icon: "🚶", title: "Xizha service area → Muxin Art Museum", zh: "西栅服务区 → 木心美术馆", time: "20–45 min", note: "Walk slowly through water lanes, bridges and the post office area.", noteZh: "穿过水巷、石桥和邮局区域慢慢走。", query: "木心美术馆 乌镇" },
+      { mode: "walk", icon: "🌉", title: "Dinner → Xizha night-view loop", zh: "晚餐 → 西栅夜景环线", time: "45–90 min", note: "Optional boat ride can be added, but walking gives more flexible photo stops.", noteZh: "可加摇橹船，但步行更方便随时拍照。", query: "乌镇西栅 夜景" },
+    ],
+    d28: [
+      { mode: "drive", icon: "🚕", title: "Xizha hotel → Huzhou Nanxun Station", zh: "西栅酒店 → 湖州南浔站", time: "about 26 min", note: "Taxi to the station entrance. Keep luggage handling simple.", noteZh: "打车到进站口，行李处理最省心。", query: "湖州南浔站" },
+      { mode: "train", icon: "🚄", title: "Huzhou Nanxun → Hangzhou West", zh: "湖州南浔 → 杭州西", time: "about 33 min", note: "High-speed train. Many daily trains, but still buy ahead.", noteZh: "高铁段，班次较多但仍建议提前购票。", query: "杭州西站" },
+      { mode: "drive", icon: "🚕", title: "Hangzhou West → Hotel", zh: "杭州西站 → 酒店", time: "about 39 min", note: "Taxi directly to Four Points Binjiang. This is the easiest hotel transfer.", noteZh: "打车直达杭州龙禧福朋喜来登，最省心。", query: "杭州龙禧福朋喜来登酒店 滨江" },
+      { mode: "drive", icon: "🚕", title: "Hotel / station area → National Archives", zh: "酒店/车站方向 → 杭州国家版本馆", time: "30–65 min", note: "Use taxi between cultural areas; distances are not ideal for walking.", noteZh: "文化片区之间建议打车，距离不适合步行连接。", query: "杭州国家版本馆" },
+      { mode: "drive", icon: "🚕", title: "National Archives → Liangzhu Cultural Village", zh: "版本馆 → 良渚文化村", time: "15–30 min", note: "Keep this as the main afternoon transfer. Do not add another far district.", noteZh: "这是下午主转场，不建议再加远距离区域。", query: "良渚文化村 杭州" },
+      { mode: "walk", icon: "🌿", title: "Liangzhu cultural walk", zh: "良渚文化慢走", time: "45–90 min", note: "Walk around the cultural village / Yuniao / 玉鸟集 area depending on energy.", noteZh: "按体力在文化村/玉鸟集周边慢走。", query: "玉鸟集 良渚" },
+    ],
+    d29: [
+      { mode: "drive", icon: "🚕", title: "Hotel → Lingyin / Faxi area", zh: "酒店 → 灵隐/法喜区域", time: "35–55 min", note: "Taxi directly to the temple area. Avoid multi-transfer routes.", noteZh: "直接打车去寺庙区，避免多次换乘。", query: "灵隐寺 杭州" },
+      { mode: "walk", icon: "🙏", title: "Short temple walk", zh: "寺庙短线步行", time: "60–120 min", note: "Comfort route: Lingyin Temple → Faxi Temple. Active route can add nearby temple stops.", noteZh: "轻松线：灵隐寺 → 法喜寺；多逛模式可加附近寺庙点。", query: "法喜寺 杭州" },
+      { mode: "drive", icon: "🚕", title: "Temple area → Longjing Tea Fields", zh: "寺庙区 → 龙井茶园", time: "20–35 min", note: "Taxi through the West Lake / hill area. Roads may be slow on weekends.", noteZh: "打车穿过西湖/山路方向，周末可能慢一点。", query: "龙井茶园 杭州" },
+      { mode: "walk", icon: "🍃", title: "Longjing tea-field walk", zh: "龙井茶园慢走", time: "45–90 min", note: "Walk village lanes and tea fields, then choose a tea break.", noteZh: "走村路和茶田，再选一个茶歇点。", query: "龙井村 杭州" },
+      { mode: "drive", icon: "🚕", title: "Longjing / dinner → Hotel", zh: "龙井/晚餐 → 酒店", time: "40–60 min", note: "Choose dinner on the way back and avoid another far detour.", noteZh: "晚餐选在回酒店方向，避免再绕远路。", query: "杭州龙禧福朋喜来登酒店 滨江" },
+    ],
+  };
+  return maps[day.id] || [];
+}
+
+function MapItinerarySheet({ day, theme, onClose }) {
+  if (!day) return null;
+  const segments = getMapSegments(day);
+  const modeStyle = {
+    drive: { label: "Driving / 行车", cls: "border-l-4 border-blue-400", bg: "rgba(226,236,255,.72)" },
+    walk: { label: "Walking / 步行", cls: "border-l-4 border-emerald-400", bg: "rgba(220,252,231,.58)" },
+    train: { label: "Train / 高铁", cls: "border-l-4 border-purple-400", bg: "rgba(237,233,254,.64)" },
+  };
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/35 px-3 pb-3" onClick={onClose}>
+      <div className="max-h-[90vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.30)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}>
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Day map / 一天地图</p>
+            <h3 className="text-xl font-black leading-tight tracking-[-.04em]">{day.title}</h3>
+            <p className="text-sm font-semibold text-neutral-500">{day.titleZh}</p>
+          </div>
+          <button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button>
+        </div>
+        <div className="max-h-[76vh] overflow-y-auto p-5">
+          <section className="mb-4 rounded-[28px] p-4 text-sm leading-6 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
+            <SectionTitle kicker="Overview" title="Full-day route" zh="全天路线总览" />
+            <Pair en={day.route} zh={day.routeZh} className="font-semibold text-neutral-700" />
+          </section>
+          <div className="space-y-3">
+            {segments.map((seg, index) => {
+              const style = modeStyle[seg.mode] || modeStyle.drive;
+              return (
+                <section key={`${seg.title}-${index}`} className={`rounded-[28px] p-4 shadow-sm ring-1 ring-white/60 ${style.cls}`} style={{ background: theme.card }}>
+                  <div className="mb-2 flex items-start gap-3">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-lg" style={{ background: style.bg }}>{seg.icon}</div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] font-black uppercase tracking-[.14em] text-neutral-500">Step {index + 1} · {style.label}</p>
+                      <h4 className="text-base font-black leading-tight tracking-[-.02em]">{seg.title}</h4>
+                      <p className="text-sm font-semibold text-neutral-500">{seg.zh}</p>
+                    </div>
+                    <Badge>{seg.time}</Badge>
+                  </div>
+                  <Pair en={seg.note} zh={seg.noteZh} className="rounded-2xl p-3 text-sm leading-6 text-neutral-700" />
+                  <div className="mt-3"><MapButtons query={seg.query} /></div>
+                </section>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DetailSheet({ item, theme, onClose }) {
   if (!item) return null;
   return <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={onClose}><div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.28)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Detail / 详情</p><h3 className="text-xl font-black leading-tight tracking-[-.04em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button></div><div className="max-h-[72vh] overflow-y-auto p-5">{item.image && <SmartImage src={item.image} alt={item.zh} className="mb-4 h-60 w-full rounded-[30px] object-cover" />}<Pair en={item.story || item.note} zh={item.storyZh || item.noteZh} className="text-sm leading-6 text-neutral-700" />{item.try && <div className="mt-4 rounded-2xl bg-white/66 p-4 text-sm leading-6"><strong>{item.map ? "What to try / 推荐尝试" : "Highlights / 重点内容"}</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.try.map(([en, zh]) => <li key={en}>{en} / {zh}</li>)}</ul></div>}{item.map && <div className="mt-4"><MapButtons query={item.map} /></div>}</div></div></div>;
@@ -466,7 +574,7 @@ function JumpCard({ icon, title, zh, query, theme, onOpen, note, noteZh }) {
         </div>
       </div>
       {(note || noteZh) && <Pair en={note} zh={noteZh} className="mb-3 rounded-2xl p-3 text-sm leading-5 text-neutral-700" />}
-      {onOpen ? <button onClick={onOpen} className="w-full rounded-2xl py-3 text-xs font-black text-white" style={{ background: theme.gradient }}>Open guide / 打开攻略</button> : <MapButtons query={query} />}
+      {onOpen ? <button onClick={onOpen} className="w-full rounded-2xl py-3 text-xs font-black text-white" style={{ background: theme.gradient }}>{title.includes("map") || title.includes("Map") ? "Open map / 打开地图" : title.includes("Culture") ? "Open story / 打开文化页" : "Open guide / 打开攻略"}</button> : <MapButtons query={query} />}
     </div>
   );
 }
@@ -489,7 +597,7 @@ function getSmartJumps(day, mood) {
   const activeExtra = day.id === "d25" ? ["➕", "One more stop", "再加一站", "南京东路 上海", "Add a short Nanjing East Road walk if the first night still feels easy.", "第一晚还有精神，就顺路走一小段南京东路。"]
     : day.id === "d26" ? ["➕", "One more snack", "再加一口", "南翔馒头店 豫园 上海", "Add one classic Yu Garden snack instead of another far destination.", "不要再跨区，加一个豫园附近传统小吃就好。"]
     : day.id === "d27" ? ["➕", "One more water-town stop", "再加一个水乡点", "草木染坊 乌镇西栅", "Add the dye workshop or a short boat ride inside Xizha.", "在西栅内部加草木染坊或一小段摇橹船。"]
-    : day.id === "d28" ? ["➕", "One more Liangzhu stop", "再加一个良渚点", "玉鸟集 良渚 杭州", "Add Yniao Collection if the culture-day route feels relaxed.", "如果文化日不累，可以加玉鸟集短逛。"]
+    : day.id === "d28" ? ["➕", "One more Liangzhu stop", "再加一个良渚点", "玉鸟集 良渚 杭州", "Add Yuniao Collection if the culture-day route feels relaxed.", "如果文化日不累，可以加玉鸟集短逛。"]
     : ["➕", "One more tea stop", "再加一个茶点", "龙井茶园 茶馆 杭州", "Add a tea house instead of another distant attraction.", "不要再跑远，加一个茶馆更顺。"];
   const feedMe = ["🍜", "Feed me", "带我去吃饭", topFood?.map || topFood?.name || day.route, `Go to today’s main food pick: ${topFood?.name || "nearby food"}.`, `去今天主推：${topFood?.zh || "附近餐厅"}。`];
   const rainSafe = ["☔", "Rain-safe stop", "雨天安全点", day.id === "d26" ? "徐家汇书院 上海" : day.id === "d27" ? "木心美术馆 乌镇" : day.id === "d28" ? "杭州国家版本馆" : day.id === "d29" ? "灵隐寺 杭州" : `${day.hotel} ${day.hotelZh}`, "Less outdoor walking, easier shelter, better for bad weather.", "减少户外步行，更容易避雨和休息。"];
@@ -503,7 +611,7 @@ function getSmartJumps(day, mood) {
 function uniqueJumpCards(cards) {
   const seen = new Set();
   return cards.filter((card) => {
-    const key = `${card.title}-${card.query || "guide"}`;
+    const key = (card.query || card.title || "guide").trim().toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -511,23 +619,52 @@ function uniqueJumpCards(cards) {
 }
 
 function FoodPassport({ theme, passport, setPassport, dayId, compact = false }) {
-  const items = [
-    ["crab", "🦀", "Crab roe noodles", "蟹黄面", "Shanghai", "上海", ["d25", "d26"]],
-    ["shengjian", "🥟", "Shengjianbao", "生煎包", "Shanghai", "上海", ["d25", "d26"]],
-    ["lamb", "🍜", "Wuzhen lamb noodles", "乌镇羊肉面", "Wuzhen", "乌镇", ["d27"]],
-    ["cake", "🍡", "Dingsheng cake", "定胜糕", "Wuzhen", "乌镇", ["d27"]],
-    ["dongpo", "🥘", "Dongpo pork", "东坡肉", "Hangzhou", "杭州", ["d28", "d29"]],
-    ["shrimp", "🦐", "Longjing shrimp", "龙井虾仁", "Hangzhou", "杭州", ["d28", "d29"]],
-    ["tea", "🍵", "Longjing tea", "龙井茶", "Hangzhou", "杭州", ["d29"]],
-    ["pianerchuan", "🍲", "Pian’erchuan noodles", "片儿川", "Hangzhou", "杭州", ["d28", "d29"]],
-  ];
-  const visibleItems = compact && dayId ? items.filter((item) => item[6].includes(dayId)) : items;
-  const done = Object.keys(passport).filter((key) => passport[key]).length;
+  const dailyItems = {
+    d25: [
+      ["d25-bund-dinner", "🥢", "Old-Shanghai dinner", "老上海晚餐", "Bund area", "外滩方向"],
+      ["d25-crab", "🦀", "Crab roe noodles", "蟹黄面", "Shanghai", "上海"],
+      ["d25-shengjian", "🥟", "Shengjianbao", "生煎包", "Shanghai snack", "上海小吃"],
+      ["d25-braised", "🍖", "Soy-braised dish", "本帮红烧", "Shanghai flavor", "本帮味道"],
+      ["d25-dessert", "🍡", "Classic pastry", "传统点心", "Snack option", "点心参考"],
+    ],
+    d26: [
+      ["d26-bbq", "🔥", "Korean BBQ", "韩式烤肉", "Xujiahui", "徐家汇"],
+      ["d26-stew", "🍲", "Army stew", "部队锅", "Professor LEE", "韩料参考"],
+      ["d26-shrimp", "🦐", "River shrimp", "河虾", "Renheguan", "人和馆方向"],
+      ["d26-xiaolong", "🥟", "Xiaolongbao", "小笼包", "Yu Garden", "豫园"],
+      ["d26-tangyuan", "🍡", "Sweet rice dumplings", "宁波汤团", "Old city snack", "老城厢小吃"],
+    ],
+    d27: [
+      ["d27-lamb", "🍜", "Lamb noodles", "羊肉面", "Xizha", "西栅"],
+      ["d27-cake", "🍡", "Dingsheng cake", "定胜糕", "Wuzhen pastry", "乌镇糕点"],
+      ["d27-wonton", "🥣", "Wontons", "吴妈馄饨", "Xizha snack", "西栅小吃"],
+      ["d27-fish", "🐟", "White fish", "白水鱼", "Water-town dish", "水乡菜"],
+      ["d27-duck", "🦆", "Soy-sauce duck", "酱鸭", "Wuzhen flavor", "乌镇味道"],
+    ],
+    d28: [
+      ["d28-tea-dessert", "🍵", "Longjing tea drink", "龙井茶饮", "Zhujiansanxi", "竹间三喜"],
+      ["d28-osmanthus", "🌼", "Osmanthus dessert", "桂花甜品", "Liangzhu", "良渚"],
+      ["d28-dongpo", "🥘", "Dongpo pork", "东坡肉", "Hangzhou", "杭州"],
+      ["d28-shrimp", "🦐", "Longjing shrimp", "龙井虾仁", "Hangzhou classic", "杭帮经典"],
+      ["d28-fish-soup", "🥣", "Song Sao fish soup", "宋嫂鱼羹", "Hangzhou classic", "杭帮经典"],
+    ],
+    d29: [
+      ["d29-vegetarian", "🥬", "Temple vegetarian meal", "寺庙素食", "Lingyin / Faxi", "灵隐/法喜"],
+      ["d29-dongpo", "🥘", "Dongpo pork", "东坡肉", "Hangzhou meal", "杭帮菜"],
+      ["d29-noodles", "🍜", "Pian’erchuan noodles", "片儿川", "Dinner backup", "晚餐备选"],
+      ["d29-tea", "🍵", "Longjing tea", "龙井茶", "Tea field", "龙井茶园"],
+      ["d29-lotus", "🌸", "Lotus-root dessert", "糯米藕", "Tea break", "茶歇"],
+    ],
+  };
+  const allItems = Object.values(dailyItems).flat();
+  const visibleItems = dayId ? dailyItems[dayId] || [] : allItems;
+  const doneAll = allItems.filter(([id]) => passport[id]).length;
   const todayDone = visibleItems.filter(([id]) => passport[id]).length;
+  const totalLabel = visibleItems.length || 5;
   const toggle = (id) => setPassport((prev) => ({ ...prev, [id]: !prev[id] }));
   return (
     <section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}>
-      <SectionTitle kicker="Food Passport" title={compact ? "Today's tastes" : "Collect the tastes"} zh={compact ? "今日美食护照" : "美食护照"} right={<Badge>{compact ? `${todayDone}/${visibleItems.length}` : `${done}/${items.length}`}</Badge>} />
+      <SectionTitle kicker="Food Passport" title={compact ? "5 tastes today" : "Daily taste cards"} zh={compact ? "今日5个美食打卡" : "每天固定5个美食打卡"} right={<Badge>{dayId ? `${todayDone}/${totalLabel}` : `${doneAll}/${allItems.length}`}</Badge>} />
       <div className="grid grid-cols-2 gap-2">
         {visibleItems.map(([id, icon, en, zh, city, cityZh]) => {
           const active = !!passport[id];
@@ -541,7 +678,7 @@ function FoodPassport({ theme, passport, setPassport, dayId, compact = false }) 
           );
         })}
       </div>
-      <p className="mt-3 rounded-2xl p-3 text-xs font-semibold leading-5 text-neutral-600" style={{ background: theme.tint }}>{compact ? "Tap what you try today. / 今天吃到什么就点亮什么。" : "Tap after tasting. No pressure to finish them all. / 吃到就点亮，不用强迫集齐。"}</p>
+      <p className="mt-3 rounded-2xl p-3 text-xs font-semibold leading-5 text-neutral-600" style={{ background: theme.tint }}>Five fixed food cards each day. Tap what you actually try. / 每天固定5个美食打卡，吃到什么就点亮什么。</p>
     </section>
   );
 }
@@ -552,6 +689,7 @@ export default function JiangnanTravelGuideApp() {
   const [mood, setMood] = useState("comfort");
   const [openStep, setOpenStep] = useState(0);
   const [detail, setDetail] = useState(null);
+  const [mapOpen, setMapOpen] = useState(false);
   const [passport, setPassport] = useState({});
   const day = days.find((d) => d.id === dayId) || days[0];
   const theme = getTheme(day.id, mood);
@@ -561,11 +699,11 @@ export default function JiangnanTravelGuideApp() {
   return <div className="min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden shadow-[0_30px_90px_rgba(74,91,180,.16)]" style={{ background: theme.bg }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
     <header className="sticky top-0 z-30 border-b border-white/55 px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Transit · Taste · Fun</p></div><button onClick={() => setDetail(guide)} className="rounded-full bg-white/78 px-4 py-2 text-sm font-black shadow-sm">Guide / 攻略</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className="shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95" style={dayId === d.id ? { background: theme.gradient, color: "white" } : { background: "rgba(255,255,255,.72)", color: "#52525b" }}>{d.tab}</button>)}</div></header>
     <main className="relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
-      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label}<br />{theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} compact /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">文化科普 · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
-      {tab === "route" && <div className="space-y-3">{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
+      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} compact /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">文化科普 · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
+      {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
       {tab === "culture" && <CulturePage day={day} theme={theme} />}
-      {tab === "go" && <div className="space-y-3"><JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} /><JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />{uniqueJumpCards([...getSmartJumps(day, mood), ...[["🏨", "Hotel anchor", "回酒店", `${day.hotel} ${day.hotelZh} ${day.addressZh}`], ...day.jumps].map(([icon, title, zh, query]) => ({ icon, title, zh, query }))]).map((item) => <JumpCard key={`${item.title}-${item.query || item.zh}`} {...item} theme={theme} />)}</div>}
+      {tab === "go" && <div className="space-y-3"><JumpCard icon="🗺️" title="Day map itinerary" zh="一天地图行程" theme={theme} onOpen={() => setMapOpen(true)} note="See driving, train and walking segments in one popup." noteZh="把行车、高铁和步行段一次看清楚。" /><JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} /><JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />{uniqueJumpCards([...getSmartJumps(day, mood), ...[["🏨", "Hotel anchor", "回酒店", `${day.hotel} ${day.hotelZh} ${day.addressZh}`], ...day.jumps].map(([icon, title, zh, query]) => ({ icon, title, zh, query }))]).map((item) => <JumpCard key={`${item.title}-${item.query || item.zh}`} {...item} theme={theme} />)}</div>}
     </main>
-    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 border-t border-white/60 px-3 py-3 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="grid grid-cols-5 gap-1 rounded-[28px] bg-white/60 p-2 shadow-[0_20px_60px_rgba(72,89,190,.12)] ring-1 ring-white/80">{tabs.map(([id, en, zh]) => <button key={id} onClick={() => setTab(id)} className="rounded-2xl px-2 py-2 text-xs font-black transition active:scale-95" style={tab === id ? { background: theme.gradient, color: "white" } : { color: "#71717a" }}><span className="block">{en}</span><span className="block text-[10px] opacity-80">{zh}</span></button>)}</div></nav><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /></div></div>;
+    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 border-t border-white/60 px-3 py-3 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="grid grid-cols-5 gap-1 rounded-[28px] bg-white/60 p-2 shadow-[0_20px_60px_rgba(72,89,190,.12)] ring-1 ring-white/80">{tabs.map(([id, en, zh]) => <button key={id} onClick={() => setTab(id)} className="rounded-2xl px-2 py-2 text-xs font-black transition active:scale-95" style={tab === id ? { background: theme.gradient, color: "white" } : { color: "#71717a" }}><span className="block">{en}</span><span className="block text-[10px] opacity-80">{zh}</span></button>)}</div></nav><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /><MapItinerarySheet day={mapOpen ? day : null} theme={theme} onClose={() => setMapOpen(false)} /></div></div>;
 }
