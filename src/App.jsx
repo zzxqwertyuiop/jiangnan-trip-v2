@@ -4,34 +4,41 @@ const photo = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${e
 
 const photos = {
   bund: photo("Lujiazui Skyline (Night).jpg"),
+  bundAlt: photo("Lujiazui skyline by night from Bund, fully illuminated.jpg"),
   cathedral: photo("Saint-Ignatius cathedral of Shanghai.jpg"),
   yuyuan: photo("Shanghai - Yu Garden - 0004.jpg"),
+  yuyuanAlt: photo("Shanghai - Yu Garden - 0011.jpg"),
   wuzhen: photo("Night in Wuzhen Xizha (20171231174337).jpg"),
-  wuzhenDay: photo("Wuzhen Xizha 2017-12-31 19.jpg"),
+  wuzhenDay: photo("Wuzhen Xizha 2009-03.jpg"),
+  wuzhenDye: photo("Wuzhen dyeing.jpg"),
   muxin: photo("Mu Xin Art Museum Wuzhen.jpg"),
   versionMuseum: photo("Overlook of the main building - Hangzhou National Archives 06.jpg"),
-  liangzhu: photo("Liangzhu Museum, 2019-07-07 01.jpg"),
+  versionMuseumInside: photo("Hallway, Hangzhou National Archives 08.jpg"),
+  liangzhu: photo("Liangzhu Museum, 2019-07-07 09.jpg"),
+  liangzhuCourtyard: photo("Courtyard of Liangzhu Museum, 2016-06-18.jpg"),
   faxi: photo("Faxi Temple in Hangzhou (Mahavira Hall).jpg"),
   lingyin: photo("Lingyin Temple in Hangzhou.jpg"),
-  longjing: photo("Tea plantations in Longjing, Hangzhou.jpg"),
-  canal: photo("Wulinmen, Beijing-Hangzhou Grand Canal.jpg"),
+  lingyinHall: photo("Mahavira Hall of Lingyin Temple 20061010.jpg"),
+  longjing: photo("Longjing tea village Hangzhou.jpg"),
+  longjingFields: photo("Longjing tea fields near Hangzhou - panoramio.jpg"),
+  longjingDistrict: photo("Longjing tea district Hangzhou.jpg"),
   crabNoodle: photo("苏州蟹粉面.jpg"),
   shengjian: photo("ShengJianBaoShanghaiChina.jpg"),
-  shanghaiTable: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85",
-  crabDish: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1200&q=85",
-  koreanBbq: "https://images.unsplash.com/photo-1632558618823-97eb421cb1bb?auto=format&fit=crop&w=1200&q=85",
-  jiangnanDish: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85",
-  dimsum: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=85",
-  wuzhenFood: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85",
-  hangzhouCuisine: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85",
-  teaSnack: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=85",
-  bundFamily: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85",
-  liBaiCrab: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1200&q=85",
-  professorLee: "https://images.unsplash.com/photo-1632558618823-97eb421cb1bb?auto=format&fit=crop&w=1200&q=85",
-  renheguan: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85",
-  yulanxiang: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=85",
-  teaFieldA: "https://www.greentourasia.com/uploads/allimg/190924/2-1Z924163926.jpg",
-  teaFieldB: "https://www.vrqjcs.com/uploads/allimg/191218/1-19121Q52125.jpg",
+  shanghaiTable: "https://ak-d.tripcdn.com/images/1mh5x12000rinwbcu3C6B_C_340_230_R5.jpg?proc=source%2Ftrip",
+  crabDish: "https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/vfleykgwtgid3m9aucy4.webp",
+  koreanBbq: "https://ak-d.tripcdn.com/images/1A0u1f000001g9o3q7D93_D_410_590_R5.jpg?proc=autoorient",
+  jiangnanDish: "https://youimg1.c-ctrip.com/target/100q0u000000j4ja834C6.jpg",
+  dimsum: "https://sghimages.shobserver.com/img/catch/2025/10/17/85c84101-ee5a-42ba-bd79-8222ad569be7.jpg",
+  wuzhenFood: photo("Wuzhen Town 014.JPG"),
+  hangzhouCuisine: "https://youimg1.c-ctrip.com/target/100q0u000000j4ja834C6.jpg",
+  teaSnack: photo("Longjing tea district Hangzhou.jpg"),
+  bundFamily: "https://ak-d.tripcdn.com/images/1mh5x12000rinwbcu3C6B_C_340_230_R5.jpg?proc=source%2Ftrip",
+  liBaiCrab: "https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/vfleykgwtgid3m9aucy4.webp",
+  professorLee: "https://ak-d.tripcdn.com/images/1A0u1f000001g9o3q7D93_D_410_590_R5.jpg?proc=autoorient",
+  renheguan: "https://youimg1.c-ctrip.com/target/100q0u000000j4ja834C6.jpg",
+  yulanxiang: "https://sghimages.shobserver.com/img/catch/2025/10/17/85c84101-ee5a-42ba-bd79-8222ad569be7.jpg",
+  teaFieldA: photo("Longjing tea village Hangzhou.jpg"),
+  teaFieldB: photo("Longjing tea fields near Hangzhou - panoramio.jpg"),
 };
 
 const tripDays = [
@@ -44,7 +51,7 @@ const tripDays = [
     title: "Arrival + Bund Night",
     titleZh: "抵达上海 · 外滩夜景",
     hero: photos.bund,
-    gallery: [photos.bund, photos.shanghaiTable, photos.liBaiCrab, photos.shengjian],
+    gallery: [photos.bund, photos.bundAlt, photos.bundFamily, photos.liBaiCrab],
     hotel: "Courtyard by Marriott Shanghai Central / 上海浦西万怡酒店",
     address: "338 Hengfeng Road, Jing’an District / 静安区恒丰路338号",
     routeSummary: "Hotel 酒店 → Dinner 晚餐 → The Bund 外滩 → Hotel 酒店",
@@ -130,7 +137,7 @@ const tripDays = [
     title: "Xujiahui + Yu Garden",
     titleZh: "徐家汇 · 豫园 · 上海美食",
     hero: photos.cathedral,
-    gallery: [photos.cathedral, photos.yuyuan, photos.professorLee, photos.renheguan, photos.yulanxiang, photos.crabNoodle, photos.shengjian],
+    gallery: [photos.cathedral, photos.yuyuan, photos.yuyuanAlt, photos.professorLee, photos.renheguan, photos.yulanxiang],
     hotel: "Courtyard by Marriott Shanghai Central / 上海浦西万怡酒店",
     address: "338 Hengfeng Road, Jing’an District / 静安区恒丰路338号",
     routeSummary: "Hotel 酒店 → Xujiahui 徐家汇 → Lunch 午餐 → Yu Garden 豫园 → Dinner 晚餐 → Hotel 酒店",
@@ -211,7 +218,7 @@ const tripDays = [
     title: "Shanghai → Wuzhen",
     titleZh: "上海转场乌镇 · 西栅慢游",
     hero: photos.wuzhen,
-    gallery: [photos.wuzhen, photos.wuzhenDay, photos.muxin],
+    gallery: [photos.wuzhen, photos.wuzhenDay, photos.wuzhenDye, photos.muxin],
     hotel: "Passage d'Eau Hotel / 乌镇西栅景区内酒店",
     address: "Xizha Scenic Area, Wuzhen / 乌镇西栅景区内",
     routeSummary: "Hotel 酒店 → Shanghai South 上海南 → Huzhou Nanxun 湖州南浔 → Xizha 西栅 → Muxin Art Museum 木心美术馆 → Night View 夜景",
@@ -238,7 +245,7 @@ const tripDays = [
     title: "Version Museum + Liangzhu",
     titleZh: "杭州国家版本馆 · 良渚文化村",
     hero: photos.versionMuseum,
-    gallery: [photos.versionMuseum, photos.liangzhu],
+    gallery: [photos.versionMuseum, photos.versionMuseumInside, photos.liangzhu, photos.liangzhuCourtyard],
     hotel: "Four Points by Sheraton Hangzhou, Binjiang / 杭州龙禧福朋喜来登酒店",
     address: "868 Dongxin Avenue, Binjiang District / 滨江区东信大道868号",
     routeSummary: "Hotel 酒店 → National Archives 版本馆 → Lunch 午餐 → Liangzhu Cultural Village 良渚文化村 → Hotel 酒店",
@@ -267,7 +274,7 @@ const tripDays = [
     title: "Temple Route + Longjing Tea Fields",
     titleZh: "寺庙线 · 龙井茶园",
     hero: photos.longjing,
-    gallery: [photos.lingyin, photos.faxi, photos.longjing, photos.teaFieldA, photos.teaFieldB],
+    gallery: [photos.lingyin, photos.lingyinHall, photos.faxi, photos.longjing, photos.longjingFields, photos.longjingDistrict],
     hotel: "Four Points by Sheraton Hangzhou, Binjiang / 杭州龙禧福朋喜来登酒店",
     address: "868 Dongxin Avenue, Binjiang District / 滨江区东信大道868号",
     routeSummary: "Hotel 酒店 → Lingyin route 灵隐寺庙线 → Lunch 午餐 → Longjing Tea Fields 龙井茶园 → Hotel 酒店",
@@ -393,9 +400,19 @@ function ImageStrip({ images, onOpen }) {
   );
 }
 
-function SchedulePreview({ item, index, open, onToggle }) {
+function SchedulePreview({ item, index, open, onToggle, image }) {
   return (
     <article className="overflow-hidden rounded-[30px] bg-white shadow-sm">
+      {image && (
+        <button onClick={onToggle} className="relative h-36 w-full overflow-hidden bg-neutral-200">
+          <SmartImage src={image} alt={item.titleZh || item.title} className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
+          <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
+            <span className="text-xs font-bold uppercase tracking-[0.14em]">{item.period}</span>
+            <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-black text-neutral-950">{item.time}</span>
+          </div>
+        </button>
+      )}
       <button onClick={onToggle} className="w-full p-4 text-left">
         <div className="mb-3 flex items-start gap-3">
           <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-2xl bg-neutral-950 text-center text-white">
@@ -485,7 +502,64 @@ function DetailSheet({ selected, onClose }) {
   );
 }
 
-function JumpCard({ title, zh, emoji, query, note }) {
+function buildDayGuide(day) {
+  const foodIdeas = day.restaurants.flatMap((r) => [r.zh, ...(r.dishes || []).slice(0, 3)]).slice(0, 12);
+  return {
+    type: "guide",
+    name: "Spot + Food Guide",
+    zh: "景点与美食详细介绍",
+    hero: day.hero,
+    note: `${day.vibe} Main route: ${day.routeSummary}`,
+    noteZh: `${day.vibeZh} 主线：${day.routeSummary}`,
+    dishes: foodIdeas,
+    routeNotes: [...(day.routeNotes || []), ...(day.backup || [])],
+  };
+}
+
+function getQuickJumps(day, mainRestaurants) {
+  const dayMap = {
+    d25: [
+      ["The Bund night view", "外滩夜景", "🌃", "外滩 上海", "First-night skyline stop. / 第一晚城市天际线。"],
+      ["Bund Family Banquet", "外滩家宴", "🥢", "外滩家宴 上海 外滩", "Main dinner pick. / 第一晚主推餐厅。"],
+      ["Li Bai Crab", "李百蟹", "🦀", "李百蟹 外滩 江景餐厅 上海", "Crab backup near the Bund. / 外滩蟹类备选。"],
+      ["Nanjing East Road", "南京东路", "🚶", "南京东路 上海", "Easy walk before or after the Bund. / 外滩前后顺路散步。"],
+    ],
+    d26: [
+      ["Xujiahui Cathedral", "徐家汇天主堂", "⛪", "徐家汇天主堂 上海", "Morning architecture stop. / 上午建筑点。"],
+      ["Xujiahui Library", "徐家汇书院", "📚", "徐家汇书院 上海", "Indoor cultural stop. / 室内文化点。"],
+      ["Yu Garden", "豫园", "🏮", "豫园 上海", "Classic Chinese garden stop. / 中式园林重点。"],
+      ["Professor LEE", "韩料备选", "🔥", "Professor Lee 上海 港汇 K11 韩料", "Xujiahui lunch option. / 徐家汇午餐选择。"],
+      ["Magnolia Chamber", "玉兰厢", "🍽️", "玉兰厢 上海 豫园", "Yu Garden dinner pick. / 豫园附近主推。"],
+    ],
+    d27: [
+      ["Shanghai South Station", "上海南站", "🚄", "上海南站", "Train transfer start. / 去乌镇转场起点。"],
+      ["Huzhou Nanxun Station", "湖州南浔站", "🚕", "湖州南浔站", "Taxi to Wuzhen from here. / 到站后打车去西栅。"],
+      ["Wuzhen Xizha", "乌镇西栅", "🌉", "乌镇西栅", "Main water-town area. / 乌镇主游览区。"],
+      ["Muxin Art Museum", "木心美术馆", "🖼️", "木心美术馆 乌镇", "Quiet museum stop inside Xizha. / 西栅内文化点。"],
+      ["Xizha snacks", "西栅小吃", "🍢", "乌镇西栅 小吃 书生羊肉面 锦记糕点铺", "Flexible local snacks. / 到当地边走边找。"],
+    ],
+    d28: [
+      ["National Archives", "杭州国家版本馆", "🏛️", "杭州国家版本馆", "Architecture and culture stop. / 建筑与文化重点。"],
+      ["Liangzhu Cultural Village", "良渚文化村", "🌿", "良渚文化村 杭州", "Afternoon cultural area. / 下午文化片区。"],
+      ["Zhujiansanxi", "竹间三喜", "🍵", "竹间三喜 良渚 杭州", "Liangzhu main food pick. / 良渚主推餐厅。"],
+      ["Longjing backup", "龙井茶园备选", "🍃", "龙井茶园 杭州", "Backup if Liangzhu feels far. / 良渚太远时替换。"],
+    ],
+    d29: [
+      ["Lingyin Temple", "灵隐寺", "⛰️", "灵隐寺 杭州", "Temple route anchor. / 寺庙线核心点。"],
+      ["Faxi Temple", "法喜寺", "🙏", "法喜寺 杭州", "Short version temple stop. / 轻松版寺庙点。"],
+      ["Longjing Tea Fields", "龙井茶园", "🍃", "龙井茶园 杭州", "Tea-field afternoon. / 下午茶园收尾。"],
+      ["Fuyuanju", "福缘居", "🍚", "福缘居酒楼 文三西路店 杭州", "Main lunch pick. / 午餐主推。"],
+      ["Qunle Restaurant", "群乐饭店", "🥢", "群乐饭店 滨安路店 杭州", "Dinner backup near hotel direction. / 回酒店方向晚餐备选。"],
+    ],
+  };
+
+  const base = [["Hotel anchor", "回酒店", "🏨", `${day.hotel} ${day.address}`, "Safe regroup point. / 集合、回程、打车都先认这个点。"]];
+  const restaurantExtras = mainRestaurants.filter((r) => r.map).slice(0, 2).map((r, i) => [r.name, r.zh, i === 0 ? "⭐" : "🍽️", r.map, r.area]);
+  const all = [...base, ...(dayMap[day.id] || []), ...restaurantExtras];
+  return all.map(([title, zh, emoji, query, note]) => ({ title, zh, emoji, query, note })).filter((item, index, arr) => arr.findIndex((x) => x.title === item.title) === index);
+}
+
+function JumpCard({ title, zh, emoji, query, note, onOpen }) {
   return (
     <div className="rounded-[30px] bg-white p-4 shadow-sm">
       <div className="mb-3 flex items-center gap-3">
@@ -496,7 +570,7 @@ function JumpCard({ title, zh, emoji, query, note }) {
         </div>
       </div>
       {note && <p className="mb-3 text-sm leading-6 text-neutral-600">{note}</p>}
-      <MapButtons query={query} />
+      {onOpen ? <button onClick={onOpen} className="w-full rounded-2xl bg-neutral-950 py-3 text-center text-xs font-semibold text-white">Open guide / 打开详细攻略</button> : <MapButtons query={query} />}
     </div>
   );
 }
@@ -509,6 +583,7 @@ export default function JiangnanTravelGuideApp() {
 
   const selectedDay = tripDays.find((d) => d.id === selectedDayId) || tripDays[0];
   const mainRestaurants = useMemo(() => selectedDay.restaurants.filter((r) => !(r.tag || "").includes("Reference") && !(r.tag || "").includes("仅参考")), [selectedDay]);
+  const quickJumps = useMemo(() => getQuickJumps(selectedDay, mainRestaurants), [selectedDay, mainRestaurants]);
 
   const pageTitle = {
     home: "今日概览",
@@ -527,7 +602,7 @@ export default function JiangnanTravelGuideApp() {
               <h1 className="mt-1 text-[28px] font-black leading-tight tracking-tight">Jiangnan Trip</h1>
               <p className="mt-1 text-sm font-medium text-neutral-500">地点 · 时间 · 交通 · 美食</p>
             </div>
-            <button onClick={() => setSelected({ type: "day", ...selectedDay })} className="rounded-full bg-white px-3 py-2 text-sm font-black shadow-sm">Info</button>
+            <button onClick={() => setSelected(buildDayGuide(selectedDay))} className="rounded-full bg-white px-3 py-2 text-sm font-black shadow-sm">Guide</button>
           </div>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
             {tripDays.map((day) => (
@@ -537,7 +612,7 @@ export default function JiangnanTravelGuideApp() {
         </header>
 
         <main className="space-y-5 px-5 pb-28 pt-5">
-          <Hero day={selectedDay} onOpen={setSelected} />
+          <Hero day={selectedDay} onOpen={() => setSelected(buildDayGuide(selectedDay))} />
           <SectionTitle kicker={selectedDay.city} title={pageTitle} right={<Badge tone="black">{selectedDay.cityZh}</Badge>} />
 
           {activeTab === "home" && (
@@ -552,10 +627,6 @@ export default function JiangnanTravelGuideApp() {
                 <SectionTitle kicker="Route" title="今日主线" right={<Badge>soft pace</Badge>} />
                 <div className="rounded-2xl bg-neutral-50 p-3 text-sm font-semibold leading-6 text-neutral-800">{selectedDay.routeSummary}</div>
               </section>
-              <section>
-                <SectionTitle kicker="Highlights" title="今日重点" />
-                <ImageStrip images={selectedDay.gallery.slice(0, 4)} onOpen={setSelected} />
-              </section>
               <section className="grid grid-cols-2 gap-3">
                 <button onClick={() => setActiveTab("plan")} className="rounded-[26px] bg-white p-4 text-left shadow-sm"><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">看路线</h3><p className="mt-2 text-sm text-neutral-500">地点/时间/交通</p></button>
                 <button onClick={() => setActiveTab("jump")} className="rounded-[26px] bg-neutral-950 p-4 text-left text-white shadow-sm"><p className="text-xs font-bold text-white/60">Go</p><h3 className="mt-1 text-lg font-black">一键出发</h3><p className="mt-2 text-sm text-white/70">酒店/餐厅/景点</p></button>
@@ -565,7 +636,7 @@ export default function JiangnanTravelGuideApp() {
 
           {activeTab === "plan" && (
             <div className="space-y-3">
-              {selectedDay.schedule.map((item, index) => <SchedulePreview key={`${selectedDay.id}-${item.time}-${item.title}`} item={item} index={index} open={openStep === index} onToggle={() => setOpenStep(openStep === index ? -1 : index)} />)}
+              {selectedDay.schedule.map((item, index) => <SchedulePreview key={`${selectedDay.id}-${item.time}-${item.title}`} item={item} index={index} image={selectedDay.gallery[index % selectedDay.gallery.length]} open={openStep === index} onToggle={() => setOpenStep(openStep === index ? -1 : index)} />)}
               <section className="rounded-[30px] bg-white p-4 shadow-sm">
                 <SectionTitle kicker="Key route" title="关键路线" />
                 <div className="space-y-2">{selectedDay.routeNotes.map((item) => <div key={item} className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-700">{item}</div>)}</div>
@@ -586,10 +657,8 @@ export default function JiangnanTravelGuideApp() {
 
           {activeTab === "jump" && (
             <section className="space-y-3">
-              <p className="rounded-2xl bg-white p-4 text-sm leading-6 text-neutral-600 shadow-sm">Choose a destination and jump out to your map app. 选一个目的地，直接跳到地图导航。</p>
-              <JumpCard title="Back to hotel" zh="回酒店" emoji="🏨" query={`${selectedDay.hotel} ${selectedDay.address}`} note="Safe anchor point for every day. 每天最重要的定位点。" />
-              <JumpCard title="Today's main route" zh="今日主线" emoji="🧭" query={selectedDay.routeSummary} note={selectedDay.routeSummary} />
-              {mainRestaurants.slice(0, 2).map((r, index) => <JumpCard key={r.name} title={r.name} zh={r.zh} emoji={index === 0 ? "🍜" : "🥢"} query={r.map || r.name} note={r.area} />)}
+              <JumpCard title="Spot + Food Guide" zh="景点与美食详细介绍" emoji="✨" note="Open a compact guide for today before jumping into maps. / 出发前先看当天景点和美食重点。" onOpen={() => setSelected(buildDayGuide(selectedDay))} />
+              {quickJumps.map((item) => <JumpCard key={item.title} {...item} />)}
             </section>
           )}
         </main>
@@ -608,5 +677,5 @@ export default function JiangnanTravelGuideApp() {
         <DetailSheet selected={selected} onClose={() => setSelected(null)} />
       </div>
     </div>
-  );
-}
+  );}
+
