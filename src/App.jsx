@@ -447,16 +447,22 @@ function SmoothStyles() {
   );
 }
 
-function collectPreloadImages(dayId = "d25") {
+function collectPreloadImages(dayId = "d25", count = 3) {
   const list = new Set();
-  const day = days.find((d) => d.id === dayId) || days[0];
-  day.hero && list.add(day.hero);
-  day.realMaps?.forEach((item) => item.src && list.add(item.src));
-  day.plan?.forEach((step) => step.image && list.add(step.image));
-  day.food?.forEach((food) => {
-    food.image && list.add(food.image);
-    food.gallery?.forEach((src) => src && list.add(src));
+  const startIndex = Math.max(0, days.findIndex((d) => d.id === dayId));
+  const preloadDays = days.slice(startIndex, startIndex + count);
+  const targets = preloadDays.length ? preloadDays : days.slice(0, count);
+
+  targets.forEach((day) => {
+    day.hero && list.add(day.hero);
+    day.realMaps?.forEach((item) => item.src && list.add(item.src));
+    day.plan?.forEach((step) => step.image && list.add(step.image));
+    day.food?.forEach((food) => {
+      food.image && list.add(food.image);
+      food.gallery?.forEach((src) => src && list.add(src));
+    });
   });
+
   return Array.from(list).filter(Boolean);
 }
 
@@ -556,14 +562,14 @@ function SplashScreen({ progress, onEnter }) {
         <div className="mb-8">
           <p className="mb-3 text-[12px] font-black uppercase tracking-[.26em] text-white/46">Jiangnan Trip</p>
           <h1 className="text-[46px] font-black leading-[.90] tracking-[-.065em] text-white">China Map<br />Loading</h1>
-          <p className="mt-4 max-w-[330px] text-sm font-medium leading-6 text-white/64">正在优先加载首日路线图、餐厅图和景点图片。进入 App 后，其余图片继续按需加载。</p>
+          <p className="mt-4 max-w-[330px] text-sm font-medium leading-6 text-white/64">正在优先加载前三天的路线图、餐厅图和景点图片。加载完成后进入 App，其余图片继续按需加载。</p>
         </div>
 
         <div className="glass-card rounded-[32px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.78),rgba(14,16,20,.72))" }}>
           <div className="mb-3 flex items-center justify-between">
             <div>
               <p className="text-[11px] font-black uppercase tracking-[.16em] text-white/46">Image preload</p>
-              <p className="mt-1 text-lg font-black text-white">Route assets</p>
+              <p className="mt-1 text-lg font-black text-white">First 3 days assets</p>
             </div>
             <div className="rounded-full px-3 py-1 text-sm font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>{pct}%</div>
           </div>
@@ -1094,10 +1100,10 @@ export default function JiangnanTravelGuideApp() {
 
   useEffect(() => {
     let cancelled = false;
-    const images = collectPreloadImages(dayId);
+    const images = collectPreloadImages(dayId, 3);
     const total = Math.max(images.length, 1);
     let loaded = 0;
-    const minDelay = new Promise((resolve) => setTimeout(resolve, 1200));
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 2800));
     const loadAll = Promise.all(images.map((src) => preloadOneImage(src).then(() => {
       loaded += 1;
       if (!cancelled) setBootProgress(Math.min(96, (loaded / total) * 96));
@@ -1105,7 +1111,7 @@ export default function JiangnanTravelGuideApp() {
     Promise.all([minDelay, loadAll]).then(() => {
       if (!cancelled) {
         setBootProgress(100);
-        setTimeout(() => !cancelled && setBootDone(true), 420);
+        setTimeout(() => !cancelled && setBootDone(true), 900);
       }
     });
     return () => { cancelled = true; };
