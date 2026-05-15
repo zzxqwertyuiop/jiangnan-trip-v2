@@ -17,11 +17,19 @@ const photos = {
   canal: photo("Wulinmen, Beijing-Hangzhou Grand Canal.jpg"),
   crabNoodle: photo("苏州蟹粉面.jpg"),
   shengjian: photo("ShengJianBaoShanghaiChina.jpg"),
-  bundFamily: "https://ak-d.tripcdn.com/images/1mh5x12000rinwbcu3C6B_C_340_230_R5.jpg?proc=source%2Ftrip",
-  liBaiCrab: "https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/vfleykgwtgid3m9aucy4.webp",
-  professorLee: "https://ak-d.tripcdn.com/images/1A0u1f000001g9o3q7D93_D_410_590_R5.jpg?proc=autoorient",
-  renheguan: "https://youimg1.c-ctrip.com/target/100q0u000000j4ja834C6.jpg",
-  yulanxiang: "https://sghimages.shobserver.com/img/catch/2025/10/17/85c84101-ee5a-42ba-bd79-8222ad569be7.jpg",
+  shanghaiTable: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85",
+  crabDish: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1200&q=85",
+  koreanBbq: "https://images.unsplash.com/photo-1632558618823-97eb421cb1bb?auto=format&fit=crop&w=1200&q=85",
+  jiangnanDish: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85",
+  dimsum: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=85",
+  wuzhenFood: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85",
+  hangzhouCuisine: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1200&q=85",
+  teaSnack: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=1200&q=85",
+  bundFamily: "https://images.unsplash.com/photo-1555126634-323283e090fa?auto=format&fit=crop&w=1200&q=85",
+  liBaiCrab: "https://images.unsplash.com/photo-1559737558-2f5a35f4523b?auto=format&fit=crop&w=1200&q=85",
+  professorLee: "https://images.unsplash.com/photo-1632558618823-97eb421cb1bb?auto=format&fit=crop&w=1200&q=85",
+  renheguan: "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1200&q=85",
+  yulanxiang: "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=85",
   teaFieldA: "https://www.greentourasia.com/uploads/allimg/190924/2-1Z924163926.jpg",
   teaFieldB: "https://www.vrqjcs.com/uploads/allimg/191218/1-19121Q52125.jpg",
 };
@@ -36,7 +44,7 @@ const tripDays = [
     title: "Arrival + Bund Night",
     titleZh: "抵达上海 · 外滩夜景",
     hero: photos.bund,
-    gallery: [photos.bund, photos.bundFamily, photos.liBaiCrab, photos.shengjian],
+    gallery: [photos.bund, photos.shanghaiTable, photos.liBaiCrab, photos.shengjian],
     hotel: "Courtyard by Marriott Shanghai Central / 上海浦西万怡酒店",
     address: "338 Hengfeng Road, Jing’an District / 静安区恒丰路338号",
     routeSummary: "Hotel 酒店 → Dinner 晚餐 → The Bund 外滩 → Hotel 酒店",
@@ -122,7 +130,7 @@ const tripDays = [
     title: "Xujiahui + Yu Garden",
     titleZh: "徐家汇 · 豫园 · 上海美食",
     hero: photos.cathedral,
-    gallery: [photos.cathedral, photos.yuyuan, photos.professorLee, photos.renheguan, photos.yulanxiang],
+    gallery: [photos.cathedral, photos.yuyuan, photos.professorLee, photos.renheguan, photos.yulanxiang, photos.crabNoodle, photos.shengjian],
     hotel: "Courtyard by Marriott Shanghai Central / 上海浦西万怡酒店",
     address: "338 Hengfeng Road, Jing’an District / 静安区恒丰路338号",
     routeSummary: "Hotel 酒店 → Xujiahui 徐家汇 → Lunch 午餐 → Yu Garden 豫园 → Dinner 晚餐 → Hotel 酒店",
@@ -216,8 +224,8 @@ const tripDays = [
     ],
     routeNotes: ["Main line: Xizha Service Center → Water Market → Wuzhen Post Office → bridge/canal streets → Muxin Art Museum → night-view area. / 主线：西栅服务中心→水上集市→乌镇邮局→桥区/水巷→木心美术馆→夜景区域。", "Evening: dinner first, then optional boat ride and night-view walk. / 晚上：先晚餐，再按排队情况选择摇橹船和夜景慢走。"],
     restaurants: [
-      { name: "Xizha food reference list", zh: "乌镇西栅美食参考清单", tag: "Local reference / 当地参考", area: "Inside Xizha / 西栅景区内", note: "Use as an on-site search list. Choose according to queue, distance and opening hours.", noteZh: "作为现场搜索清单，根据排队、距离和营业情况选择。", dishes: ["书生羊肉面", "锦记糕点铺", "吴妈馄饨", "早茶客", "滋啦啦油煎铺", "舌尖葱包烩", "杯里杯烧饼铺", "默默的家", "茅老太臭豆腐", "通济酱粽店"] },
-      { name: "Recommended Wuzhen dishes", zh: "乌镇特色菜品方向", tag: "Dishes / 菜品方向", area: "Inside Xizha / 西栅景区内", note: "These are local food directions rather than fixed restaurants.", noteZh: "这些是当地菜品方向，不固定餐厅。", dishes: ["Wuzhen lamb noodles 乌镇羊肉面", "Dingsheng cake 定胜糕", "Sister-in-law pastry 姑嫂饼", "Radish pastry 萝卜丝饼", "Steamed white fish 清蒸白水鱼", "Soy-sauce duck 酱鸭", "Braised lamb 红烧羊肉"] },
+      { name: "Xizha food reference list", zh: "乌镇西栅美食参考清单", image: photos.wuzhenFood, tag: "Local reference / 当地参考", area: "Inside Xizha / 西栅景区内", note: "Use as an on-site search list. Choose according to queue, distance and opening hours.", noteZh: "作为现场搜索清单，根据排队、距离和营业情况选择。", dishes: ["书生羊肉面", "锦记糕点铺", "吴妈馄饨", "早茶客", "滋啦啦油煎铺", "舌尖葱包烩", "杯里杯烧饼铺", "默默的家", "茅老太臭豆腐", "通济酱粽店"] },
+      { name: "Recommended Wuzhen dishes", zh: "乌镇特色菜品方向", image: photos.wuzhenFood, tag: "Dishes / 菜品方向", area: "Inside Xizha / 西栅景区内", note: "These are local food directions rather than fixed restaurants.", noteZh: "这些是当地菜品方向，不固定餐厅。", dishes: ["Wuzhen lamb noodles 乌镇羊肉面", "Dingsheng cake 定胜糕", "Sister-in-law pastry 姑嫂饼", "Radish pastry 萝卜丝饼", "Steamed white fish 清蒸白水鱼", "Soy-sauce duck 酱鸭", "Braised lamb 红烧羊肉"] },
     ],
     backup: ["Boat ride is optional. / 摇橹船作为可选项。", "East Gate is not included in the main route. / 东栅不放主线。"],
   },
@@ -244,9 +252,9 @@ const tripDays = [
     ],
     routeNotes: ["If Liangzhu feels too far, replace it with a Longjing Tea Fields afternoon walk. / 如果良渚觉得太远，可换成龙井茶园轻松散步。"],
     restaurants: [
-      { name: "Liangzhu main pick", zh: "竹间三喜", tag: "Liangzhu main / 良渚主推", area: "Liangzhu / 良渚周边", note: "Main food choice around Liangzhu. Use it if the route stays near Liangzhu Cultural Village or Yniao Collection area.", noteZh: "良渚周边主推餐厅。如果当天主要在良渚文化村、玉鸟集一带活动，可以优先考虑。", dishes: ["Creative local dishes 创意菜", "Seafood pot / signature pot 招牌锅物", "Seasonal dishes 时令菜", "Tea / dessert 茶饮甜品"], map: "竹间三喜 良渚 杭州" },
-      { name: "Liangzhu nearby references", zh: "良渚附近参考", tag: "Reference / 仅参考", area: "Liangzhu / 良渚周边", note: "Use these only when they are closer, easier to book, or have shorter queues.", noteZh: "这些作为良渚附近备选，只在更近、更好订位或排队更短时参考。", dishes: ["玉鸟集", "良玉邻家", "村民食堂", "一面面馆"] },
-      { name: "Hangzhou cuisine direction", zh: "杭帮菜方向", tag: "Local food / 当地特色", area: "Liangzhu / Binjiang / West Lake areas · 良渚/滨江/西湖方向", note: "Choose the restaurant on the day based on location and queue.", noteZh: "具体餐厅到当天根据位置和排队情况选择。", dishes: ["Dongpo pork 东坡肉", "Longjing shrimp 龙井虾仁", "West Lake vinegar fish 西湖醋鱼", "Song Sao fish soup 宋嫂鱼羹", "Pian’erchuan noodles 片儿川"] },
+      { name: "Liangzhu main pick", zh: "竹间三喜", image: photos.hangzhouCuisine, tag: "Liangzhu main / 良渚主推", area: "Liangzhu / 良渚周边", note: "Main food choice around Liangzhu. Use it if the route stays near Liangzhu Cultural Village or Yniao Collection area.", noteZh: "良渚周边主推餐厅。如果当天主要在良渚文化村、玉鸟集一带活动，可以优先考虑。", dishes: ["Creative local dishes 创意菜", "Seafood pot / signature pot 招牌锅物", "Seasonal dishes 时令菜", "Tea / dessert 茶饮甜品"], map: "竹间三喜 良渚 杭州" },
+      { name: "Liangzhu nearby references", zh: "良渚附近参考", image: photos.teaSnack, tag: "Reference / 仅参考", area: "Liangzhu / 良渚周边", note: "Use these only when they are closer, easier to book, or have shorter queues.", noteZh: "这些作为良渚附近备选，只在更近、更好订位或排队更短时参考。", dishes: ["玉鸟集", "良玉邻家", "村民食堂", "一面面馆"] },
+      { name: "Hangzhou cuisine direction", zh: "杭帮菜方向", image: photos.hangzhouCuisine, tag: "Local food / 当地特色", area: "Liangzhu / Binjiang / West Lake areas · 良渚/滨江/西湖方向", note: "Choose the restaurant on the day based on location and queue.", noteZh: "具体餐厅到当天根据位置和排队情况选择。", dishes: ["Dongpo pork 东坡肉", "Longjing shrimp 龙井虾仁", "West Lake vinegar fish 西湖醋鱼", "Song Sao fish soup 宋嫂鱼羹", "Pian’erchuan noodles 片儿川"] },
     ],
     backup: ["If the Version Museum reservation is difficult, swap it with the temple route. / 如果版本馆预约不方便，可和寺庙线顺序互换。", "If Liangzhu feels too far, replace it with Longjing Tea Fields. / 如果良渚觉得太远，可换成龙井茶园。"],
   },
@@ -273,10 +281,10 @@ const tripDays = [
     ],
     routeNotes: ["Temple long route: Beigao Peak Cableway → Ling Shun Temple → Taoguang Temple → Yongfu Temple → Lingyin Temple → Faxi direction. / 寺庙长线：北高峰索道→灵顺寺→韬光寺→永福寺→灵隐寺→法喜寺方向。", "Tea-field afternoon: Longjing Tea Fields / Longjing Village. / 下午：龙井茶园/龙井村。"],
     restaurants: [
-      { name: "Fuyuanju Restaurant", zh: "福缘居酒楼（文三西路店）", tag: "Main pick / 主推", area: "West Lake west side / 西湖西侧、灵隐至龙井方向", note: "Main restaurant choice for the temple and tea-field day. It works well if the group wants a proper Hangzhou-style seated meal after the morning route.", noteZh: "寺庙线和龙井茶园这天的主推餐厅，适合上午走完后吃一顿比较正式的杭帮菜。", dishes: ["Hangzhou-style dishes 杭帮菜", "Braised dishes 红烧类", "Seasonal vegetables 时令蔬菜", "Local soup / noodles 汤羹或面食"], map: "福缘居酒楼 文三西路店 杭州" },
-      { name: "Qunle Restaurant", zh: "群乐饭店（滨安路店）", tag: "Main backup / 主备选", area: "Binjiang / 滨江回酒店方向", note: "Good backup choice near the hotel-return direction. Use it for dinner if the group wants to eat closer to Binjiang after Longjing.", noteZh: "适合回滨江酒店方向时作为晚餐主备选。如果龙井茶园结束后不想再绕路，可以考虑它。", dishes: ["Local Hangzhou dishes 本地菜", "Home-style dishes 家常菜", "Noodles / simple dishes 面食或简餐", "Seasonal dishes 时令菜"], map: "群乐饭店 滨安路店 杭州" },
-      { name: "Lingyin food references", zh: "灵隐寺附近参考", tag: "Reference / 仅参考", area: "Lingyin / Faxi / West Lake west side · 灵隐/法喜寺/西湖西侧", note: "Use these as nearby references for lunch, tea break or vegetarian food around the temple route.", noteZh: "这些作为灵隐寺附近午餐、茶歇或素食参考，不固定安排。", dishes: ["庆春朴门", "十方苑", "知竹", "食日长酒家", "法相素食", "元古·观山", "三生小坞"] },
-      { name: "Hangzhou light meals and tea break", zh: "杭州轻餐与茶歇方向", tag: "Local food / 当地特色", area: "Faxi / Longjing / Binjiang · 法喜寺/龙井/滨江方向", note: "Use these as flexible local choices based on the actual route.", noteZh: "根据当天路线作为灵活选择，不固定餐厅。", dishes: ["Vegetarian noodles 素面", "Pian’erchuan noodles 片儿川", "Lotus root with sticky rice 桂花糯米藕", "Longjing tea 龙井茶", "Tea snacks 茶点"] },
+      { name: "Fuyuanju Restaurant", zh: "福缘居酒楼（文三西路店）", image: photos.hangzhouCuisine, tag: "Main pick / 主推", area: "West Lake west side / 西湖西侧、灵隐至龙井方向", note: "Main restaurant choice for the temple and tea-field day. It works well if the group wants a proper Hangzhou-style seated meal after the morning route.", noteZh: "寺庙线和龙井茶园这天的主推餐厅，适合上午走完后吃一顿比较正式的杭帮菜。", dishes: ["Hangzhou-style dishes 杭帮菜", "Braised dishes 红烧类", "Seasonal vegetables 时令蔬菜", "Local soup / noodles 汤羹或面食"], map: "福缘居酒楼 文三西路店 杭州" },
+      { name: "Qunle Restaurant", zh: "群乐饭店（滨安路店）", image: photos.jiangnanDish, tag: "Main backup / 主备选", area: "Binjiang / 滨江回酒店方向", note: "Good backup choice near the hotel-return direction. Use it for dinner if the group wants to eat closer to Binjiang after Longjing.", noteZh: "适合回滨江酒店方向时作为晚餐主备选。如果龙井茶园结束后不想再绕路，可以考虑它。", dishes: ["Local Hangzhou dishes 本地菜", "Home-style dishes 家常菜", "Noodles / simple dishes 面食或简餐", "Seasonal dishes 时令菜"], map: "群乐饭店 滨安路店 杭州" },
+      { name: "Lingyin food references", zh: "灵隐寺附近参考", image: photos.teaSnack, tag: "Reference / 仅参考", area: "Lingyin / Faxi / West Lake west side · 灵隐/法喜寺/西湖西侧", note: "Use these as nearby references for lunch, tea break or vegetarian food around the temple route.", noteZh: "这些作为灵隐寺附近午餐、茶歇或素食参考，不固定安排。", dishes: ["庆春朴门", "十方苑", "知竹", "食日长酒家", "法相素食", "元古·观山", "三生小坞"] },
+      { name: "Hangzhou light meals and tea break", zh: "杭州轻餐与茶歇方向", image: photos.teaSnack, tag: "Local food / 当地特色", area: "Faxi / Longjing / Binjiang · 法喜寺/龙井/滨江方向", note: "Use these as flexible local choices based on the actual route.", noteZh: "根据当天路线作为灵活选择，不固定餐厅。", dishes: ["Vegetarian noodles 素面", "Pian’erchuan noodles 片儿川", "Lotus root with sticky rice 桂花糯米藕", "Longjing tea 龙井茶", "Tea snacks 茶点"] },
     ],
     backup: ["If the temple route is crowded, shorten the morning and keep Longjing Tea Fields as the relaxed afternoon stop. / 如果寺庙线人多，上午缩短游览，下午保留龙井茶园作为轻松收尾。", "If it rains, replace the tea-field walk with a nearby tea house or café. / 如果下雨，可把茶园步行改为附近茶馆或咖啡休息。"],
   },
@@ -295,9 +303,9 @@ const spots = tripDays.flatMap((d) => d.gallery.map((image, idx) => ({
 
 const navTabs = [
   { id: "home", label: "Today", zh: "首页" },
-  { id: "plan", label: "Plan", zh: "行程" },
+  { id: "plan", label: "Route", zh: "路线" },
   { id: "food", label: "Food", zh: "美食" },
-  { id: "gallery", label: "Gallery", zh: "图集" },
+  { id: "jump", label: "Go", zh: "出发" },
 ];
 
 function mapLinks(query) {
@@ -388,27 +396,40 @@ function ImageStrip({ images, onOpen }) {
 function SchedulePreview({ item, index, open, onToggle }) {
   return (
     <article className="overflow-hidden rounded-[30px] bg-white shadow-sm">
-      <button onClick={onToggle} className="flex w-full items-start gap-3 p-4 text-left">
-        <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-2xl bg-neutral-950 text-center text-white">
-          <span className="text-[10px] font-bold">{String(index + 1).padStart(2, "0")}</span>
-          <span className="text-xs font-black">{item.time.split("–")[0]}</span>
+      <button onClick={onToggle} className="w-full p-4 text-left">
+        <div className="mb-3 flex items-start gap-3">
+          <div className="flex h-14 w-14 shrink-0 flex-col items-center justify-center rounded-2xl bg-neutral-950 text-center text-white">
+            <span className="text-[10px] font-bold">STEP</span>
+            <span className="text-xs font-black">{String(index + 1).padStart(2, "0")}</span>
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-bold text-neutral-500">{item.period}</p>
+            <h3 className="mt-1 text-lg font-black leading-tight tracking-tight">{item.title}</h3>
+            <p className="mt-0.5 text-sm font-semibold text-neutral-500">{item.titleZh}</p>
+          </div>
+          <div className="mt-2 rounded-full bg-neutral-100 px-2 py-1 text-xs font-black">{open ? "−" : "+"}</div>
         </div>
-        <div className="min-w-0 flex-1">
-          <p className="text-xs font-bold text-neutral-500">{item.period}</p>
-          <h3 className="mt-1 text-lg font-black leading-tight tracking-tight">{item.title}</h3>
-          <p className="mt-0.5 text-sm font-semibold text-neutral-500">{item.titleZh}</p>
-          <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-600">{item.routeZh}</p>
+
+        <div className="grid gap-2">
+          <div className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-800">
+            <span className="text-[11px] font-black uppercase tracking-[0.12em] text-neutral-400">Time / 时间</span><br />{item.time}
+          </div>
+          <div className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-800">
+            <span className="text-[11px] font-black uppercase tracking-[0.12em] text-neutral-400">Place / 地点</span><br />{item.routeZh}
+          </div>
+          <div className="rounded-2xl bg-blue-50 p-3 text-sm leading-6 text-blue-950">
+            <span className="text-[11px] font-black uppercase tracking-[0.12em] text-blue-500">Transport / 交通工具</span><br />{item.transport}
+          </div>
         </div>
-        <div className="mt-2 rounded-full bg-neutral-100 px-2 py-1 text-xs font-black">{open ? "−" : "+"}</div>
       </button>
       {open && (
         <div className="space-y-3 border-t border-neutral-100 p-4 pt-3">
-          <div className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-700"><strong>Route / 路线</strong><br />{item.route}<br />{item.routeZh}</div>
-          <div className="rounded-2xl bg-blue-50 p-3 text-sm leading-6 text-blue-950"><strong>Transport / 交通</strong><br />{item.transport}</div>
+          <div className="rounded-2xl bg-white p-3 text-sm leading-6 text-neutral-700 ring-1 ring-neutral-200"><strong>Full route / 完整路线</strong><br />{item.route}<br />{item.routeZh}</div>
           {item.legs && <div className="space-y-2">{item.legs.map((leg) => <div key={leg} className="rounded-2xl border border-neutral-200 bg-white p-3 text-xs leading-5 text-neutral-700">{leg}</div>)}</div>}
           {item.meal && <div className="rounded-2xl bg-amber-50 p-3 text-xs leading-5 text-amber-950"><strong>Food ideas / 餐食参考</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.meal.map((dish) => <li key={dish}>{dish}</li>)}</ul></div>}
-          <p className="text-sm leading-6 text-neutral-700">{item.note}</p>
-          <p className="text-sm leading-6 text-neutral-500">{item.noteZh}</p>
+          <div className="rounded-2xl bg-emerald-50 p-3 text-sm leading-6 text-emerald-950">
+            <strong>Why go / 简介</strong><br />{item.note}<br />{item.noteZh}
+          </div>
         </div>
       )}
     </article>
@@ -429,7 +450,9 @@ function FoodCard({ item, onOpen }) {
           <Badge tone={isRef ? "neutral" : "orange"}>{item.tag}</Badge>
         </div>
         <p className="text-xs font-semibold text-neutral-500">{item.area}</p>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-neutral-700">{item.noteZh || item.note}</p>
+        <p className="mt-2 text-sm leading-6 text-neutral-700">{item.note}</p>
+        <p className="mt-1 text-sm leading-6 text-neutral-500">{item.noteZh}</p>
+        {item.dishes && <div className="mt-3 flex flex-wrap gap-2">{item.dishes.slice(0, 3).map((dish) => <span key={dish} className="rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-900">{dish}</span>)}</div>}
       </div>
     </button>
   );
@@ -462,6 +485,22 @@ function DetailSheet({ selected, onClose }) {
   );
 }
 
+function JumpCard({ title, zh, emoji, query, note }) {
+  return (
+    <div className="rounded-[30px] bg-white p-4 shadow-sm">
+      <div className="mb-3 flex items-center gap-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-xl text-white">{emoji}</div>
+        <div>
+          <h3 className="text-lg font-black leading-tight">{title}</h3>
+          <p className="text-sm font-semibold text-neutral-500">{zh}</p>
+        </div>
+      </div>
+      {note && <p className="mb-3 text-sm leading-6 text-neutral-600">{note}</p>}
+      <MapButtons query={query} />
+    </div>
+  );
+}
+
 export default function JiangnanTravelGuideApp() {
   const [selectedDayId, setSelectedDayId] = useState("d25");
   const [activeTab, setActiveTab] = useState("home");
@@ -469,13 +508,13 @@ export default function JiangnanTravelGuideApp() {
   const [selected, setSelected] = useState(null);
 
   const selectedDay = tripDays.find((d) => d.id === selectedDayId) || tripDays[0];
-  const citySpots = useMemo(() => spots.filter((s) => s.city === selectedDay.city), [selectedDay.city]);
+  const mainRestaurants = useMemo(() => selectedDay.restaurants.filter((r) => !(r.tag || "").includes("Reference") && !(r.tag || "").includes("仅参考")), [selectedDay]);
 
   const pageTitle = {
     home: "今日概览",
-    plan: "早中晚行程",
+    plan: "清晰路线",
     food: selectedDay.city === "Shanghai" ? "餐厅推荐" : "当地美食参考",
-    gallery: "照片与点位",
+    jump: "快速出发",
   }[activeTab];
 
   return (
@@ -486,7 +525,7 @@ export default function JiangnanTravelGuideApp() {
             <div className="min-w-0">
               <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">Jiangnan private guide</p>
               <h1 className="mt-1 text-[28px] font-black leading-tight tracking-tight">Jiangnan Trip</h1>
-              <p className="mt-1 text-sm font-medium text-neutral-500">中英双语 · 动态行程 · 美食导航</p>
+              <p className="mt-1 text-sm font-medium text-neutral-500">地点 · 时间 · 交通 · 美食</p>
             </div>
             <button onClick={() => setSelected({ type: "day", ...selectedDay })} className="rounded-full bg-white px-3 py-2 text-sm font-black shadow-sm">Info</button>
           </div>
@@ -514,12 +553,12 @@ export default function JiangnanTravelGuideApp() {
                 <div className="rounded-2xl bg-neutral-50 p-3 text-sm font-semibold leading-6 text-neutral-800">{selectedDay.routeSummary}</div>
               </section>
               <section>
-                <SectionTitle kicker="Visual" title="今日图集" />
-                <ImageStrip images={selectedDay.gallery} onOpen={setSelected} />
+                <SectionTitle kicker="Highlights" title="今日重点" />
+                <ImageStrip images={selectedDay.gallery.slice(0, 4)} onOpen={setSelected} />
               </section>
               <section className="grid grid-cols-2 gap-3">
-                <button onClick={() => setActiveTab("plan")} className="rounded-[26px] bg-white p-4 text-left shadow-sm"><p className="text-xs font-bold text-neutral-500">Plan</p><h3 className="mt-1 text-lg font-black">看行程</h3><p className="mt-2 text-sm text-neutral-500">早中晚路线</p></button>
-                <button onClick={() => setActiveTab("food")} className="rounded-[26px] bg-white p-4 text-left shadow-sm"><p className="text-xs font-bold text-neutral-500">Food</p><h3 className="mt-1 text-lg font-black">看餐厅</h3><p className="mt-2 text-sm text-neutral-500">主推+备选</p></button>
+                <button onClick={() => setActiveTab("plan")} className="rounded-[26px] bg-white p-4 text-left shadow-sm"><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">看路线</h3><p className="mt-2 text-sm text-neutral-500">地点/时间/交通</p></button>
+                <button onClick={() => setActiveTab("jump")} className="rounded-[26px] bg-neutral-950 p-4 text-left text-white shadow-sm"><p className="text-xs font-bold text-white/60">Go</p><h3 className="mt-1 text-lg font-black">一键出发</h3><p className="mt-2 text-sm text-white/70">酒店/餐厅/景点</p></button>
               </section>
             </div>
           )}
@@ -540,22 +579,17 @@ export default function JiangnanTravelGuideApp() {
 
           {activeTab === "food" && (
             <section className="space-y-3">
-              <p className="rounded-2xl bg-white p-4 text-sm leading-6 text-neutral-600 shadow-sm">主推项优先考虑；当天根据排队、位置和大家状态调整。Restaurants are references, not fixed bookings.</p>
+              <p className="rounded-2xl bg-white p-4 text-sm leading-6 text-neutral-600 shadow-sm">主推餐厅放在前面，参考名单用于现场灵活选择。Main picks come first; references are for flexible choices nearby.</p>
               {selectedDay.restaurants.map((item) => <FoodCard key={item.name} item={item} onOpen={setSelected} />)}
             </section>
           )}
 
-          {activeTab === "gallery" && (
-            <section className="grid grid-cols-2 gap-3">
-              {citySpots.map((spot, idx) => (
-                <button key={`${spot.name}-${idx}`} onClick={() => setSelected({ type: "spot", ...spot })} className={idx % 3 === 0 ? "col-span-2 overflow-hidden rounded-[30px] bg-white text-left shadow-sm" : "overflow-hidden rounded-[26px] bg-white text-left shadow-sm"}>
-                  <SmartImage src={spot.image} alt={spot.name} className={idx % 3 === 0 ? "h-56 w-full object-cover" : "h-36 w-full object-cover"} />
-                  <div className="p-3">
-                    <h3 className="text-base font-black leading-tight">{spot.name}</h3>
-                    <p className="text-sm font-semibold text-neutral-500">{spot.zh}</p>
-                  </div>
-                </button>
-              ))}
+          {activeTab === "jump" && (
+            <section className="space-y-3">
+              <p className="rounded-2xl bg-white p-4 text-sm leading-6 text-neutral-600 shadow-sm">Choose a destination and jump out to your map app. 选一个目的地，直接跳到地图导航。</p>
+              <JumpCard title="Back to hotel" zh="回酒店" emoji="🏨" query={`${selectedDay.hotel} ${selectedDay.address}`} note="Safe anchor point for every day. 每天最重要的定位点。" />
+              <JumpCard title="Today's main route" zh="今日主线" emoji="🧭" query={selectedDay.routeSummary} note={selectedDay.routeSummary} />
+              {mainRestaurants.slice(0, 2).map((r, index) => <JumpCard key={r.name} title={r.name} zh={r.zh} emoji={index === 0 ? "🍜" : "🥢"} query={r.map || r.name} note={r.area} />)}
             </section>
           )}
         </main>
