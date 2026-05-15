@@ -133,18 +133,24 @@ const placeThemes = {
 function getTheme(dayId, mood) {
   const place = placeThemes[dayId] || placeThemes.d25;
   const mode = moodThemes[mood] || moodThemes.comfort;
-  const themeKey = mood === "comfort" ? "" : mood === "active" ? "energy" : "misty";
+  const accent = mood === "rain" ? "#69e8d6" : mood === "active" ? "#12f3bd" : "#23e3c4";
+  const accentDeep = mood === "rain" ? "#2fb7b0" : mood === "active" ? "#03b98f" : "#0fb49c";
   return {
     ...mode,
     placeName: place.name,
     placeZh: place.zh,
-    bg: place[`${themeKey}Bg`] || place.bg,
-    gradient: place[`${themeKey}Gradient`] || place.gradient,
-    glass: "rgba(255,255,255,.72)",
-    card: "rgba(255,255,255,.84)",
-    tint: mode.tintBoost,
-    accent: place.accent,
-    accent2: place.accent2,
+    bg: "linear-gradient(180deg,#d7dade 0%,#cbd0d6 48%,#bfc6cf 100%)",
+    shell: "linear-gradient(180deg,rgba(255,255,255,.40) 0%,rgba(244,247,250,.22) 100%)",
+    glass: "rgba(242,245,248,.58)",
+    card: "rgba(255,255,255,.62)",
+    tint: "rgba(255,255,255,.42)",
+    accent,
+    accent2: "#b8fff4",
+    gradient: `linear-gradient(135deg,${accent} 0%,${accentDeep} 100%)`,
+    chipDark: "rgba(13,14,18,.88)",
+    softDark: "rgba(18,20,25,.72)",
+    deepDark: "#0d0e12",
+    line: "rgba(255,255,255,.42)",
   };
 }
 
@@ -301,11 +307,70 @@ function Pair({ en, zh, className = "" }) {
 }
 
 function Badge({ children, style }) {
-  return <span className="inline-flex shrink-0 items-center rounded-full bg-white/74 px-3 py-1 text-[11px] font-black text-neutral-800 shadow-sm" style={style}>{children}</span>;
+  return <span className="inline-flex shrink-0 items-center rounded-full px-3 py-1 text-[11px] font-black shadow-sm backdrop-blur-xl" style={{ background: "rgba(255,255,255,.70)", color: "#121316", border: "1px solid rgba(255,255,255,.45)", ...style }}>{children}</span>;
+}
+
+function DynamicIcon({ children, theme, size = "md", active = false, dark = false }) {
+  const sizeMap = { sm: "h-9 w-9 text-base", md: "h-12 w-12 text-xl", lg: "h-16 w-16 text-2xl" };
+  return (
+    <span className={`dynamic-icon ${sizeMap[size] || sizeMap.md} ${active ? "is-active" : ""} ${dark ? "is-dark" : ""}`} style={{ "--mint": theme.accent, "--mint2": theme.accent2, background: dark ? theme.chipDark : theme.gradient }}>
+      <span className="dynamic-icon__halo" />
+      <span className="dynamic-icon__dot" />
+      <span className="dynamic-icon__emoji">{children}</span>
+    </span>
+  );
 }
 
 function SectionTitle({ kicker, title, zh, right }) {
   return <div className="mb-3 flex items-end justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[0.18em] text-neutral-500">{kicker}</p><h2 className="mt-1 text-[22px] font-black leading-tight tracking-[-0.04em]">{title}</h2>{zh && <p className="text-sm font-semibold text-neutral-500">{zh}</p>}</div>{right}</div>;
+}
+
+function SmoothStyles() {
+  return (
+    <style>{`
+      @keyframes sheetUp { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+      @keyframes softIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes viewSwitch { from { opacity: 0; transform: translateY(12px) scale(.992); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
+      @keyframes selectedGlow { 0% { box-shadow: 0 10px 24px rgba(18,243,189,.10); } 50% { box-shadow: 0 18px 42px rgba(18,243,189,.24); } 100% { box-shadow: 0 10px 24px rgba(18,243,189,.10); } }
+      @keyframes tinyFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+      @keyframes sheen { from { transform: translateX(-120%) rotate(12deg); } to { transform: translateX(170%) rotate(12deg); } }
+      @keyframes iconPulse { 0%,100% { transform: scale(.72); opacity: .25; } 50% { transform: scale(1.25); opacity: .55; } }
+      @keyframes orbit { from { transform: rotate(0deg) translateX(18px) rotate(0deg); } to { transform: rotate(360deg) translateX(18px) rotate(-360deg); } }
+      @keyframes heroGlow { 0%,100% { opacity: .20; transform: scale(1) translateY(0); } 50% { opacity: .38; transform: scale(1.08) translateY(-6px); } }
+      @keyframes scanLine { 0% { transform: translateY(-120%); opacity: 0; } 28% { opacity: .55; } 100% { transform: translateY(120%); opacity: 0; } }
+      .app-shell { -webkit-tap-highlight-color: transparent; }
+      .app-shell section, .app-shell article { transition: transform .22s ease, box-shadow .22s ease, background .45s ease; }
+      .app-shell section:active, .app-shell article:active { transform: scale(.997); }
+      .app-shell button, .app-shell a { transition: transform .18s ease, opacity .18s ease, background .28s ease, color .28s ease, box-shadow .28s ease; }
+      .app-shell button:active, .app-shell a:active { transform: scale(.97); }
+      .app-shell img { transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .35s ease; }
+      .app-shell .hero-card:hover img, .app-shell .food-card:hover img { transform: scale(1.035); }
+      .app-shell details { transition: background .25s ease, transform .2s ease; }
+      .app-shell details[open] { animation: softIn .22s ease both; }
+      .app-shell summary::-webkit-details-marker { display: none; }
+      .app-shell .sheet-panel { animation: sheetUp .28s cubic-bezier(.2,.8,.2,1) both; }
+      .app-shell .soft-enter { animation: softIn .28s ease both; }
+      .app-shell .view-switch { animation: viewSwitch .34s cubic-bezier(.2,.8,.2,1) both; }
+      .app-shell .active-pill { position: relative; overflow: hidden; animation: selectedGlow 1.8s ease-in-out infinite; }
+      .app-shell .active-pill::before { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 45%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent); animation: sheen 1.7s ease-in-out infinite; }
+      .app-shell .active-pill > span, .app-shell .active-pill > div { position: relative; z-index: 1; }
+      .app-shell .active-emoji { display: inline-block; animation: tinyFloat 1.5s ease-in-out infinite; }
+      .app-shell .route-toggle { transition: transform .25s ease, background .25s ease; }
+      .app-shell .route-toggle.open { transform: rotate(180deg); }
+      .app-shell .bottom-nav button { position: relative; overflow: hidden; }
+      .app-shell .bottom-nav button::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 18px; height: 2px; border-radius: 999px; background: currentColor; opacity: .18; transform: translateX(-50%) scaleX(0); transition: transform .24s ease; }
+      .app-shell .bottom-nav button:active::after { transform: translateX(-50%) scaleX(1); }
+      .dynamic-icon { position: relative; display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 999px; color: #0d0e12; box-shadow: 0 14px 32px rgba(18,243,189,.18), inset 0 1px 0 rgba(255,255,255,.30); overflow: hidden; }
+      .dynamic-icon.is-dark { color: white; box-shadow: 0 14px 32px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.10); }
+      .dynamic-icon__emoji { position: relative; z-index: 2; animation: tinyFloat 2.1s ease-in-out infinite; }
+      .dynamic-icon__halo { position: absolute; inset: 7px; border-radius: inherit; border: 1px solid rgba(255,255,255,.44); animation: iconPulse 2.4s ease-in-out infinite; }
+      .dynamic-icon__dot { position: absolute; left: 50%; top: 50%; z-index: 1; height: 6px; width: 6px; border-radius: 999px; background: rgba(255,255,255,.78); animation: orbit 3.6s linear infinite; }
+      .dynamic-icon.is-active .dynamic-icon__emoji { animation-duration: 1.25s; }
+      .hero-scan::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg,transparent,rgba(255,255,255,.18),transparent); animation: scanLine 4.8s ease-in-out infinite; }
+      .glass-card { border: 1px solid rgba(255,255,255,.38); box-shadow: 0 22px 70px rgba(22,28,36,.13), inset 0 1px 0 rgba(255,255,255,.30); backdrop-filter: blur(22px); }
+      .hero-glow { animation: heroGlow 4.5s ease-in-out infinite; }
+    `}</style>
+  );
 }
 
 function MapButtons({ query }) {
@@ -315,16 +380,16 @@ function MapButtons({ query }) {
   return (
     <div className="space-y-2">
       <div className="grid grid-cols-2 gap-2">
-        <a href={links.amap} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#c98aaf,#657dca)" }}>Amap / 高德</a>
-        <a href={links.apple} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Apple Maps</a>
+        <a href={links.amap} target="_blank" rel="noreferrer" className={`${item} mint-shimmer`} style={{ background: "linear-gradient(135deg,#23e3c4,#0fb49c)", color: "#0d0e12", boxShadow: "0 12px 28px rgba(18,243,189,.18)" }}>Amap / 高德</a>
+        <a href={links.apple} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Apple Maps</a>
       </div>
       {more && (
         <div className="grid grid-cols-2 gap-2">
-          <a href={links.baidu} target="_blank" rel="noreferrer" className={`${item} text-white`} style={{ background: "linear-gradient(135deg,#7487cc,#5269b9)" }}>Baidu / 百度</a>
-          <a href={links.google} target="_blank" rel="noreferrer" className={`${item} bg-white/70 text-neutral-800`}>Google Maps</a>
+          <a href={links.baidu} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(13,14,18,.88)", color: "white" }}>Baidu / 百度</a>
+          <a href={links.google} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Google Maps</a>
         </div>
       )}
-      <button onClick={() => setMore(!more)} className="w-full rounded-2xl bg-white/50 py-2 text-[11px] font-black text-neutral-600 transition active:scale-95">
+      <button onClick={() => setMore(!more)} className="w-full rounded-2xl py-2 text-[11px] font-black transition active:scale-95" style={{ background: "rgba(13,14,18,.08)", color: "#343840", border: "1px solid rgba(255,255,255,.34)" }}>
         {more ? "Hide maps / 收起地图" : "More maps / 更多地图"}
       </button>
     </div>
@@ -378,47 +443,72 @@ function getMoodAdvice(day, mood) {
 
 function MoodSwitch({ mood, setMood, theme, day }) {
   const advice = getMoodAdvice(day, mood);
-  return <section className="rounded-[32px] p-4 shadow-[0_18px_50px_rgba(75,91,180,0.10)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route Mode" title="Choose the pace" zh="选择今天的节奏" right={<Badge>{theme.placeName} / {theme.placeZh}</Badge>} /><div className="grid grid-cols-3 gap-2">{Object.entries(moodThemes).map(([key, item]) => <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${mood === key && key === "active" ? "animate-pulse" : ""}`} style={{ background: mood === key ? theme.gradient : theme.tint, color: mood === key ? "white" : "#333", boxShadow: mood === key ? "0 14px 35px rgba(70,90,220,.18)" : "none" }}><span className="block text-base">{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-80">{item.zh}</span></button>)}</div><div className="mt-3 rounded-2xl p-3 text-sm leading-6 text-neutral-700" style={{ background: theme.tint }}><strong>{advice.action[0]}</strong><br /><span className="text-neutral-500">{advice.action[1]}</span><div className="mt-2">{advice.en}<br /><span className="text-neutral-500">{advice.zh}</span></div></div></section>;
-}
-
-function MoodAtmosphere({ mood, theme }) {
-  if (mood === "rain") {
-    return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-45">{Array.from({ length: 18 }).map((_, i) => <span key={i} className="absolute top-[-20px] h-16 w-[1.5px] animate-pulse rounded-full bg-white/70" style={{ left: `${(i * 13) % 100}%`, transform: "rotate(18deg)", animationDelay: `${i * 120}ms` }} />)}</div>;
-  }
-  if (mood === "active") {
-    return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-55">{Array.from({ length: 10 }).map((_, i) => <span key={i} className="absolute animate-bounce text-sm" style={{ left: `${8 + i * 10}%`, top: `${80 + (i % 4) * 120}px`, animationDelay: `${i * 160}ms` }}>✨</span>)}</div>;
-  }
-  return <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-50"><span className="absolute right-10 top-64 h-28 w-28 rounded-full blur-3xl" style={{ background: theme.accent2 }} /><span className="absolute left-8 top-[620px] h-24 w-24 rounded-full blur-3xl" style={{ background: theme.accent }} /></div>;
-}
-
-function TodayProgress({ day, completed, theme }) {
-  const steps = day.plan || [];
-  const doneCount = steps.filter((_, i) => completed?.[i]).length;
-  const percent = steps.length ? Math.round((doneCount / steps.length) * 100) : 0;
-  return (
-    <section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}>
-      <SectionTitle kicker="Day Progress" title={`${percent}% complete`} zh="今日进度" right={<Badge>{doneCount}/{steps.length}</Badge>} />
-      <div className="h-3 overflow-hidden rounded-full bg-white/70"><div className="h-full rounded-full transition-all duration-700" style={{ width: `${percent}%`, background: theme.gradient }} /></div>
-      <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-        {steps.map((step, i) => {
-          const active = completed?.[i];
-          return <div key={step.title} className="min-w-[110px] rounded-2xl p-3 text-xs leading-5 transition" style={{ background: active ? theme.gradient : theme.tint, color: active ? "white" : "#3f3f46" }}><div className="text-base">{active ? "✅" : i === doneCount ? "📍" : "○"}</div><div className="font-black">{step.part}</div><div className="font-semibold opacity-80">{step.partZh}</div></div>;
-        })}
-      </div>
-    </section>
-  );
+  return <section className="rounded-[32px] p-4 shadow-[0_18px_50px_rgba(75,91,180,0.10)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route Mode" title="Choose the pace" zh="选择今天的节奏" right={<Badge>{theme.placeName} / {theme.placeZh}</Badge>} /><div className="grid grid-cols-3 gap-2">{Object.entries(moodThemes).map(([key, item]) => {
+    const active = mood === key;
+    return <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={{ background: active ? theme.gradient : theme.tint, color: active ? "white" : "#333", boxShadow: active ? "0 14px 35px rgba(70,90,220,.18)" : "none" }}><span className={`block text-base ${active ? "active-emoji" : ""}`}>{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-80">{item.zh}</span></button>;
+  })}</div><div key={`${day.id}-${mood}-advice`} className="view-switch mt-3 rounded-2xl p-3 text-sm leading-6 text-neutral-700" style={{ background: theme.tint }}><strong>{advice.action[0]}</strong><br /><span className="text-neutral-500">{advice.action[1]}</span><div className="mt-2">{advice.en}<br /><span className="text-neutral-500">{advice.zh}</span></div></div></section>;
 }
 
 function Hero({ day, theme, openGuide }) {
-  return <button onClick={openGuide} className="group relative h-[360px] w-full overflow-hidden rounded-[40px] text-left shadow-[0_26px_80px_rgba(66,82,180,.20)] transition active:scale-[.99]"><SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-[#10205f]/82 via-[#3157d7]/12 to-transparent" /><div className="absolute inset-x-0 top-0 h-32" style={{ background: "linear-gradient(180deg,rgba(255,210,230,.24),transparent)" }} /><div className="absolute bottom-0 right-0 h-44 w-44 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .30 }} /><div className="relative flex h-full flex-col justify-end p-5 text-white"><div className="mb-3 flex gap-2"><Badge>{day.city} / {day.cityZh}</Badge><Badge>{day.tab}</Badge></div><h2 className="text-[35px] font-black leading-[.94] tracking-[-.055em]">{day.title}</h2><p className="mt-2 text-lg font-semibold text-white/90">{day.titleZh}</p><p className="mt-3 line-clamp-3 text-sm leading-6 text-white/86">{day.intro}<br />{day.introZh}</p></div></button>;
+  return (
+    <button onClick={openGuide} className="hero-card hero-scan group relative h-[430px] w-full overflow-hidden rounded-[42px] text-left shadow-[0_28px_90px_rgba(36,42,52,.22)] transition active:scale-[.99]">
+      <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,17,20,.16)_0%,rgba(16,17,20,.20)_38%,rgba(16,17,20,.78)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(35,227,196,.22),transparent_30%)]" />
+      <div className="hero-glow absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#23e3c4]/30 blur-3xl" />
+      <div className="hero-glow absolute left-[-34px] top-[150px] h-28 w-28 rounded-full bg-white/20 blur-3xl" />
+
+      <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-black/34 text-white backdrop-blur-xl">‹</div>
+        <div className="mint-shimmer flex items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black shadow-[0_10px_30px_rgba(35,227,196,.24)]" style={{ background: theme.gradient, color: theme.deepDark }}>
+          <DynamicIcon theme={theme} size="sm" dark>✈️</DynamicIcon>
+          <div className="leading-tight"><div>{day.city} active route</div><div className="text-[10px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
+        </div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/12 bg-black/34 text-white backdrop-blur-xl">⌾</div>
+      </div>
+
+      <div className="absolute left-5 right-5 top-[120px]">
+        <p className="mb-2 text-[12px] font-black uppercase tracking-[0.22em] text-white/70">Jiangnan private guide</p>
+        <h2 className="max-w-[82%] text-[35px] font-black leading-[.95] tracking-[-.055em] text-white">{day.title}</h2>
+        <p className="mt-2 text-base font-semibold text-white/82">{day.titleZh}</p>
+      </div>
+
+      <div className="absolute bottom-5 left-5 right-5">
+        <div className="glass-card rounded-[34px] p-4" style={{ background: theme.softDark }}>
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-xs font-black uppercase tracking-[.16em] text-white/50">Main line</div>
+              <div className="mt-1 text-lg font-black leading-tight text-white">{day.route}</div>
+              <div className="mt-1 text-sm font-semibold text-white/58">{day.routeZh}</div>
+            </div>
+            <Badge style={{ background: "rgba(255,255,255,.10)", color: "white", borderColor: "rgba(255,255,255,.12)" }}>{day.tab}</Badge>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-[28px] p-4" style={{ background: theme.gradient, color: theme.deepDark }}>
+              <div className="mb-2"><DynamicIcon theme={theme} size="sm" active>{theme.emoji}</DynamicIcon></div>
+              <div className="text-xs font-black opacity-70">Route mode</div>
+              <div className="mt-1 text-[26px] font-black leading-none">{theme.label}</div>
+              <div className="mt-1 text-xs font-bold opacity-70">{theme.zh}</div>
+            </div>
+            <div className="rounded-[28px] border border-white/10 bg-white/10 p-4 text-white">
+              <div className="mb-2"><DynamicIcon theme={theme} size="sm" dark>↗</DynamicIcon></div>
+              <div className="text-xs font-black uppercase tracking-[.14em] text-white/58">Open</div>
+              <div className="mt-1 text-[26px] font-black leading-none">Guide</div>
+              <div className="mt-1 text-xs font-bold text-white/58">Tap for details</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
+  );
 }
 
-function RouteCard({ step, index, theme, open, onToggle, completed, onComplete }) {
-  return <article className="overflow-hidden rounded-[34px] shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70" style={{ background: theme.card }}><button onClick={onToggle} className="relative h-40 w-full overflow-hidden bg-neutral-200"><SmartImage src={step.image} alt={step.zh} className={`h-full w-full object-cover transition duration-700 ${open ? "scale-105" : "scale-100"}`} /><div className="absolute inset-0 bg-gradient-to-t from-[#17307a]/50 to-transparent" />{completed && <div className="absolute right-4 top-4 rounded-full bg-white/92 px-3 py-1 text-xs font-black text-emerald-600 shadow-sm">Done / 已完成</div>}<div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white"><span className="text-xs font-black uppercase tracking-[.14em]">{step.part} / {step.partZh}</span><span className="rounded-full bg-white/92 px-3 py-1 text-xs font-black text-neutral-900">Loose plan / 大致安排</span></div></button><button onClick={onToggle} className="w-full p-4 text-left"><div className="mb-3 flex items-start gap-3"><div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-sm font-black text-white" style={{ background: completed ? "linear-gradient(135deg,#4ade80,#22c55e)" : theme.gradient }}>{completed ? "✓" : String(index + 1).padStart(2, "0")}</div><div className="min-w-0 flex-1"><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{step.title}</h3><p className="mt-0.5 text-sm font-semibold text-neutral-500">{step.zh}</p></div><div className="rounded-full bg-white/70 px-2 py-1 text-xs font-black">{open ? "−" : "+"}</div></div><div className="space-y-2"><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-neutral-500">Place / 地点</span><Pair en={step.place} zh={step.placeZh} /></div><div className="rounded-2xl p-3 text-sm leading-6 text-blue-950" style={{ background: "rgba(226,236,255,.76)" }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-blue-500">Transit / 交通</span><Pair en={step.transit} zh={step.transitZh} /></div></div></button>{open && <div className="space-y-3 border-t border-white/70 p-4 pt-3"><button onClick={(e) => { e.stopPropagation(); onComplete?.(index); }} className="w-full rounded-2xl py-3 text-xs font-black text-white transition active:scale-95" style={{ background: completed ? "linear-gradient(135deg,#34d399,#22c55e)" : theme.gradient }}>{completed ? "Completed ✓ / 已完成" : "Tap to complete / 完成这一段"}</button><div className="rounded-2xl bg-white/66 p-3 text-sm leading-6 text-neutral-700"><strong>Why it matters / 为什么值得去</strong><Pair en={step.why} zh={step.whyZh} /></div>{step.legs?.map(([enTitle, en, zhTitle, zh]) => <div key={enTitle} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{enTitle}</strong><p>{en}</p><p className="mt-1 text-neutral-500"><strong>{zhTitle}</strong>：{zh}</p></div>)}</div>}</article>;
+function RouteCard({ step, index, theme, open, onToggle }) {
+  return <article className="overflow-hidden rounded-[34px] shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70" style={{ background: theme.card }}><button onClick={onToggle} className="relative h-40 w-full overflow-hidden bg-neutral-200"><SmartImage src={step.image} alt={step.zh} className={`h-full w-full object-cover transition duration-700 ${open ? "scale-105" : "scale-100"}`} /><div className="absolute inset-0 bg-gradient-to-t from-[#17307a]/50 to-transparent" /><div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white"><span className="text-xs font-black uppercase tracking-[.14em]">{step.part} / {step.partZh}</span><span className="rounded-full bg-white/92 px-3 py-1 text-xs font-black text-neutral-900">Loose plan / 大致安排</span></div></button><button onClick={onToggle} className="w-full p-4 text-left"><div className="mb-3 flex items-start gap-3"><DynamicIcon theme={theme} size="md" active={open}>{String(index + 1).padStart(2, "0")}</DynamicIcon><div className="min-w-0 flex-1"><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{step.title}</h3><p className="mt-0.5 text-sm font-semibold text-neutral-500">{step.zh}</p></div><div className={`route-toggle rounded-full bg-white/70 px-2 py-1 text-xs font-black ${open ? "open" : ""}`}>{open ? "−" : "+"}</div></div><div className="space-y-2"><div className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-neutral-500">Place / 地点</span><Pair en={step.place} zh={step.placeZh} /></div><div className="rounded-2xl p-3 text-sm leading-6 text-blue-950" style={{ background: "rgba(226,236,255,.76)" }}><span className="text-[11px] font-black uppercase tracking-[.12em] text-blue-500">Transit / 交通</span><Pair en={step.transit} zh={step.transitZh} /></div></div></button>{open && <div className="space-y-3 border-t border-white/70 p-4 pt-3"><div className="rounded-2xl bg-white/66 p-3 text-sm leading-6 text-neutral-700"><strong>Why it matters / 为什么值得去</strong><Pair en={step.why} zh={step.whyZh} /></div>{step.legs?.map(([enTitle, en, zhTitle, zh]) => <div key={enTitle} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{enTitle}</strong><p>{en}</p><p className="mt-1 text-neutral-500"><strong>{zhTitle}</strong>：{zh}</p></div>)}</div>}</article>;
 }
 
 function FoodCard({ item, theme, onOpen }) {
-  return <button onClick={() => onOpen(item)} className="w-full overflow-hidden rounded-[34px] text-left shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70 transition active:scale-[.99]" style={{ background: theme.card }}><SmartImage src={item.image} alt={item.zh} className="h-44 w-full object-cover" /><div className="p-4"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><Badge>{item.tag} / {item.tagZh}</Badge></div><Pair en={item.story} zh={item.storyZh} className="text-sm leading-6 text-neutral-700" /><div className="mt-3 flex flex-wrap gap-2">{item.try.slice(0, 3).map(([en, zh]) => <span key={en} className="rounded-full px-3 py-1 text-[11px] font-bold text-neutral-700" style={{ background: theme.tint }}>{en} / {zh}</span>)}</div></div></button>;
+  return <button onClick={() => onOpen(item)} className="food-card w-full overflow-hidden rounded-[34px] text-left shadow-[0_18px_56px_rgba(75,91,180,.12)] ring-1 ring-white/70 transition active:scale-[.99]" style={{ background: theme.card }}><SmartImage src={item.image} alt={item.zh} className="h-44 w-full object-cover" /><div className="p-4"><div className="mb-2 flex items-start justify-between gap-3"><div><h3 className="text-lg font-black leading-tight tracking-[-.03em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><Badge>{item.tag} / {item.tagZh}</Badge></div><Pair en={item.story} zh={item.storyZh} className="text-sm leading-6 text-neutral-700" /><div className="mt-3 flex flex-wrap gap-2">{item.try.slice(0, 3).map(([en, zh]) => <span key={en} className="rounded-full px-3 py-1 text-[11px] font-bold text-neutral-700" style={{ background: theme.tint }}>{en} / {zh}</span>)}</div></div></button>;
 }
 
 function ReferenceCard({ refs, theme }) {
@@ -499,23 +589,6 @@ function getNoticeItems(day) {
   return items[day.id] || [];
 }
 
-function FlipCultureCard({ item, index, theme }) {
-  const [flipped, setFlipped] = useState(false);
-  return (
-    <button onClick={() => setFlipped(!flipped)} className="w-full rounded-[34px] p-4 text-left shadow-[0_18px_56px_rgba(75,91,180,.10)] ring-1 ring-white/70 transition active:scale-[.99]" style={{ background: flipped ? theme.gradient : theme.card, color: flipped ? "white" : "#111827" }}>
-      <div className="mb-3 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl text-xl" style={{ background: flipped ? "rgba(255,255,255,.25)" : theme.gradient, color: "white" }}>{item.icon}</div>
-        <div>
-          <p className={`text-[11px] font-black uppercase tracking-[.14em] ${flipped ? "text-white/75" : "text-neutral-500"}`}>Story {String(index + 1).padStart(2, "0")} · Tap card / 点卡片</p>
-          <h3 className="text-lg font-black leading-tight tracking-[-.03em]">{item.title}</h3>
-          <p className={`text-sm font-semibold ${flipped ? "text-white/75" : "text-neutral-500"}`}>{item.zh}</p>
-        </div>
-      </div>
-      {flipped ? <Pair en={item.en} zh={item.cn} className="rounded-2xl bg-white/18 p-3 text-sm leading-6" /> : <div className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>Tap to reveal / 点击翻开</strong><br />Why this place matters.<br /><span className="text-neutral-500">查看这个地方为什么值得看。</span></div>}
-    </button>
-  );
-}
-
 function CulturePage({ day, theme }) {
   const notes = getCultureNotes(day);
   return (
@@ -534,7 +607,19 @@ function CulturePage({ day, theme }) {
           <Pair en={day.intro} zh={day.introZh} className="text-sm leading-6 text-neutral-700" />
         </div>
       </section>
-      {notes.map((item, index) => <FlipCultureCard key={item.title} item={item} index={index} theme={theme} />)}
+      {notes.map((item, index) => (
+        <section key={item.title} className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.10)] ring-1 ring-white/70" style={{ background: theme.card }}>
+          <div className="mb-3 flex items-center gap-3">
+            <DynamicIcon theme={theme} active>{item.icon}</DynamicIcon>
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[.14em] text-neutral-500">Story {String(index + 1).padStart(2, "0")}</p>
+              <h3 className="text-lg font-black leading-tight tracking-[-.03em]">{item.title}</h3>
+              <p className="text-sm font-semibold text-neutral-500">{item.zh}</p>
+            </div>
+          </div>
+          <Pair en={item.en} zh={item.cn} className="rounded-2xl p-3 text-sm leading-6 text-neutral-700" />
+        </section>
+      ))}
       <section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.10)] ring-1 ring-white/70" style={{ background: theme.card }}>
         <SectionTitle kicker="Look for" title="What to notice" zh="现场看什么" />
         <div className="space-y-2">
@@ -657,7 +742,7 @@ function MapItinerarySheet({ day, theme, onClose }) {
   if (!day) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/35 px-3 pb-3" onClick={onClose}>
-      <div className="max-h-[90vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.30)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}>
+      <div className="sheet-panel max-h-[90vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.30)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}>
           <div>
             <p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Day map / 一天地图</p>
@@ -677,14 +762,14 @@ function MapItinerarySheet({ day, theme, onClose }) {
 
 function DetailSheet({ item, theme, onClose }) {
   if (!item) return null;
-  return <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={onClose}><div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.28)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Detail / 详情</p><h3 className="text-xl font-black leading-tight tracking-[-.04em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button></div><div className="max-h-[72vh] overflow-y-auto p-5">{item.gallery?.length ? <div className="mb-4 grid grid-cols-2 gap-2">{item.gallery.map((src, index) => <SmartImage key={src} src={src} alt={`${item.zh} ${index + 1}`} className={index === 0 ? "col-span-2 h-60 w-full rounded-[30px] object-cover" : "h-36 w-full rounded-[24px] object-cover"} />)}</div> : item.image && <SmartImage src={item.image} alt={item.zh} className="mb-4 h-60 w-full rounded-[30px] object-cover" />}<Pair en={item.story || item.note} zh={item.storyZh || item.noteZh} className="text-sm leading-6 text-neutral-700" />{item.try && <div className="mt-4 rounded-2xl bg-white/66 p-4 text-sm leading-6"><strong>{item.map ? "What to try / 推荐尝试" : "Highlights / 重点内容"}</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.try.map(([en, zh]) => <li key={en}>{en} / {zh}</li>)}</ul></div>}{item.map && <div className="mt-4"><MapButtons query={item.map} /></div>}</div></div></div>;
+  return <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={onClose}><div className="sheet-panel max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.28)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Detail / 详情</p><h3 className="text-xl font-black leading-tight tracking-[-.04em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button></div><div className="max-h-[72vh] overflow-y-auto p-5">{item.gallery?.length ? <div className="mb-4 grid grid-cols-2 gap-2">{item.gallery.map((src, index) => <SmartImage key={src} src={src} alt={`${item.zh} ${index + 1}`} className={index === 0 ? "col-span-2 h-60 w-full rounded-[30px] object-cover" : "h-36 w-full rounded-[24px] object-cover"} />)}</div> : item.image && <SmartImage src={item.image} alt={item.zh} className="mb-4 h-60 w-full rounded-[30px] object-cover" />}<Pair en={item.story || item.note} zh={item.storyZh || item.noteZh} className="text-sm leading-6 text-neutral-700" />{item.try && <div className="mt-4 rounded-2xl bg-white/66 p-4 text-sm leading-6"><strong>{item.map ? "What to try / 推荐尝试" : "Highlights / 重点内容"}</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.try.map(([en, zh]) => <li key={en}>{en} / {zh}</li>)}</ul></div>}{item.map && <div className="mt-4"><MapButtons query={item.map} /></div>}</div></div></div>;
 }
 
 function JumpCard({ icon, title, zh, query, theme, onOpen, note, noteZh }) {
   return (
     <div className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}>
       <div className="mb-3 flex items-center gap-3">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl text-xl text-white" style={{ background: theme.gradient }}>{icon}</div>
+        <DynamicIcon theme={theme} active>{icon}</DynamicIcon>
         <div>
           <h3 className="text-lg font-black leading-tight tracking-[-.03em]">{title}</h3>
           <p className="text-sm font-semibold text-neutral-500">{zh}</p>
@@ -728,29 +813,6 @@ function uniqueJumpCards(cards) {
     seen.add(key);
     return true;
   });
-}
-
-function FloatingGoButton({ day, theme, setTab, openMap }) {
-  const [open, setOpen] = useState(false);
-  const topFood = day.food?.[0];
-  return (
-    <>
-      <button onClick={() => setOpen(true)} className="fixed bottom-[94px] right-[calc(50%-205px+18px)] z-40 rounded-full px-5 py-4 text-sm font-black text-white shadow-[0_18px_60px_rgba(55,70,160,.25)] transition active:scale-95" style={{ background: theme.gradient }}>
-        Go now / 现在出发
-      </button>
-      {open && <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={() => setOpen(false)}>
-        <div className="w-full max-w-[430px] rounded-[34px] p-4 shadow-[0_30px_100px_rgba(34,48,140,.30)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}>
-          <div className="mb-3 flex items-center justify-between"><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Quick actions</p><h3 className="text-xl font-black tracking-[-.04em]">What next?</h3><p className="text-sm font-semibold text-neutral-500">下一步去哪？</p></div><button onClick={() => setOpen(false)} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black">Close</button></div>
-          <div className="grid grid-cols-2 gap-2">
-            <button onClick={() => { setOpen(false); openMap(); }} className="rounded-2xl p-4 text-left text-white" style={{ background: theme.gradient }}><div className="text-xl">🗺️</div><strong>Day map</strong><br /><span className="text-xs opacity-80">一天地图</span></button>
-            <button onClick={() => { setOpen(false); setTab("taste"); }} className="rounded-2xl p-4 text-left" style={{ background: theme.card }}><div className="text-xl">🍜</div><strong>Eat</strong><br /><span className="text-xs text-neutral-500">{topFood?.zh || "美食"}</span></button>
-            <button onClick={() => { setOpen(false); setTab("culture"); }} className="rounded-2xl p-4 text-left" style={{ background: theme.card }}><div className="text-xl">🏛️</div><strong>Story</strong><br /><span className="text-xs text-neutral-500">文化科普</span></button>
-            <div className="rounded-2xl p-4" style={{ background: theme.card }}><div className="text-xl">🏨</div><strong>Hotel</strong><br /><div className="mt-2"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></div>
-          </div>
-        </div>
-      </div>}
-    </>
-  );
 }
 
 function FoodPassport({ theme, passport, setPassport, dayId }) {
@@ -805,7 +867,7 @@ function FoodPassport({ theme, passport, setPassport, dayId }) {
           const active = !!passport[id];
           return (
             <button key={id} onClick={() => toggle(id)} className="rounded-2xl p-3 text-left transition active:scale-95" style={{ background: active ? theme.gradient : theme.tint, color: active ? "white" : "#333" }}>
-              <div className="mb-1 text-xl">{active ? "✅" : icon}</div>
+              <div className="mb-2"><DynamicIcon theme={theme} size="sm" active={active}>{active ? "✅" : icon}</DynamicIcon></div>
               <div className="text-xs font-black leading-4">{en}</div>
               <div className="text-[11px] font-semibold opacity-80">{zh}</div>
               <div className="mt-2 text-[10px] font-bold opacity-70">{city} / {cityZh}</div>
@@ -826,22 +888,25 @@ export default function JiangnanTravelGuideApp() {
   const [detail, setDetail] = useState(null);
   const [mapOpen, setMapOpen] = useState(false);
   const [passport, setPassport] = useState({});
-  const [completedRoutes, setCompletedRoutes] = useState({});
   const day = days.find((d) => d.id === dayId) || days[0];
   const theme = getTheme(day.id, mood);
-  const completedForDay = completedRoutes[day.id] || {};
-  const toggleRouteDone = (index) => setCompletedRoutes((prev) => ({ ...prev, [day.id]: { ...(prev[day.id] || {}), [index]: !(prev[day.id] || {})[index] } }));
   const guide = useMemo(() => ({ name: "Spot + Food Guide", zh: "景点与美食详细介绍", image: day.hero, story: day.intro, storyZh: day.introZh, try: [...day.plan.map((p) => [p.title, p.zh]), ...day.food.flatMap((f) => f.try)].slice(0, 12) }), [day]);
   const pageTitle = { home: ["Overview", "今日概览"], route: ["Loose Route", "大致路线"], taste: ["Taste Guide", "味道推荐"], culture: ["Culture Notes", "文化科普"], go: ["Quick Go", "快速出发"] }[tab];
 
-  return <div className="min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden shadow-[0_30px_90px_rgba(74,91,180,.16)]" style={{ background: theme.bg }}><MoodAtmosphere mood={mood} theme={theme} /><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
-    <header className="sticky top-0 z-30 border-b border-white/55 px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full bg-white/78 px-4 py-2 text-sm font-black shadow-sm">Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className="shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95" style={dayId === d.id ? { background: theme.gradient, color: "white" } : { background: "rgba(255,255,255,.72)", color: "#52525b" }}>{d.tab}</button>)}</div></header>
-    <main className="relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
-      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><TodayProgress day={day} completed={completedForDay} theme={theme} /><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
-      {tab === "route" && <div className="space-y-3"><TodayProgress day={day} completed={completedForDay} theme={theme} /><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} completed={!!completedForDay[i]} onComplete={toggleRouteDone} />)}</div>}
+  return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
+    <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(242,245,248,.50)", borderColor: "rgba(255,255,255,.34)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
+      const active = dayId === d.id;
+      return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: "white" } : { background: "rgba(255,255,255,.72)", color: "#52525b" }}>{d.tab}</button>;
+    })}</div></header>
+    <main key={`${day.id}-${tab}-${mood}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
+      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
+      {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
       {tab === "culture" && <CulturePage day={day} theme={theme} />}
       {tab === "go" && <div className="space-y-3"><JumpCard icon="🗺️" title="Day map itinerary" zh="一天地图行程" theme={theme} onOpen={() => setMapOpen(true)} note="See driving, train and walking segments in one popup." noteZh="把行车、高铁和步行段一次看清楚。" /><JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} /><JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />{uniqueJumpCards([...getSmartJumps(day, mood), ...[["🏨", "Hotel anchor", "回酒店", `${day.hotel} ${day.hotelZh} ${day.addressZh}`], ...day.jumps].map(([icon, title, zh, query]) => ({ icon, title, zh, query }))]).map((item) => <JumpCard key={`${item.title}-${item.query || item.zh}`} {...item} theme={theme} />)}</div>}
     </main>
-    <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 border-t border-white/60 px-3 py-3 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="grid grid-cols-5 gap-1 rounded-[28px] bg-white/60 p-2 shadow-[0_20px_60px_rgba(72,89,190,.12)] ring-1 ring-white/80">{tabs.map(([id, en, zh]) => <button key={id} onClick={() => setTab(id)} className="rounded-2xl px-2 py-2 text-xs font-black transition active:scale-95" style={tab === id ? { background: theme.gradient, color: "white" } : { color: "#71717a" }}><span className="block">{en}</span><span className="block text-[10px] opacity-80">{zh}</span></button>)}</div></nav><FloatingGoButton day={day} theme={theme} setTab={setTab} openMap={() => setMapOpen(true)} /><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /><MapItinerarySheet day={mapOpen ? day : null} theme={theme} onClose={() => setMapOpen(false)} /></div></div>;
+    <nav className="bottom-nav fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 px-3 py-3" style={{ background: "transparent" }}><div className="grid grid-cols-5 gap-1 rounded-[30px] p-2 shadow-[0_20px_60px_rgba(25,30,38,.18)] backdrop-blur-2xl" style={{ background: theme.chipDark, border: "1px solid rgba(255,255,255,.08)" }}>{tabs.map(([id, en, zh]) => {
+      const active = tab === id;
+      return <button key={id} onClick={() => setTab(id)} className={`rounded-2xl px-2 py-2 text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark, boxShadow: "0 10px 26px rgba(18,243,189,.20)" } : { color: "#c7cbd2" }}><span className="block">{en}</span><span className="block text-[10px] opacity-80">{zh}</span></button>;
+    })}</div></nav><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /><MapItinerarySheet day={mapOpen ? day : null} theme={theme} onClose={() => setMapOpen(false)} /></div></div>;
 }
