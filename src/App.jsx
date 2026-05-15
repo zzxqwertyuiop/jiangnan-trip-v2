@@ -181,7 +181,7 @@ const days = [
       { name: "Bund Family Banquet", zh: "外滩家宴", tag: "Main dinner", tagZh: "主推晚餐", image: IMG.bundFamily, map: "外滩家宴 上海 外滩", story: "Old-Shanghai dinner direction: soy-braised dishes, seasonal cold plates, and richer Jiangnan flavors that match the Bund’s historical setting.", storyZh: "老上海晚餐方向：本帮红烧、时令冷菜和偏浓郁的江南口味，和外滩历史建筑氛围比较搭。", try: [["Shanghai-style braised dishes", "本帮红烧"], ["Seasonal cold plates", "时令冷菜"], ["Local soup", "本地汤羹"]] },
       { name: "Li Bai Crab", zh: "李百蟹 / 蟹黄面方向", tag: "Crab backup", tagZh: "蟹类备选", image: IMG.liBaiCrab, map: "李百蟹 外滩 江景餐厅 上海", story: "Crab roe noodles turn crab fat and roe into a concentrated golden sauce over warm noodles — rich, aromatic, and memorable.", storyZh: "蟹黄面把蟹黄、蟹膏的鲜香浓缩到热面里，浓郁、香气足，是很有记忆点的一口。", try: [["Crab roe noodles", "蟹黄面"], ["Crab dishes", "蟹类菜"], ["River-view dinner", "江景晚餐"]] },
     ],
-    references: { en: "Nearby references", zh: "附近参考", items: [["遇外滩", "Bund-view dining option", "外滩景观餐厅备选"], ["沪公馆·上海菜", "Shanghainese cuisine", "上海菜正餐备选"], ["新荣记", "Refined Chinese seafood", "精致中餐/海鲜方向"], ["外滩家宴上海菜", "Old-Shanghai flavor", "老上海本帮菜方向"], ["沈大成", "Classic Shanghai snacks", "上海传统点心参考"]] },
+    references: { en: "Nearby references", zh: "附近参考", items: [["遇外滩", "Bund-view dining option", "外滩景观餐厅备选"], ["沪公馆·上海菜", "Shanghainese cuisine", "上海菜正餐备选"], ["新荣记", "Refined Chinese seafood", "精致中餐/海鲜方向"], ["沈大成", "Classic Shanghai snacks", "上海传统点心参考"]] },
     jumps: [["🌃", "The Bund night view", "外滩夜景", "外滩 上海"], ["🥢", "Bund Family Banquet", "外滩家宴", "外滩家宴 上海 外滩"], ["🦀", "Li Bai Crab", "李百蟹", "李百蟹 外滩 江景餐厅 上海"], ["🚶", "Nanjing East Road", "南京东路", "南京东路 上海"]],
     missions: [["🌃", "Skyline game", "Find one angle with old Shanghai and Lujiazui in the same frame.", "找一个能同时拍到老上海建筑和陆家嘴的角度。"], ["🥢", "First bite", "Pick one Shanghainese dish that feels new to the group.", "点一道大家没吃过的上海味道。"]],
   },
@@ -275,7 +275,7 @@ function mapLinks(query) {
 
 function SmartImage({ src, alt, className }) {
   const [bad, setBad] = useState(false);
-  return bad ? <div className={`${className} flex items-center justify-center bg-gradient-to-br from-slate-200 via-pink-100 to-blue-200 text-xs font-bold text-white`}>Photo</div> : <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setBad(true)} className={className} />;
+  return bad ? <div className={`${className} flex items-center justify-center bg-gradient-to-br from-slate-200 via-pink-100 to-blue-200 text-xs font-bold text-white`}>Photo loading / 图片加载中</div> : <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setBad(true)} className={className} />;
 }
 
 function Pair({ en, zh, className = "" }) {
@@ -422,6 +422,37 @@ function getCultureNotes(day) {
   return notes[day.id] || [];
 }
 
+function getNoticeItems(day) {
+  const items = {
+    d25: [
+      ["Historic façades", "Look at the rhythm of old bank and trading-house buildings.", "历史立面", "看老银行和洋行建筑立面的节奏。"],
+      ["Skyline contrast", "Stand where the old Bund and Lujiazui appear in one frame.", "天际线对照", "找一个外滩老建筑和陆家嘴同框的位置。"],
+      ["River reflections", "Night lights on the Huangpu River make the walk feel cinematic.", "江面倒影", "黄浦江上的夜色倒影会让散步更有电影感。"],
+    ],
+    d26: [
+      ["Cathedral silhouette", "Notice the vertical lines and Gothic-revival feeling.", "教堂轮廓", "看竖向线条和哥特复兴式的建筑感。"],
+      ["Library corners", "Find quiet reading spaces instead of only taking exterior photos.", "书院角落", "不要只拍外观，也找一处安静的阅读角落。"],
+      ["Framed garden views", "Doors, windows, ponds and rocks create picture-like views.", "园林框景", "门洞、窗、水池和假山会组成像画一样的视线。"],
+    ],
+    d27: [
+      ["Bridge rhythm", "Bridges divide the walk into small water-town scenes.", "桥的节奏", "石桥会把水乡路线切成一个个小场景。"],
+      ["Canal reflections", "Night lights and water reflections are the most Wuzhen part of the evening.", "水面倒影", "灯光和水面倒影是乌镇夜晚最有记忆点的部分。"],
+      ["Literary pause", "Muxin Art Museum adds a quiet break from the busy scenic streets.", "文学停顿", "木心美术馆让热闹景区里多了一个安静停顿。"],
+    ],
+    d28: [
+      ["Rooflines", "Look for restrained Chinese architectural lines at the National Archives.", "屋顶线条", "在版本馆看克制的中式建筑线条。"],
+      ["Text and memory", "The visit is about how books and editions preserve culture.", "典籍记忆", "这一站的重点是版本和典籍如何保存文化记忆。"],
+      ["Liangzhu clues", "Connect jade, rice fields and ancient water systems as one civilization story.", "良渚线索", "把玉器、稻作和古代水利连成一个文明故事。"],
+    ],
+    d29: [
+      ["Temple air", "Slow down before taking photos; the atmosphere matters.", "山寺气息", "拍照前先慢下来，寺庙氛围本身就是重点。"],
+      ["Tea-field layers", "Look at the layered slopes and village paths, not only the tea cup.", "茶田层次", "不只看一杯茶，也看山坡茶田和村路层次。"],
+      ["Soft ending", "The final day should feel like a gentle close, not another checklist.", "柔和收尾", "最后一天适合轻轻结束，不要走成打卡清单。"],
+    ],
+  };
+  return items[day.id] || [];
+}
+
 function CulturePage({ day, theme }) {
   const notes = getCultureNotes(day);
   return (
@@ -456,9 +487,9 @@ function CulturePage({ day, theme }) {
       <section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.10)] ring-1 ring-white/70" style={{ background: theme.card }}>
         <SectionTitle kicker="Look for" title="What to notice" zh="现场看什么" />
         <div className="space-y-2">
-          {day.plan.map((step) => (
-            <div key={step.title} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}>
-              <strong>{step.title}</strong><br />{step.why}<br /><span className="text-neutral-500">{step.whyZh}</span>
+          {getNoticeItems(day).map(([enTitle, en, zhTitle, zh]) => (
+            <div key={enTitle} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}>
+              <strong>{enTitle}</strong><br />{en}<br /><span className="text-neutral-500"><strong>{zhTitle}</strong>：{zh}</span>
             </div>
           ))}
         </div>
@@ -508,14 +539,111 @@ function getMapSegments(day) {
   return maps[day.id] || [];
 }
 
+function RouteMapVisual({ day, theme }) {
+  const segments = getMapSegments(day);
+  const colors = { drive: "#6f8fe8", walk: "#73b894", train: "#a78bfa" };
+  const routePoints = [
+    day.id === "d25" ? ["Hotel", "酒店"] : day.id === "d26" ? ["Hotel", "酒店"] : day.id === "d27" ? ["Shanghai", "上海"] : day.id === "d28" ? ["Wuzhen", "乌镇"] : ["Hotel", "酒店"],
+    ...segments.map((seg) => {
+      const parts = seg.title.split("→");
+      const zhParts = seg.zh.split("→");
+      return [(parts[parts.length - 1] || seg.title).trim(), (zhParts[zhParts.length - 1] || seg.zh).trim()];
+    }),
+  ].slice(0, 7);
+  const height = Math.max(420, routePoints.length * 74);
+  const startY = 50;
+  const stepY = (height - 100) / Math.max(routePoints.length - 1, 1);
+  const points = routePoints.map((point, index) => ({ x: index % 2 === 0 ? 92 : 248, y: startY + index * stepY, en: point[0], zh: point[1] }));
+  const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ");
+
+  return (
+    <section className="rounded-[30px] p-4 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[11px] font-black uppercase tracking-[.14em] text-neutral-500">Visual route / 图片路线</p>
+          <h4 className="mt-1 text-lg font-black tracking-[-.03em]">{day.title}</h4>
+          <p className="text-sm font-semibold text-neutral-500">{day.titleZh}</p>
+        </div>
+        <Badge>{segments.length} steps</Badge>
+      </div>
+      <div className="overflow-hidden rounded-[26px] bg-white/65 p-3">
+        <svg viewBox={`0 0 340 ${height}`} className="h-auto w-full rounded-[22px]" role="img" aria-label={`${day.title} visual route map`}>
+          <defs>
+            <linearGradient id={`route-bg-${day.id}`} x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.78" />
+              <stop offset="100%" stopColor={theme.accent2} stopOpacity="0.20" />
+            </linearGradient>
+            <filter id={`soft-shadow-${day.id}`} x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#4b5bb4" floodOpacity="0.16" />
+            </filter>
+          </defs>
+          <rect width="340" height={height} rx="28" fill={`url(#route-bg-${day.id})`} />
+          <circle cx="285" cy="60" r="54" fill={theme.accent2} opacity="0.18" />
+          <circle cx="55" cy={height - 60} r="72" fill={theme.accent} opacity="0.12" />
+          {[...Array(9)].map((_, i) => <path key={i} d={`M${-20 + i * 45} 0 C ${50 + i * 25} ${height * 0.25}, ${-20 + i * 50} ${height * 0.55}, ${75 + i * 30} ${height}`} stroke="#ffffff" strokeOpacity="0.36" strokeWidth="1" fill="none" />)}
+          <path d={path} fill="none" stroke="#ffffff" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" opacity="0.88" filter={`url(#soft-shadow-${day.id})`} />
+          {points.slice(0, -1).map((p, i) => {
+            const next = points[i + 1];
+            const mode = segments[i]?.mode || "drive";
+            return <line key={`line-${i}`} x1={p.x} y1={p.y} x2={next.x} y2={next.y} stroke={colors[mode]} strokeWidth="7" strokeLinecap="round" strokeDasharray={mode === "walk" ? "2 12" : mode === "train" ? "16 8" : "0"} />;
+          })}
+          {points.map((p, i) => {
+            const incoming = i === 0 ? "drive" : segments[i - 1]?.mode || "drive";
+            return (
+              <g key={`${p.en}-${i}`}>
+                <circle cx={p.x} cy={p.y} r="21" fill="#fff" filter={`url(#soft-shadow-${day.id})`} />
+                <circle cx={p.x} cy={p.y} r="14" fill={colors[incoming]} />
+                <text x={p.x} y={p.y + 5} textAnchor="middle" fontSize="12" fontWeight="900" fill="#fff">{i + 1}</text>
+                <foreignObject x={p.x < 170 ? p.x + 26 : p.x - 136} y={p.y - 27} width="110" height="62">
+                  <div className="rounded-2xl bg-white/80 px-3 py-2 shadow-sm backdrop-blur" xmlns="http://www.w3.org/1999/xhtml">
+                    <div className="truncate text-[11px] font-black leading-4 text-neutral-900">{p.en}</div>
+                    <div className="truncate text-[10px] font-bold leading-4 text-neutral-500">{p.zh}</div>
+                  </div>
+                </foreignObject>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
+      <div className="mt-3 grid grid-cols-3 gap-2">
+        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.drive }} />Taxi / 打车</div>
+        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.train }} />Train / 高铁</div>
+        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.walk }} />Walk / 步行</div>
+      </div>
+    </section>
+  );
+}
+
+function MapSegmentDetails({ day, theme }) {
+  const segments = getMapSegments(day);
+  const label = {
+    drive: "Taxi / 打车",
+    train: "Train / 高铁",
+    walk: "Walk / 步行",
+  };
+  return (
+    <section className="mt-4 rounded-[30px] p-4 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
+      <SectionTitle kicker="Route details" title="How to move" zh="怎么移动" />
+      <div className="space-y-2">
+        {segments.map((seg, index) => (
+          <details key={`${seg.title}-${index}`} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}>
+            <summary className="cursor-pointer list-none font-black text-neutral-800">
+              {index + 1}. {seg.icon} {seg.title} · {seg.time}
+              <span className="block text-xs font-semibold text-neutral-500">{seg.zh} · {label[seg.mode]}</span>
+            </summary>
+            <div className="mt-3 text-neutral-700">
+              <Pair en={seg.note} zh={seg.noteZh} />
+              <div className="mt-3"><MapButtons query={seg.query} /></div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function MapItinerarySheet({ day, theme, onClose }) {
   if (!day) return null;
-  const segments = getMapSegments(day);
-  const modeStyle = {
-    drive: { label: "Driving / 行车", cls: "border-l-4 border-blue-400", bg: "rgba(226,236,255,.72)" },
-    walk: { label: "Walking / 步行", cls: "border-l-4 border-emerald-400", bg: "rgba(220,252,231,.58)" },
-    train: { label: "Train / 高铁", cls: "border-l-4 border-purple-400", bg: "rgba(237,233,254,.64)" },
-  };
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/35 px-3 pb-3" onClick={onClose}>
       <div className="max-h-[90vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.30)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}>
@@ -528,30 +656,9 @@ function MapItinerarySheet({ day, theme, onClose }) {
           <button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button>
         </div>
         <div className="max-h-[76vh] overflow-y-auto p-5">
-          <section className="mb-4 rounded-[28px] p-4 text-sm leading-6 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
-            <SectionTitle kicker="Overview" title="Full-day route" zh="全天路线总览" />
-            <Pair en={day.route} zh={day.routeZh} className="font-semibold text-neutral-700" />
-          </section>
-          <div className="space-y-3">
-            {segments.map((seg, index) => {
-              const style = modeStyle[seg.mode] || modeStyle.drive;
-              return (
-                <section key={`${seg.title}-${index}`} className={`rounded-[28px] p-4 shadow-sm ring-1 ring-white/60 ${style.cls}`} style={{ background: theme.card }}>
-                  <div className="mb-2 flex items-start gap-3">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-lg" style={{ background: style.bg }}>{seg.icon}</div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] font-black uppercase tracking-[.14em] text-neutral-500">Step {index + 1} · {style.label}</p>
-                      <h4 className="text-base font-black leading-tight tracking-[-.02em]">{seg.title}</h4>
-                      <p className="text-sm font-semibold text-neutral-500">{seg.zh}</p>
-                    </div>
-                    <Badge>{seg.time}</Badge>
-                  </div>
-                  <Pair en={seg.note} zh={seg.noteZh} className="rounded-2xl p-3 text-sm leading-6 text-neutral-700" />
-                  <div className="mt-3"><MapButtons query={seg.query} /></div>
-                </section>
-              );
-            })}
-          </div>
+          <RouteMapVisual day={day} theme={theme} />
+          <MapSegmentDetails day={day} theme={theme} />
+          <p className="mt-3 rounded-2xl bg-white/55 p-3 text-xs font-semibold leading-5 text-neutral-600">This is a visual itinerary map. Tap each detail row below for real navigation buttons. / 这是视觉化路线图；展开下方每段路线，可以直接打开真实导航。</p>
         </div>
       </div>
     </div>
@@ -586,11 +693,6 @@ function getSmartJumps(day, mood) {
     : day.id === "d27" ? ["📸", "Photo stop", "拍照点", "乌镇西栅", "Best for bridges, canals and night reflections.", "适合拍石桥、水巷和夜景倒影。"]
     : day.id === "d28" ? ["📸", "Photo stop", "拍照点", "杭州国家版本馆", "Best for calm architecture and Chinese-style lines.", "适合拍建筑线条和中式空间。"]
     : ["📸", "Photo stop", "拍照点", "龙井茶园 杭州", "Best for tea fields and green hills.", "适合拍茶田和山坡层次。"];
-  const cultureSpot = day.id === "d25" ? ["🏙️", "Culture mode", "文化模式", "外滩历史建筑群 上海", "Read the riverfront as Shanghai’s modern history.", "把外滩当作上海近代城市史来逛。"]
-    : day.id === "d26" ? ["🏛️", "Culture mode", "文化模式", "徐家汇书院 上海", "Architecture, books and Xujiahui’s educational history.", "建筑、书院和徐家汇教育传统。"]
-    : day.id === "d27" ? ["🖼️", "Culture mode", "文化模式", "木心美术馆 乌镇", "A quiet literary stop inside the water town.", "水乡里更安静的文学艺术点。"]
-    : day.id === "d28" ? ["🏺", "Culture mode", "文化模式", "良渚文化村 杭州", "Jade, rice agriculture and early urban civilization.", "玉器、稻作和早期城市文明。"]
-    : ["🙏", "Culture mode", "文化模式", "灵隐寺 杭州", "Temple courtyards, wooded hills and grotto scenery.", "寺院、山林和石刻景观。"];
   const easySpot = day.id === "d27" ? ["🛶", "Easy mode", "轻松路线", "乌镇西栅", "Stay inside Xizha and keep the day walkable.", "只留在西栅内部，减少转场。"]
     : day.id === "d29" ? ["🍃", "Easy mode", "轻松路线", "法喜寺 杭州", "Choose the shorter temple route before tea fields.", "先走短寺庙线，再去茶园。"]
     : ["☁️", "Easy mode", "轻松路线", `${day.hotel} ${day.hotelZh}`, "Use the hotel as the reset point and keep the route simple.", "以酒店为重置点，路线保持简单。"];
@@ -602,9 +704,9 @@ function getSmartJumps(day, mood) {
   const feedMe = ["🍜", "Feed me", "带我去吃饭", topFood?.map || topFood?.name || day.route, `Go to today’s main food pick: ${topFood?.name || "nearby food"}.`, `去今天主推：${topFood?.zh || "附近餐厅"}。`];
   const rainSafe = ["☔", "Rain-safe stop", "雨天安全点", day.id === "d26" ? "徐家汇书院 上海" : day.id === "d27" ? "木心美术馆 乌镇" : day.id === "d28" ? "杭州国家版本馆" : day.id === "d29" ? "灵隐寺 杭州" : `${day.hotel} ${day.hotelZh}`, "Less outdoor walking, easier shelter, better for bad weather.", "减少户外步行，更容易避雨和休息。"];
 
-  const order = mood === "rain" ? [rainSafe, feedMe, easySpot, cultureSpot]
-    : mood === "active" ? [activeExtra, photoSpot, cultureSpot, feedMe]
-    : [easySpot, feedMe, photoSpot, cultureSpot];
+  const order = mood === "rain" ? [rainSafe, feedMe, easySpot]
+    : mood === "active" ? [activeExtra, photoSpot, feedMe]
+    : [easySpot, feedMe, photoSpot];
   return order.map(([icon, title, zh, query, note, noteZh]) => ({ icon, title, zh, query, note, noteZh }));
 }
 
@@ -618,7 +720,7 @@ function uniqueJumpCards(cards) {
   });
 }
 
-function FoodPassport({ theme, passport, setPassport, dayId, compact = false }) {
+function FoodPassport({ theme, passport, setPassport, dayId }) {
   const dailyItems = {
     d25: [
       ["d25-bund-dinner", "🥢", "Old-Shanghai dinner", "老上海晚餐", "Bund area", "外滩方向"],
@@ -664,7 +766,7 @@ function FoodPassport({ theme, passport, setPassport, dayId, compact = false }) 
   const toggle = (id) => setPassport((prev) => ({ ...prev, [id]: !prev[id] }));
   return (
     <section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}>
-      <SectionTitle kicker="Food Passport" title={compact ? "5 tastes today" : "Daily taste cards"} zh={compact ? "今日5个美食打卡" : "每天固定5个美食打卡"} right={<Badge>{dayId ? `${todayDone}/${totalLabel}` : `${doneAll}/${allItems.length}`}</Badge>} />
+      <SectionTitle kicker="Food Passport" title="Daily taste cards" zh="每天固定5个美食打卡" right={<Badge>{dayId ? `${todayDone}/${totalLabel}` : `${doneAll}/${allItems.length}`}</Badge>} />
       <div className="grid grid-cols-2 gap-2">
         {visibleItems.map(([id, icon, en, zh, city, cityZh]) => {
           const active = !!passport[id];
@@ -697,9 +799,9 @@ export default function JiangnanTravelGuideApp() {
   const pageTitle = { home: ["Overview", "今日概览"], route: ["Loose Route", "大致路线"], taste: ["Taste Guide", "味道推荐"], culture: ["Culture Notes", "文化科普"], go: ["Quick Go", "快速出发"] }[tab];
 
   return <div className="min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden shadow-[0_30px_90px_rgba(74,91,180,.16)]" style={{ background: theme.bg }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
-    <header className="sticky top-0 z-30 border-b border-white/55 px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Transit · Taste · Fun</p></div><button onClick={() => setDetail(guide)} className="rounded-full bg-white/78 px-4 py-2 text-sm font-black shadow-sm">Guide / 攻略</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className="shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95" style={dayId === d.id ? { background: theme.gradient, color: "white" } : { background: "rgba(255,255,255,.72)", color: "#52525b" }}>{d.tab}</button>)}</div></header>
+    <header className="sticky top-0 z-30 border-b border-white/55 px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: theme.glass }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full bg-white/78 px-4 py-2 text-sm font-black shadow-sm">Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className="shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95" style={dayId === d.id ? { background: theme.gradient, color: "white" } : { background: "rgba(255,255,255,.72)", color: "#52525b" }}>{d.tab}</button>)}</div></header>
     <main className="relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
-      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} compact /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">文化科普 · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
+      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
       {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
       {tab === "culture" && <CulturePage day={day} theme={theme} />}
