@@ -28,11 +28,12 @@ const IMG = {
   longjingShrimp: wiki("Zhi Wei Guan, Longjing Shrimps.jpg"),
   westLakeFish: wiki("West Lake Fish in Vinegar Gravy.jpg"),
   wuzhenFood: wiki("Wuzhen Town 014.JPG"),
-  bundFamily: "https://ak-d.tripcdn.com/images/1mh5x12000rinwbcu3C6B_C_340_230_R5.jpg?proc=source%2Ftrip",
-  liBaiCrab: "https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/vfleykgwtgid3m9aucy4.webp",
+  bundFamily: "/images/publicimagesfoodbund-family-banquet.jpg",
+  liBaiCrab: "/images/publicimagesfoodli-bai-crab.jpg",
   professorLee: "https://ak-d.tripcdn.com/images/1A0u1f000001g9o3q7D93_D_410_590_R5.jpg?proc=autoorient",
   renheguan: "https://youimg1.c-ctrip.com/target/100q0u000000j4ja834C6.jpg",
-  yulanxiang: "https://sghimages.shobserver.com/img/catch/2025/10/17/85c84101-ee5a-42ba-bd79-8222ad569be7.jpg",
+  yulanxiang: "/images/publicimagesfoodyulanxiang-1.jpg",
+  yulanxiang2: "/images/publicimagesfoodyulanxiang-2.jpg",
 };
 
 const moodThemes = {
@@ -206,7 +207,7 @@ const days = [
     food: [
       { name: "Professor LEE", zh: "Professor LEE", tag: "Xujiahui option", tagZh: "徐家汇推荐", image: IMG.professorLee, map: "Professor Lee 上海 港汇 K11 韩料", story: "A high-energy Korean meal choice: barbecue, stews, and sharing plates for a young group.", storyZh: "适合年轻人补充体力的一餐：韩式烤肉、部队锅和多人分享的热闹氛围。", try: [["Korean BBQ", "韩式烤肉"], ["Army stew", "部队锅"], ["Cold noodles", "冷面"]] },
       { name: "Renheguan", zh: "人和馆", tag: "Jiangnan food", tagZh: "江南菜", image: IMG.renheguan, map: "人和馆 上海 徐家汇", story: "A Jiangnan-style seated meal: river shrimp, braised dishes, and seasonal vegetables with a softer local palate.", storyZh: "江南/本帮方向的正餐：河虾、红烧类和时令蔬菜，口味更柔和。", try: [["River shrimp", "河虾"], ["Braised dishes", "红烧类"], ["Seasonal vegetables", "时令菜"]] },
-      { name: "Magnolia Chamber", zh: "玉兰厢", tag: "Yu Garden option", tagZh: "豫园推荐", image: IMG.yulanxiang, map: "玉兰厢 上海 豫园", story: "Near Yu Garden, Shanghainese food continues the old-city atmosphere from garden to table.", storyZh: "豫园附近吃上海菜很顺，能把老城厢的氛围从园林延续到餐桌。", try: [["Shanghainese dishes", "本帮菜"], ["Dim sum", "点心"], ["Noodles", "面食"]] },
+      { name: "Magnolia Chamber", zh: "玉兰厢", tag: "Yu Garden option", tagZh: "豫园推荐", image: IMG.yulanxiang, gallery: [IMG.yulanxiang, IMG.yulanxiang2], map: "玉兰厢 上海 豫园", story: "Near Yu Garden, Shanghainese food continues the old-city atmosphere from garden to table. The view and traditional snack-box presentation make it easy to recognize on site.", storyZh: "豫园附近吃上海菜很顺，能把老城厢的氛围从园林延续到餐桌。夜景和传统点心盒的呈现很有辨识度，到现场也更好认。", try: [["Shanghainese dishes", "本帮菜"], ["Dim sum box", "点心盒"], ["Noodles", "面食"]] },
     ],
     references: { en: "Other useful food references", zh: "其它餐厅参考", items: [["豆库", "Light Western meal", "轻西餐/简餐参考"], ["白玉兰传统小吃", "Local snack shop", "传统小吃参考"], ["榛田熟成茶行", "Tea drink break", "茶饮休息参考"], ["南翔馒头店", "Soup dumplings", "小笼/点心参考"], ["绿波廊", "Classic Yu Garden restaurant", "豫园老牌餐厅参考"], ["上海老饭店", "Traditional Shanghainese food", "传统本帮菜参考"], ["宁波汤团店", "Sweet rice dumplings", "宁波汤圆/甜品参考"]] },
     jumps: [["⛪", "Xujiahui Cathedral", "徐家汇天主堂", "徐家汇天主堂 上海"], ["📚", "Xujiahui Library", "徐家汇书院", "徐家汇书院 上海"], ["🏮", "Yu Garden", "豫园", "豫园 上海"], ["🍽️", "Magnolia Chamber", "玉兰厢", "玉兰厢 上海 豫园"]],
@@ -264,6 +265,7 @@ const days = [
     intro: "A quiet final day: wooded temple paths, Buddhist courtyards, tea fields, and a soft ending.", introZh: "最后一天安静收尾：山林寺庙、佛寺院落、茶园和轻松晚餐。",
     realMaps: [
       { title: "Hotel → Lingyin Temple", titleZh: "酒店 → 灵隐寺", src: "/maps/d29-lingyin-amap.jpg", note: "Taxi about 23 min, around 9.5 km. This map uses the real route screenshot you provided.", noteZh: "打车约23分钟，约9.5公里。此图使用你提供的真实路线截图。" },
+      { title: "Lingyin temple walking route", titleZh: "灵隐寺步行路线图", src: "/maps/d29-lingyin-temple-route.jpg", note: "Temple-area walking guide: Lingyin Temple, Taoguang Temple, Yongfu Temple, Faxi Temple and nearby mountain paths.", noteZh: "寺庙区步行攻略：灵隐寺、韬光寺、永福寺、法喜寺和周边山路。" },
     ],
     plan: [
       { part: "Morning", partZh: "上午", title: "Lingyin temple route", zh: "灵隐寺庙线", image: IMG.lingyin, place: "Hotel → Lingyin / Faxi area", placeZh: "酒店 → 灵隐/法喜寺区域", transit: "Taxi 35–55 min from hotel. Use taxi here; it is simpler for this group.", transitZh: "酒店打车约35–55分钟；这一段直接打车，更适合这组人。", why: "Lingyin is one of Hangzhou’s classic Buddhist temple areas, set between wooded hills and stone grotto scenery.", whyZh: "灵隐是杭州经典佛寺区域之一，山林、寺庙和石刻景观联系在一起。", legs: [["Long version", "Beigao Peak Cableway → Ling Shun Temple → Taoguang Temple → Yongfu Temple → Lingyin Temple → Faxi direction.", "完整线", "北高峰索道 → 灵顺寺 → 韬光寺 → 永福寺 → 灵隐寺 → 法喜寺方向。"], ["Short version", "Lingyin Temple → Faxi Temple. Better if the group wants a softer morning.", "轻松线", "灵隐寺 → 法喜寺。如果想轻松一点，这个版本更合适。"]] },
@@ -642,7 +644,7 @@ function MapItinerarySheet({ day, theme, onClose }) {
 
 function DetailSheet({ item, theme, onClose }) {
   if (!item) return null;
-  return <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={onClose}><div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.28)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Detail / 详情</p><h3 className="text-xl font-black leading-tight tracking-[-.04em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button></div><div className="max-h-[72vh] overflow-y-auto p-5">{item.image && <SmartImage src={item.image} alt={item.zh} className="mb-4 h-60 w-full rounded-[30px] object-cover" />}<Pair en={item.story || item.note} zh={item.storyZh || item.noteZh} className="text-sm leading-6 text-neutral-700" />{item.try && <div className="mt-4 rounded-2xl bg-white/66 p-4 text-sm leading-6"><strong>{item.map ? "What to try / 推荐尝试" : "Highlights / 重点内容"}</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.try.map(([en, zh]) => <li key={en}>{en} / {zh}</li>)}</ul></div>}{item.map && <div className="mt-4"><MapButtons query={item.map} /></div>}</div></div></div>;
+  return <div className="fixed inset-0 z-50 flex items-end justify-center bg-indigo-950/30 px-3 pb-3" onClick={onClose}><div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[38px] shadow-[0_30px_100px_rgba(34,48,140,.28)] ring-1 ring-white/70" style={{ background: theme.bg }} onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between border-b border-white/60 px-5 py-4 backdrop-blur-xl" style={{ background: theme.glass }}><div><p className="text-xs font-black uppercase tracking-[.14em] text-neutral-500">Detail / 详情</p><h3 className="text-xl font-black leading-tight tracking-[-.04em]">{item.name}</h3><p className="text-sm font-semibold text-neutral-500">{item.zh}</p></div><button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button></div><div className="max-h-[72vh] overflow-y-auto p-5">{item.gallery?.length ? <div className="mb-4 grid grid-cols-2 gap-2">{item.gallery.map((src, index) => <SmartImage key={src} src={src} alt={`${item.zh} ${index + 1}`} className={index === 0 ? "col-span-2 h-60 w-full rounded-[30px] object-cover" : "h-36 w-full rounded-[24px] object-cover"} />)}</div> : item.image && <SmartImage src={item.image} alt={item.zh} className="mb-4 h-60 w-full rounded-[30px] object-cover" />}<Pair en={item.story || item.note} zh={item.storyZh || item.noteZh} className="text-sm leading-6 text-neutral-700" />{item.try && <div className="mt-4 rounded-2xl bg-white/66 p-4 text-sm leading-6"><strong>{item.map ? "What to try / 推荐尝试" : "Highlights / 重点内容"}</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.try.map(([en, zh]) => <li key={en}>{en} / {zh}</li>)}</ul></div>}{item.map && <div className="mt-4"><MapButtons query={item.map} /></div>}</div></div></div>;
 }
 
 function JumpCard({ icon, title, zh, query, theme, onOpen, note, noteZh }) {
