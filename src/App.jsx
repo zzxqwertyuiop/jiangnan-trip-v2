@@ -315,6 +315,74 @@ const navTabs = [
   { id: "jump", label: "Go", zh: "出发" },
 ];
 
+const moodThemes = {
+  soft: {
+    label: "Soft",
+    zh: "轻松",
+    emoji: "☁️",
+    bg: "#f5f5f7",
+    glass: "rgba(245,245,247,0.82)",
+    card: "rgba(255,255,255,0.92)",
+    accent: "#111111",
+    tint: "#f2f2f2",
+    note: "Soft pace: fewer decisions, calmer walking, more room for coffee and photos.",
+    noteZh: "轻松模式：少做选择，慢一点走，给咖啡和拍照留时间。",
+  },
+  energy: {
+    label: "Energy",
+    zh: "元气",
+    emoji: "⚡",
+    bg: "#fff7ed",
+    glass: "rgba(255,247,237,0.84)",
+    card: "rgba(255,255,255,0.94)",
+    accent: "#ea580c",
+    tint: "#ffedd5",
+    note: "Energy mode: keep the main route, add one snack or photo stop if everyone feels good.",
+    noteZh: "元气模式：保留主线，如果大家状态好，可以加一个小吃或拍照点。",
+  },
+  rain: {
+    label: "Rain",
+    zh: "雨天",
+    emoji: "🌧️",
+    bg: "#eef4ff",
+    glass: "rgba(238,244,255,0.86)",
+    card: "rgba(255,255,255,0.94)",
+    accent: "#2563eb",
+    tint: "#dbeafe",
+    note: "Rain mode: reduce outdoor walking and prioritize libraries, museums, restaurants and taxis.",
+    noteZh: "雨天模式：减少户外步行，优先书院、博物馆、餐厅和打车。",
+  },
+};
+
+function MoodSwitch({ mood, setMood, theme }) {
+  return (
+    <section className="rounded-[32px] p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80" style={{ background: theme.card }}>
+      <SectionTitle kicker="Mood Switch" title="旅行状态" right={<Badge tone="orange">fun</Badge>} />
+      <div className="grid grid-cols-3 gap-2">
+        {Object.entries(moodThemes).map(([key, item]) => (
+          <button
+            key={key}
+            onClick={() => setMood(key)}
+            className="rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95"
+            style={{
+              background: mood === key ? item.accent : item.tint,
+              color: mood === key ? "white" : "#262626",
+              boxShadow: mood === key ? "0 14px 35px rgba(0,0,0,0.16)" : "none",
+            }}
+          >
+            <span className="block text-lg">{item.emoji}</span>
+            <span className="mt-1 block">{item.label}</span>
+            <span className="block text-[10px] opacity-80">{item.zh}</span>
+          </button>
+        ))}
+      </div>
+      <p className="mt-3 rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint, color: "#3f3f46" }}>
+        {theme.note}<br /><span className="text-neutral-500">{theme.noteZh}</span>
+      </p>
+    </section>
+  );
+}
+
 function mapLinks(query) {
   const q = encodeURIComponent(query);
   const myLocation = encodeURIComponent("我的位置");
@@ -371,15 +439,16 @@ function MapButtons({ query }) {
 
 function Hero({ day, onOpen }) {
   return (
-    <button onClick={() => onOpen({ type: "day", ...day })} className="group relative h-[330px] w-full overflow-hidden rounded-[36px] bg-neutral-900 text-left shadow-sm">
+    <button onClick={() => onOpen({ type: "day", ...day })} className="group relative h-[360px] w-full overflow-hidden rounded-[38px] bg-neutral-900 text-left shadow-[0_24px_70px_rgba(0,0,0,0.18)] transition active:scale-[0.99]">
       <SmartImage src={day.hero} alt={day.title} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/24 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/10 to-transparent" />
       <div className="relative flex h-full flex-col justify-end p-5 text-white">
         <div className="mb-3 flex gap-2">
           <Badge tone="white">{day.city} · {day.cityZh}</Badge>
           <Badge tone="white">{day.date}</Badge>
         </div>
-        <h2 className="text-3xl font-black leading-tight tracking-tight">{day.title}</h2>
+        <h2 className="text-[34px] font-black leading-[0.95] tracking-[-0.055em]">{day.title}</h2>
         <p className="mt-1 text-lg font-semibold text-white/90">{day.titleZh}</p>
         <p className="mt-3 line-clamp-2 text-sm leading-6 text-white/85">{day.vibe} / {day.vibeZh}</p>
       </div>
@@ -400,16 +469,91 @@ function ImageStrip({ images, onOpen }) {
   );
 }
 
+function getSpotIntro(title) {
+  const introMap = {
+    "Check in + short rest": {
+      en: "This is not a sightseeing stop; it is the reset point. The hotel sits near major transport lines, so it works as a practical anchor before the first-night Bund route.",
+      zh: "这一段不是景点，而是全队的体力重置点。酒店靠近市中心交通线，适合作为第一晚外滩路线前的出发锚点。",
+    },
+    "Dinner near the Bund + night view": {
+      en: "The Bund became Shanghai’s most symbolic waterfront because early banks, trading houses and civic buildings gathered along the Huangpu River. The view works best at night: historic façades on one side, Lujiazui’s skyline on the other.",
+      zh: "外滩之所以成为上海最具代表性的滨水地标，是因为早期银行、洋行和公共建筑沿黄浦江集中形成了城市门面。夜晚看它最好：一边是历史建筑立面，一边是陆家嘴天际线。",
+    },
+    "Xujiahui Cathedral + Library": {
+      en: "Xujiahui was shaped by Jesuit history, education and science. The cathedral brings the Gothic-revival skyline, while Xujiahui Library makes the stop more contemporary and calm.",
+      zh: "徐家汇的气质和耶稣会、教育、科学传统有关。天主堂负责看哥特复兴式建筑轮廓，徐家汇书院则让这一站变得更安静、更当代。",
+    },
+    "Lunch near Xujiahui": {
+      en: "This meal is placed here because Xujiahui has both mall restaurants and local-style dining. It is a good moment to choose between Korean food for energy or Jiangnan-style dishes for a seated lunch.",
+      zh: "午餐放在徐家汇，是因为这里既有商场餐饮，也有适合坐下来的江浙/本帮菜。想轻松热闹可以吃韩料，想正式一点可以吃人和馆这类正餐。",
+    },
+    "Yu Garden": {
+      en: "Yu Garden is a Ming-dynasty private garden built around rockeries, ponds, corridors and framed views. It is small but visually dense, so it works better as a focused cultural stop than a long walk.",
+      zh: "豫园是明代私家园林，核心看点是山石、水池、廊道和被框景组织起来的视线。园子不大但信息密度高，更适合作为一个集中参观的中式园林点。",
+    },
+    "Dinner near Yu Garden": {
+      en: "Yu Garden sits inside Shanghai’s old-city food zone, so dinner here should lean toward Shanghainese flavors: rich soy-braised dishes, dim sum, crab roe noodles and pan-fried buns.",
+      zh: "豫园周边本来就是上海老城厢美食区，晚餐适合往本帮菜、小吃、蟹黄面、生煎包这些方向靠，而不是再跨区找餐厅。",
+    },
+    "Shanghai to Wuzhen transfer": {
+      en: "This is the travel bridge from a modern metropolis to a water-town stay. The train-and-taxi route keeps the transfer efficient while avoiding a full private-car ride.",
+      zh: "这一段是从上海现代都市切换到江南水乡的转场。高铁加打车能兼顾效率和舒适度，比全程包车更灵活。",
+    },
+    "Xizha slow walk + Muxin Art Museum": {
+      en: "Xizha is the more polished night-view side of Wuzhen, built around canals, stone bridges, white-wall houses and evening lights. Muxin Art Museum adds a quieter literary stop to the water-town walk.",
+      zh: "西栅是乌镇更适合夜游和慢逛的一侧，核心是水巷、石桥、白墙民居和夜间灯光。木心美术馆则给水乡路线加入了更安静的文学气质。",
+    },
+    "Dinner + Xizha night view": {
+      en: "Wuzhen’s food is best treated as small-town Jiangnan comfort food: noodles, pastries, river fish, soy-sauce duck and warm snacks between walks.",
+      zh: "乌镇的吃法更适合当作江南小镇舒适餐：面、糕点、河鲜、酱鸭和边走边吃的小吃，比固定大餐更自然。",
+    },
+    "National Archives of Publications and Culture": {
+      en: "The Hangzhou branch of the national editions system is about books, printing culture and Chinese textual heritage. Architecturally, it uses a restrained Chinese aesthetic, so the visit is both cultural and visual.",
+      zh: "杭州国家版本馆的主题是版本、典籍、印刷与中华文脉。它的建筑语言偏克制的中式美学，所以这一站既是文化点，也是很适合拍照的建筑点。",
+    },
+    "Lunch + transfer buffer": {
+      en: "This meal sits between two spread-out cultural areas, so it should be treated as both lunch and a time buffer. Hangzhou cuisine works well here: mild seasoning, river ingredients, bamboo shoots and tea-related flavors.",
+      zh: "这顿饭夹在两个距离较远的文化片区之间，所以既是午餐也是缓冲。杭帮菜适合放在这里：味道相对温和，常见河鲜、笋、茶香和时令菜。",
+    },
+    "Liangzhu Cultural Village": {
+      en: "Liangzhu connects to one of China’s earliest urban civilizations, known for jade ritual objects, rice agriculture and water-management systems. The visit should feel open, archaeological and calm.",
+      zh: "良渚对应的是中国早期城市文明的重要遗存，关键词是玉器礼制、稻作农业和水利系统。这里不适合赶路打卡，更适合用开阔、考古和文化片区的方式理解。",
+    },
+    "Dinner near hotel": {
+      en: "After Liangzhu, dinner should be simple and close to the hotel. Good choices are Hangzhou noodles, light home-style dishes and seasonal vegetables.",
+      zh: "良渚结束后路程较长，晚餐最好靠近酒店。适合选片儿川、简单杭帮家常菜、时令蔬菜这类轻松一点的餐。",
+    },
+    "Lingyin temple route": {
+      en: "Lingyin is one of Hangzhou’s classic Buddhist temple areas, set between wooded hills and stone grotto scenery. The route can be long or short: keep the atmosphere quiet rather than turning it into a checklist.",
+      zh: "灵隐是杭州最经典的佛寺区域之一，山林、寺庙和石刻景观联系在一起。路线可以长也可以短，重点是山寺氛围，不要把它走成打卡清单。",
+    },
+    "Lunch + tea break": {
+      en: "After the temple route, food can lean lighter: vegetarian noodles, Hangzhou-style soups, lotus-root dessert, or a proper local meal before moving toward the tea fields.",
+      zh: "寺庙线之后，午餐适合清淡一点：素面、杭州汤羹、桂花糯米藕，或者吃一顿正式杭帮菜后再去茶园。",
+    },
+    "Longjing Tea Fields": {
+      en: "Longjing is tied to West Lake Dragon Well tea, one of China’s best-known green teas. The landscape is the point: tea terraces, village lanes, roasting aromas and green hills.",
+      zh: "龙井茶园对应的是西湖龙井这一中国名茶。这里的重点不是单个建筑，而是茶田、村路、炒茶香气和山坡绿色景观。",
+    },
+    "Dinner + packing": {
+      en: "The final meal should be close, easy and comforting. Noodles, wontons, simple Hangzhou dishes or a tea dessert make more sense than another far destination.",
+      zh: "最后一晚的晚餐适合近、简单、舒服。片儿川、馄饨、简单杭帮菜或茶点甜品，都比再跑远更合适。",
+    },
+  };
+  return introMap[title] || null;
+}
+
 function SchedulePreview({ item, index, open, onToggle, image }) {
+  const intro = getSpotIntro(item.title);
   return (
-    <article className="overflow-hidden rounded-[30px] bg-white shadow-sm">
+    <article className="overflow-hidden rounded-[32px] bg-white/95 shadow-[0_18px_60px_rgba(0,0,0,0.065)] ring-1 ring-white/80 transition active:scale-[0.995]">
       {image && (
         <button onClick={onToggle} className="relative h-36 w-full overflow-hidden bg-neutral-200">
           <SmartImage src={image} alt={item.titleZh || item.title} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
           <div className="absolute bottom-3 left-4 right-4 flex items-center justify-between text-white">
             <span className="text-xs font-bold uppercase tracking-[0.14em]">{item.period}</span>
-            <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-black text-neutral-950">{item.time}</span>
+            <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-black text-neutral-950">Loose plan</span>
           </div>
         </button>
       )}
@@ -429,7 +573,7 @@ function SchedulePreview({ item, index, open, onToggle, image }) {
 
         <div className="grid gap-2">
           <div className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-800">
-            <span className="text-[11px] font-black uppercase tracking-[0.12em] text-neutral-400">Time / 时间</span><br />{item.time}
+            <span className="text-[11px] font-black uppercase tracking-[0.12em] text-neutral-400">Part of day / 大致时段</span><br />{item.period}
           </div>
           <div className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-800">
             <span className="text-[11px] font-black uppercase tracking-[0.12em] text-neutral-400">Place / 地点</span><br />{item.routeZh}
@@ -445,7 +589,7 @@ function SchedulePreview({ item, index, open, onToggle, image }) {
           {item.legs && <div className="space-y-2">{item.legs.map((leg) => <div key={leg} className="rounded-2xl border border-neutral-200 bg-white p-3 text-xs leading-5 text-neutral-700">{leg}</div>)}</div>}
           {item.meal && <div className="rounded-2xl bg-amber-50 p-3 text-xs leading-5 text-amber-950"><strong>Food ideas / 餐食参考</strong><ul className="mt-2 list-disc space-y-1 pl-4">{item.meal.map((dish) => <li key={dish}>{dish}</li>)}</ul></div>}
           <div className="rounded-2xl bg-emerald-50 p-3 text-sm leading-6 text-emerald-950">
-            <strong>Why go / 简介</strong><br />{item.note}<br />{item.noteZh}
+            <strong>Why go / 简介</strong><br />{intro?.en || item.note}<br />{intro?.zh || item.noteZh}
           </div>
         </div>
       )}
@@ -453,10 +597,73 @@ function SchedulePreview({ item, index, open, onToggle, image }) {
   );
 }
 
+function getFoodBackground(name) {
+  const bg = {
+    "Bund Family Banquet": {
+      en: "Think of this as an old-Shanghai dinner direction: soy-braised dishes, seasonal cold plates and richer Jiangnan flavors that match the Bund’s historical setting.",
+      zh: "这类餐厅适合理解“老上海晚餐”的感觉：本帮红烧、时令冷菜、偏浓郁的江南口味，和外滩历史建筑氛围比较搭。",
+    },
+    "Li Bai Crab": {
+      en: "Crab roe noodles turn crab fat and roe into a concentrated sauce over noodles. It is rich, seasonal in spirit, and works well as a Shanghai food experience near the Bund.",
+      zh: "蟹黄面/蟹粉面是把蟹黄、蟹膏的鲜香浓缩到面里，口味厚、香气足，很适合作为上海城市美食体验。",
+    },
+    "Professor Lee": {
+      en: "This is not a local-history stop; it is a high-energy meal choice. Korean barbecue and stews work well for a young group that wants heat, sharing and a lively lunch.",
+      zh: "这不是传统本地菜，而是适合年轻人补充体力的一餐。韩式烤肉、部队锅这类食物适合多人分享，氛围也更热闹。",
+    },
+    "Renheguan": {
+      en: "A Jiangnan-style meal is a better seated alternative to mall food: river shrimp, braised dishes and seasonal vegetables show the softer, slightly sweet local palate.",
+      zh: "人和馆这类江南/本帮餐比商场简餐更适合坐下来吃，河虾、红烧类、时蔬能体现上海周边偏柔和、略带甜感的口味。",
+    },
+    "Magnolia Chamber": {
+      en: "Near Yu Garden, Shanghainese food makes cultural sense: dim sum, noodles and soy-braised dishes continue the old-city atmosphere from the garden to the table.",
+      zh: "豫园附近吃上海菜是顺的：点心、面食、本帮红烧会把老城厢的氛围从园林延续到餐桌上。",
+    },
+    "Xizha food reference list": {
+      en: "Wuzhen snacks are about small portions between walks: lamb noodles, pastries, wontons, fried snacks and rice dumplings. Choose by queue and smell rather than a fixed reservation.",
+      zh: "乌镇小吃适合边走边吃：羊肉面、糕点、馄饨、油煎小吃、粽子都属于水乡慢游的一部分。到现场看排队和香气选择最自然。",
+    },
+    "Recommended Wuzhen dishes": {
+      en: "The local meal direction is Jiangnan river-town comfort food: white fish, soy-sauce duck, lamb, river shrimp and warm pastries rather than heavy banquet dishes.",
+      zh: "乌镇正餐更适合江南水乡舒适菜：白水鱼、酱鸭、羊肉、河虾和糕点，不需要吃得太重。",
+    },
+    "Liangzhu main pick": {
+      en: "For Liangzhu, a relaxed restaurant near the cultural village is more useful than a famous downtown restaurant. The food should fit the slow cultural-area rhythm.",
+      zh: "良渚当天餐厅位置比名气更重要，靠近文化村能减少转场。食物风格适合偏轻松、有一点创意或茶饮甜品搭配。",
+    },
+    "Liangzhu nearby references": {
+      en: "These are practical nearby choices. Use them when the group wants something closer, easier or faster around Liangzhu.",
+      zh: "这些是良渚附近的实用备选，适合想找更近、更快、更好排队的店时使用。",
+    },
+    "Hangzhou cuisine direction": {
+      en: "Hangzhou cuisine is usually gentle and seasonal: Dongpo pork, Longjing shrimp, West Lake vinegar fish and Song Sao fish soup are classic names to recognize on menus.",
+      zh: "杭帮菜整体偏清雅、重时令。东坡肉、龙井虾仁、西湖醋鱼、宋嫂鱼羹是菜单上很容易识别的经典菜。",
+    },
+    "Fuyuanju Restaurant": {
+      en: "This is the proper-meal choice for the temple day. Look for Hangzhou-style braised dishes, seasonal vegetables and soups after the morning walk.",
+      zh: "这是寺庙线当天比较适合的正餐选择。上午走完后可以点杭帮红烧、时令蔬菜、汤羹这类更舒服的菜。",
+    },
+    "Qunle Restaurant": {
+      en: "This works as a practical dinner backup on the way back toward Binjiang. The value is convenience and a familiar local home-style meal.",
+      zh: "群乐饭店更适合作为回滨江方向的晚餐备选，重点是顺路、方便、能吃到比较家常的本地菜。",
+    },
+    "Lingyin food references": {
+      en: "Around Lingyin and Faxi, vegetarian noodles, tea houses and light meals fit the temple atmosphere better than a heavy lunch.",
+      zh: "灵隐、法喜寺附近更适合素面、茶馆、轻餐这类选择，和山寺氛围更搭，也不会影响下午行程。",
+    },
+    "Hangzhou light meals and tea break": {
+      en: "Tea breaks matter in Hangzhou. Longjing tea, tea snacks, lotus-root dessert and simple noodles can be part of the route, not just a meal stop.",
+      zh: "杭州的茶歇本身就是旅行内容。龙井茶、茶点、桂花糯米藕、简单面食，都可以成为路线体验的一部分。",
+    },
+  };
+  return bg[name] || null;
+}
+
 function FoodCard({ item, onOpen }) {
   const isRef = item.tag?.includes("Reference") || item.tag?.includes("仅参考");
+  const background = getFoodBackground(item.name);
   return (
-    <button onClick={() => onOpen({ type: "food", ...item })} className="w-full overflow-hidden rounded-[30px] bg-white text-left shadow-sm transition active:scale-[0.99]">
+    <button onClick={() => onOpen({ type: "food", ...item })} className="w-full overflow-hidden rounded-[32px] bg-white/95 text-left shadow-[0_18px_60px_rgba(0,0,0,0.065)] ring-1 ring-white/80 transition active:scale-[0.99]">
       {item.image ? <SmartImage src={item.image} alt={item.zh || item.name} className="h-44 w-full object-cover" /> : <div className="h-3 bg-neutral-200" />}
       <div className="p-4">
         <div className="mb-2 flex items-start justify-between gap-3">
@@ -467,8 +674,8 @@ function FoodCard({ item, onOpen }) {
           <Badge tone={isRef ? "neutral" : "orange"}>{item.tag}</Badge>
         </div>
         <p className="text-xs font-semibold text-neutral-500">{item.area}</p>
-        <p className="mt-2 text-sm leading-6 text-neutral-700">{item.note}</p>
-        <p className="mt-1 text-sm leading-6 text-neutral-500">{item.noteZh}</p>
+        <p className="mt-2 text-sm leading-6 text-neutral-700">{background?.en || item.note}</p>
+        <p className="mt-1 text-sm leading-6 text-neutral-500">{background?.zh || item.noteZh}</p>
         {item.dishes && <div className="mt-3 flex flex-wrap gap-2">{item.dishes.slice(0, 3).map((dish) => <span key={dish} className="rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-900">{dish}</span>)}</div>}
       </div>
     </button>
@@ -477,22 +684,23 @@ function FoodCard({ item, onOpen }) {
 
 function DetailSheet({ selected, onClose }) {
   if (!selected) return null;
+  const background = getFoodBackground(selected.name);
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 px-3 pb-3" onClick={onClose}>
-      <div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[34px] bg-[#f7f7f5] shadow-2xl" onClick={(e) => e.stopPropagation()}>
-        <div className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
+      <div className="max-h-[88vh] w-full max-w-[430px] overflow-hidden rounded-[36px] bg-[#f5f5f7] shadow-[0_30px_100px_rgba(0,0,0,0.30)] ring-1 ring-white/70" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between border-b border-white/70 bg-white/55 px-5 py-4 backdrop-blur-xl">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.14em] text-neutral-500">Detail</p>
             <h3 className="text-xl font-black leading-tight">{selected.name || selected.title}</h3>
             <p className="text-sm font-semibold text-neutral-500">{selected.zh || selected.titleZh}</p>
           </div>
-          <button onClick={onClose} className="rounded-full bg-neutral-100 px-3 py-2 text-sm font-black">Close</button>
+          <button onClick={onClose} className="rounded-full bg-white px-4 py-2 text-sm font-black shadow-[0_8px_25px_rgba(0,0,0,0.06)] transition active:scale-95">Close</button>
         </div>
         <div className="max-h-[72vh] overflow-y-auto p-5">
           {selected.image && <SmartImage src={selected.image} alt={selected.name} className="mb-4 h-60 w-full rounded-3xl object-cover" />}
           {selected.hero && <SmartImage src={selected.hero} alt={selected.title} className="mb-4 h-60 w-full rounded-3xl object-cover" />}
-          <p className="text-sm leading-6 text-neutral-700">{selected.note || selected.vibe}</p>
-          <p className="mt-1 text-sm leading-6 text-neutral-500">{selected.noteZh || selected.vibeZh}</p>
+          <p className="text-sm leading-6 text-neutral-700">{background?.en || selected.note || selected.vibe}</p>
+          <p className="mt-1 text-sm leading-6 text-neutral-500">{background?.zh || selected.noteZh || selected.vibeZh}</p>
           {selected.dishes && <div className="mt-4 rounded-2xl bg-white p-4 text-sm leading-6"><strong>Recommended / 推荐</strong><ul className="mt-2 list-disc space-y-1 pl-4">{selected.dishes.map((d) => <li key={d}>{d}</li>)}</ul></div>}
           {selected.routeNotes && <div className="mt-4 space-y-2">{selected.routeNotes.map((n) => <div key={n} className="rounded-2xl bg-white p-3 text-sm leading-6 text-neutral-700">{n}</div>)}</div>}
           {selected.map && !selected.tag?.includes("Reference") && <div className="mt-4"><MapButtons query={selected.map} /></div>}
@@ -503,17 +711,50 @@ function DetailSheet({ selected, onClose }) {
 }
 
 function buildDayGuide(day) {
-  const foodIdeas = day.restaurants.flatMap((r) => [r.zh, ...(r.dishes || []).slice(0, 3)]).slice(0, 12);
+  const foodIdeas = day.restaurants.flatMap((r) => {
+    const bg = getFoodBackground(r.name);
+    return [r.zh, bg?.zh, ...(r.dishes || []).slice(0, 2)].filter(Boolean);
+  }).slice(0, 14);
+  const routeDetails = day.schedule.map((s) => {
+    const intro = getSpotIntro(s.title);
+    return `${s.titleZh}: ${intro?.zh || s.noteZh}`;
+  });
   return {
     type: "guide",
     name: "Spot + Food Guide",
     zh: "景点与美食详细介绍",
     hero: day.hero,
-    note: `${day.vibe} Main route: ${day.routeSummary}`,
-    noteZh: `${day.vibeZh} 主线：${day.routeSummary}`,
+    note: day.vibe,
+    noteZh: day.vibeZh,
     dishes: foodIdeas,
-    routeNotes: [...(day.routeNotes || []), ...(day.backup || [])],
+    routeNotes: [...routeDetails, ...(day.backup || [])],
   };
+}
+
+function getFunCards(dayId) {
+  const cards = {
+    d25: [
+      ["🌃", "Skyline game", "Find one angle where old Shanghai and Lujiazui appear in the same photo.", "找一个角度，让老上海建筑和陆家嘴天际线出现在同一张照片里。"],
+      ["🥢", "First bite", "Choose one Shanghainese dish that feels new to the group.", "点一道大家没吃过的上海味道，当作第一晚的记忆点。"],
+    ],
+    d26: [
+      ["📚", "Quiet mode", "Pick one beautiful corner inside the library instead of only taking exterior photos.", "不要只拍外观，在书院里找一个安静好看的角落。"],
+      ["🏮", "Garden hunt", "Look for framed views: doorways, windows, ponds and rockeries.", "在豫园找框景：门洞、窗、池水和假山。"],
+    ],
+    d27: [
+      ["🌉", "Bridge count", "Count how many bridges you cross before dinner.", "晚餐前数一数自己过了几座桥。"],
+      ["🍢", "Snack roulette", "Everyone chooses one small Wuzhen snack to share.", "每个人选一个乌镇小吃，大家一起分着尝。"],
+    ],
+    d28: [
+      ["🏛️", "Architecture eye", "Find one roofline, corridor or courtyard detail that feels very Chinese.", "在版本馆找一个最有中式气质的屋顶、廊道或庭院细节。"],
+      ["🌿", "Slow civilization", "At Liangzhu, think of jade, rice fields and ancient water systems instead of only taking photos.", "在良渚不要只拍照，可以把它理解成玉器、稻作和古代水利的文明现场。"],
+    ],
+    d29: [
+      ["⛰️", "Temple silence", "Take five quiet minutes before taking photos.", "进寺庙线后先安静五分钟，再开始拍照。"],
+      ["🍃", "Tea-field pause", "Smell the tea air, then choose one tea or tea snack before leaving.", "到龙井茶园先闻一闻茶香，离开前选一杯茶或一个茶点。"],
+    ],
+  };
+  return (cards[dayId] || []).map(([emoji, title, en, zh]) => ({ emoji, title, en, zh }));
 }
 
 function getQuickJumps(day, mainRestaurants) {
@@ -561,7 +802,7 @@ function getQuickJumps(day, mainRestaurants) {
 
 function JumpCard({ title, zh, emoji, query, note, onOpen }) {
   return (
-    <div className="rounded-[30px] bg-white p-4 shadow-sm">
+    <div className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
       <div className="mb-3 flex items-center gap-3">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-950 text-xl text-white">{emoji}</div>
         <div>
@@ -578,10 +819,12 @@ function JumpCard({ title, zh, emoji, query, note, onOpen }) {
 export default function JiangnanTravelGuideApp() {
   const [selectedDayId, setSelectedDayId] = useState("d25");
   const [activeTab, setActiveTab] = useState("home");
+  const [mood, setMood] = useState("soft");
   const [openStep, setOpenStep] = useState(0);
   const [selected, setSelected] = useState(null);
 
   const selectedDay = tripDays.find((d) => d.id === selectedDayId) || tripDays[0];
+  const theme = moodThemes[mood];
   const mainRestaurants = useMemo(() => selectedDay.restaurants.filter((r) => !(r.tag || "").includes("Reference") && !(r.tag || "").includes("仅参考")), [selectedDay]);
   const quickJumps = useMemo(() => getQuickJumps(selectedDay, mainRestaurants), [selectedDay, mainRestaurants]);
 
@@ -593,20 +836,20 @@ export default function JiangnanTravelGuideApp() {
   }[activeTab];
 
   return (
-    <div className="min-h-screen bg-neutral-200 text-neutral-950">
-      <div className="mx-auto min-h-screen max-w-[430px] bg-[#f7f7f5] shadow-2xl">
-        <header className="sticky top-0 z-30 border-b border-neutral-200/70 bg-[#f7f7f5]/90 px-5 pb-3 pt-5 backdrop-blur-xl">
+    <div className="min-h-screen text-neutral-950 transition-colors duration-500" style={{ background: theme.bg }}>
+      <div className="mx-auto min-h-screen max-w-[430px] shadow-[0_30px_90px_rgba(0,0,0,0.10)] transition-colors duration-500" style={{ background: theme.bg }}>
+        <header className="sticky top-0 z-30 border-b border-white/60 px-5 pb-3 pt-5 backdrop-blur-2xl transition-colors duration-500" style={{ background: theme.glass }}>
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-neutral-500">Jiangnan private guide</p>
-              <h1 className="mt-1 text-[28px] font-black leading-tight tracking-tight">Jiangnan Trip</h1>
-              <p className="mt-1 text-sm font-medium text-neutral-500">地点 · 时间 · 交通 · 美食</p>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.20em] text-neutral-500">Jiangnan private guide</p>
+              <h1 className="mt-1 text-[30px] font-black leading-tight tracking-[-0.04em]">Jiangnan Trip</h1>
+              <p className="mt-1 text-sm font-medium text-neutral-500">Places · Transit · Food · Fun</p>
             </div>
-            <button onClick={() => setSelected(buildDayGuide(selectedDay))} className="rounded-full bg-white px-3 py-2 text-sm font-black shadow-sm">Guide</button>
+            <button onClick={() => setSelected(buildDayGuide(selectedDay))} className="rounded-full bg-white/90 px-4 py-2 text-sm font-black shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition active:scale-95">Guide</button>
           </div>
           <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
             {tripDays.map((day) => (
-              <button key={day.id} onClick={() => { setSelectedDayId(day.id); setActiveTab("home"); setOpenStep(0); }} className={selectedDayId === day.id ? "shrink-0 rounded-full bg-neutral-950 px-4 py-2 text-sm font-semibold text-white" : "shrink-0 rounded-full bg-white px-4 py-2 text-sm font-semibold text-neutral-700 shadow-sm"}>{day.day} · {day.date}</button>
+              <button key={day.id} onClick={() => { setSelectedDayId(day.id); setActiveTab("home"); setOpenStep(0); }} className={selectedDayId === day.id ? "shrink-0 rounded-full bg-neutral-950 px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.16)] transition active:scale-95" : "shrink-0 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-neutral-700 shadow-[0_8px_26px_rgba(0,0,0,0.05)] transition active:scale-95"}>{day.day} · {day.date}</button>
             ))}
           </div>
         </header>
@@ -617,19 +860,31 @@ export default function JiangnanTravelGuideApp() {
 
           {activeTab === "home" && (
             <div className="space-y-5">
-              <section className="rounded-[30px] bg-white p-4 shadow-sm">
+              <section className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
                 <SectionTitle kicker="Hotel" title="酒店与起点" />
                 <p className="text-sm font-bold leading-6 text-neutral-900">{selectedDay.hotel}</p>
                 <p className="mt-1 text-sm leading-6 text-neutral-500">{selectedDay.address}</p>
                 <div className="mt-3"><MapButtons query={`${selectedDay.hotel} ${selectedDay.address}`} /></div>
               </section>
-              <section className="rounded-[30px] bg-white p-4 shadow-sm">
-                <SectionTitle kicker="Route" title="今日主线" right={<Badge>soft pace</Badge>} />
+              <section className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
+                <SectionTitle kicker="Route" title="今日主线" right={<Badge>{theme.emoji} {theme.label}</Badge>} />
                 <div className="rounded-2xl bg-neutral-50 p-3 text-sm font-semibold leading-6 text-neutral-800">{selectedDay.routeSummary}</div>
               </section>
+              <MoodSwitch mood={mood} setMood={setMood} theme={theme} />
+              <section className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
+                <SectionTitle kicker="Tiny missions" title="今日小任务" right={<Badge tone="orange">fun</Badge>} />
+                <div className="space-y-2">
+                  {getFunCards(selectedDay.id).map((card) => (
+                    <div key={card.title} className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-700">
+                      <div className="mb-1 font-black text-neutral-950">{card.emoji} {card.title}</div>
+                      {card.en}<br /><span className="text-neutral-500">{card.zh}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
               <section className="grid grid-cols-2 gap-3">
-                <button onClick={() => setActiveTab("plan")} className="rounded-[26px] bg-white p-4 text-left shadow-sm"><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">看路线</h3><p className="mt-2 text-sm text-neutral-500">地点/时间/交通</p></button>
-                <button onClick={() => setActiveTab("jump")} className="rounded-[26px] bg-neutral-950 p-4 text-left text-white shadow-sm"><p className="text-xs font-bold text-white/60">Go</p><h3 className="mt-1 text-lg font-black">一键出发</h3><p className="mt-2 text-sm text-white/70">酒店/餐厅/景点</p></button>
+                <button onClick={() => setActiveTab("plan")} className="rounded-[28px] bg-white/95 p-4 text-left shadow-[0_14px_44px_rgba(0,0,0,0.055)] ring-1 ring-white/80 transition active:scale-[0.98]"><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">看路线</h3><p className="mt-2 text-sm text-neutral-500">上午/下午/晚上</p></button>
+                <button onClick={() => setActiveTab("jump")} className="rounded-[28px] bg-neutral-950 p-4 text-left text-white shadow-[0_18px_50px_rgba(0,0,0,0.18)] transition active:scale-[0.98]"><p className="text-xs font-bold text-white/60">Go</p><h3 className="mt-1 text-lg font-black">一键出发</h3><p className="mt-2 text-sm text-white/70">酒店/餐厅/景点</p></button>
               </section>
             </div>
           )}
@@ -637,11 +892,11 @@ export default function JiangnanTravelGuideApp() {
           {activeTab === "plan" && (
             <div className="space-y-3">
               {selectedDay.schedule.map((item, index) => <SchedulePreview key={`${selectedDay.id}-${item.time}-${item.title}`} item={item} index={index} image={selectedDay.gallery[index % selectedDay.gallery.length]} open={openStep === index} onToggle={() => setOpenStep(openStep === index ? -1 : index)} />)}
-              <section className="rounded-[30px] bg-white p-4 shadow-sm">
+              <section className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
                 <SectionTitle kicker="Key route" title="关键路线" />
                 <div className="space-y-2">{selectedDay.routeNotes.map((item) => <div key={item} className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-700">{item}</div>)}</div>
               </section>
-              <section className="rounded-[30px] bg-white p-4 shadow-sm">
+              <section className="rounded-[32px] bg-white/92 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.055)] ring-1 ring-white/80">
                 <SectionTitle kicker="Backup" title="备选方案" />
                 <div className="space-y-2">{selectedDay.backup.map((item) => <div key={item} className="rounded-2xl bg-neutral-50 p-3 text-sm leading-6 text-neutral-700">{item}</div>)}</div>
               </section>
@@ -663,10 +918,10 @@ export default function JiangnanTravelGuideApp() {
           )}
         </main>
 
-        <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 border-t border-neutral-200 bg-[#f7f7f5]/95 px-3 py-3 backdrop-blur-xl">
-          <div className="grid grid-cols-4 gap-2 rounded-[26px] bg-white p-2 shadow-lg shadow-black/5">
+        <nav className="fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 border-t border-white/60 px-3 py-3 backdrop-blur-2xl transition-colors duration-500" style={{ background: theme.glass }}>
+          <div className="grid grid-cols-4 gap-2 rounded-[28px] bg-white/86 p-2 shadow-[0_20px_60px_rgba(0,0,0,0.10)] ring-1 ring-white/80">
             {navTabs.map((tab) => (
-              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={activeTab === tab.id ? "rounded-2xl bg-neutral-950 px-2 py-2 text-xs font-black text-white" : "rounded-2xl px-2 py-2 text-xs font-bold text-neutral-500"}>
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={activeTab === tab.id ? "rounded-2xl bg-neutral-950 px-2 py-2 text-xs font-black text-white shadow-[0_10px_25px_rgba(0,0,0,0.18)] transition active:scale-95" : "rounded-2xl px-2 py-2 text-xs font-bold text-neutral-500 transition active:scale-95"}>
                 <span className="block">{tab.label}</span>
                 <span className="block text-[10px] opacity-80">{tab.zh}</span>
               </button>
