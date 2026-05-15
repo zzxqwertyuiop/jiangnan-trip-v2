@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 const wiki = (file) => `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=1400`;
 
@@ -420,6 +420,85 @@ function SmoothStyles() {
   );
 }
 
+function collectPreloadImages() {
+  const list = new Set();
+  Object.values(IMG).forEach((src) => src && list.add(src));
+  days.forEach((day) => {
+    day.hero && list.add(day.hero);
+    day.realMaps?.forEach((item) => item.src && list.add(item.src));
+    day.plan?.forEach((step) => step.image && list.add(step.image));
+    day.food?.forEach((food) => {
+      food.image && list.add(food.image);
+      food.gallery?.forEach((src) => src && list.add(src));
+    });
+  });
+  return Array.from(list).filter(Boolean);
+}
+
+function preloadOneImage(src, timeout = 6500) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve(src);
+    };
+    const img = new Image();
+    img.onload = finish;
+    img.onerror = finish;
+    img.src = src;
+    setTimeout(finish, timeout);
+  });
+}
+
+function SplashScreen({ progress, onEnter }) {
+  const pct = Math.max(0, Math.min(100, Math.round(progress || 0)));
+  return (
+    <div className="fixed inset-0 z-[999] flex items-center justify-center overflow-hidden bg-[#9aa0a8] px-6 text-white">
+      <SmoothStyles />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_15%,rgba(32,232,200,.22),transparent_34%),linear-gradient(180deg,#a5a9af_0%,#8d939b_100%)]" />
+      <div className="hero-glow absolute -top-20 right-[-80px] h-64 w-64 rounded-full bg-[#20e8c8]/24 blur-3xl" />
+      <div className="hero-glow absolute bottom-[-90px] left-[-80px] h-72 w-72 rounded-full bg-white/14 blur-3xl" />
+
+      <div className="relative w-full max-w-[430px] overflow-hidden rounded-[44px] border border-white/10 bg-[#0f1115]/92 p-5 shadow-[0_30px_100px_rgba(0,0,0,.34)] backdrop-blur-2xl">
+        <div className="mb-10 flex items-center justify-between">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/6 text-xl">‹</div>
+          <div className="mint-shimmer flex items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0b1012] text-white">✈️</span>
+            <span>Loading private guide</span>
+          </div>
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/6 text-xl">⌾</div>
+        </div>
+
+        <div className="mb-10">
+          <p className="mb-3 text-[12px] font-black uppercase tracking-[.24em] text-white/46">Jiangnan Trip</p>
+          <h1 className="text-[42px] font-black leading-[.92] tracking-[-.06em] text-white">Suzhou · Hangzhou<br />Travel Agent</h1>
+          <p className="mt-4 max-w-[310px] text-sm font-semibold leading-6 text-white/58">正在加载路线图、餐厅图和景点图片，加载完成后进入 App。</p>
+        </div>
+
+        <div className="glass-card rounded-[30px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.88),rgba(19,21,26,.82))" }}>
+          <div className="mb-3 flex items-center justify-between">
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[.16em] text-white/46">Image preload</p>
+              <p className="mt-1 text-lg font-black text-white">Loading assets</p>
+            </div>
+            <div className="rounded-full px-3 py-1 text-sm font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>{pct}%</div>
+          </div>
+          <div className="h-3 overflow-hidden rounded-full bg-white/10">
+            <div className="h-full rounded-full transition-all duration-500" style={{ width: `${pct}%`, background: "linear-gradient(135deg,#20e8c8,#16d4b8)" }} />
+          </div>
+          <div className="mt-4 grid grid-cols-3 gap-2 text-center text-[11px] font-black text-white/60">
+            <div className="rounded-2xl bg-white/6 py-3">Maps<br /><span className="text-white/34">地图</span></div>
+            <div className="rounded-2xl bg-white/6 py-3">Food<br /><span className="text-white/34">美食</span></div>
+            <div className="rounded-2xl bg-white/6 py-3">Story<br /><span className="text-white/34">文化</span></div>
+          </div>
+          {pct >= 96 && <button onClick={onEnter} className="mt-4 w-full rounded-2xl py-3 text-sm font-black transition active:scale-95" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>Enter guide / 进入行程</button>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MapButtons({ query }) {
   const [more, setMore] = useState(false);
   const links = mapLinks(query);
@@ -528,23 +607,19 @@ function Hero({ day, theme, openGuide }) {
           <div className="mb-3 flex items-start justify-between gap-3">
             <div className="min-w-0">
               <div className="text-[11px] font-black uppercase tracking-[.16em] text-white/48">Main line</div>
-              <div className="mt-1 line-clamp-2 text-[20px] font-black leading-[1.08] text-white">{day.route}</div>
-              <div className="mt-1 line-clamp-2 text-[13px] font-semibold text-white/58">{day.routeZh}</div>
+              <div className="mt-1 line-clamp-2 text-[20px] font-black leading-[1.08]" style={{ color: "rgba(255,255,255,.96)" }}>{day.route}</div>
+              <div className="mt-1 line-clamp-2 text-[13px] font-semibold" style={{ color: "rgba(235,239,245,.66)" }}>{day.routeZh}</div>
             </div>
             <Badge style={{ background: "rgba(255,255,255,.08)", color: "white", border: "1px solid rgba(255,255,255,.12)" }}>{day.tab}</Badge>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-[24px] p-3.5 mint-panel">
-              <div className="mb-2"><DynamicIcon theme={theme} size="sm" active>{theme.emoji}</DynamicIcon></div>
-              <div className="text-[11px] font-black opacity-70">Route mode</div>
-              <div className="mt-1 text-[18px] font-black leading-none">{theme.label}</div>
-              <div className="mt-1 text-[12px] font-bold opacity-70">{theme.zh}</div>
-            </div>
-            <div className="rounded-[24px] border border-white/10 bg-white/8 p-3.5 text-white">
-              <div className="mb-2"><DynamicIcon theme={theme} size="sm" dark>↗</DynamicIcon></div>
-              <div className="text-[11px] font-black uppercase tracking-[.14em] text-white/58">Open</div>
-              <div className="mt-1 text-[18px] font-black leading-none">Guide</div>
-              <div className="mt-1 text-[12px] font-bold text-white/58">Tap details</div>
+          <div className="flex items-center justify-between gap-3">
+            <div className="mint-panel flex min-w-0 flex-1 items-center gap-3 rounded-[24px] p-3.5" style={{ color: "#0b1012" }}>
+              <DynamicIcon theme={theme} size="sm" active>{theme.emoji}</DynamicIcon>
+              <div className="min-w-0">
+                <div className="text-[11px] font-black opacity-70">Route mode</div>
+                <div className="mt-0.5 truncate text-[20px] font-black leading-none" style={{ color: "#0b1012" }}>{theme.label}</div>
+                <div className="mt-1 text-[12px] font-bold opacity-70" style={{ color: "#0b1012" }}>{theme.zh}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -931,6 +1006,8 @@ function FoodPassport({ theme, passport, setPassport, dayId }) {
 }
 
 export default function JiangnanTravelGuideApp() {
+  const [bootDone, setBootDone] = useState(false);
+  const [bootProgress, setBootProgress] = useState(0);
   const [dayId, setDayId] = useState("d25");
   const [tab, setTab] = useState("home");
   const [mood, setMood] = useState("comfort");
@@ -942,6 +1019,27 @@ export default function JiangnanTravelGuideApp() {
   const theme = getTheme(day.id, mood);
   const guide = useMemo(() => ({ name: "Spot + Food Guide", zh: "景点与美食详细介绍", image: day.hero, story: day.intro, storyZh: day.introZh, try: [...day.plan.map((p) => [p.title, p.zh]), ...day.food.flatMap((f) => f.try)].slice(0, 12) }), [day]);
   const pageTitle = { home: ["Overview", "今日概览"], route: ["Loose Route", "大致路线"], taste: ["Taste Guide", "味道推荐"], culture: ["Culture Notes", "文化科普"], go: ["Quick Go", "快速出发"] }[tab];
+
+  useEffect(() => {
+    let cancelled = false;
+    const images = collectPreloadImages();
+    const total = Math.max(images.length, 1);
+    let loaded = 0;
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 1200));
+    const loadAll = Promise.all(images.map((src) => preloadOneImage(src).then(() => {
+      loaded += 1;
+      if (!cancelled) setBootProgress(Math.min(96, (loaded / total) * 96));
+    })));
+    Promise.all([minDelay, loadAll]).then(() => {
+      if (!cancelled) {
+        setBootProgress(100);
+        setTimeout(() => !cancelled && setBootDone(true), 420);
+      }
+    });
+    return () => { cancelled = true; };
+  }, []);
+
+  if (!bootDone) return <SplashScreen progress={bootProgress} onEnter={() => { setBootProgress(100); setBootDone(true); }} />;
 
   return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
     <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(242,245,248,.50)", borderColor: "rgba(255,255,255,.34)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
