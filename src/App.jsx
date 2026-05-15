@@ -292,7 +292,7 @@ const days = [
   },
 ];
 
-const tabs = [["home", "Today", "首页"], ["route", "Route", "路线"], ["taste", "Taste", "味道"], ["culture", "Story", "文化"], ["go", "Go", "出发"]];
+const tabs = [["home", "Today", "首页", "◐"], ["route", "Route", "路线", "↗"], ["taste", "Taste", "味道", "🍜"], ["culture", "Story", "文化", "◇"], ["go", "Go", "出发", "✦"]];
 
 function normalizeMapQuery(query) {
   const raw = String(query || "").trim();
@@ -431,17 +431,15 @@ function SmoothStyles() {
   );
 }
 
-function collectPreloadImages() {
+function collectPreloadImages(dayId = "d25") {
   const list = new Set();
-  Object.values(IMG).forEach((src) => src && list.add(src));
-  days.forEach((day) => {
-    day.hero && list.add(day.hero);
-    day.realMaps?.forEach((item) => item.src && list.add(item.src));
-    day.plan?.forEach((step) => step.image && list.add(step.image));
-    day.food?.forEach((food) => {
-      food.image && list.add(food.image);
-      food.gallery?.forEach((src) => src && list.add(src));
-    });
+  const day = days.find((d) => d.id === dayId) || days[0];
+  day.hero && list.add(day.hero);
+  day.realMaps?.forEach((item) => item.src && list.add(item.src));
+  day.plan?.forEach((step) => step.image && list.add(step.image));
+  day.food?.forEach((food) => {
+    food.image && list.add(food.image);
+    food.gallery?.forEach((src) => src && list.add(src));
   });
   return Array.from(list).filter(Boolean);
 }
@@ -483,8 +481,8 @@ function SplashScreen({ progress, onEnter }) {
 
         <div className="mb-10">
           <p className="mb-3 text-[12px] font-black uppercase tracking-[.24em] text-white/46">Jiangnan Trip</p>
-          <h1 className="text-[42px] font-black leading-[.92] tracking-[-.06em] text-white">Suzhou · Hangzhou<br />Travel Agent</h1>
-          <p className="mt-4 max-w-[310px] text-sm font-semibold leading-6 text-white/58">正在加载路线图、餐厅图和景点图片，加载完成后进入 App。</p>
+          <h1 className="text-[42px] font-black leading-[.92] tracking[-.06em] text-white">Shanghai · Wuzhen<br />Hangzhou Guide</h1>
+          <p className="mt-4 max-w-[310px] text-sm font-medium leading-6 text-white/64">正在优先加载首日路线图、餐厅图和景点图片，进入 App 后其余图片继续按需加载。</p>
         </div>
 
         <div className="glass-card rounded-[30px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.88),rgba(19,21,26,.82))" }}>
@@ -592,35 +590,34 @@ function MoodSwitch({ mood, setMood, theme, day }) {
 function Hero({ day, theme, openGuide }) {
   return (
     <button onClick={openGuide} className="hero-card group w-full text-left transition active:scale-[.99]">
-      <div className="hero-scan relative h-[430px] overflow-hidden rounded-[42px] shadow-[0_28px_90px_rgba(0,0,0,.28)]">
+      <div className="hero-scan relative h-[390px] overflow-hidden rounded-[40px] shadow-[0_24px_76px_rgba(0,0,0,.28)]">
         <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,12,.12)_0%,rgba(8,10,12,.22)_42%,rgba(8,10,12,.60)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(31,231,200,.13),transparent_32%)]" />
-        <div className="hero-glow absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#23e3c4]/24 blur-3xl" />
-        <div className="hero-glow absolute left-[-34px] top-[150px] h-28 w-28 rounded-full bg-white/12 blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,12,.10)_0%,rgba(8,10,12,.18)_48%,rgba(8,10,12,.38)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(31,231,200,.12),transparent_32%)]" />
+        <div className="hero-glow absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#23e3c4]/22 blur-3xl" />
 
         <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">‹</div>
-          <div className="mint-shimmer flex max-w-[230px] items-center gap-3 rounded-full px-3 py-2 text-[12px] font-black shadow-[0_10px_30px_rgba(35,227,196,.22)]" style={{ background: theme.gradient, color: theme.deepDark }}>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">‹</div>
+          <div className="mint-shimmer flex max-w-[218px] items-center gap-2 rounded-full px-3 py-2 text-[11px] font-black shadow-[0_10px_30px_rgba(35,227,196,.20)]" style={{ background: theme.gradient, color: theme.deepDark }}>
             <DynamicIcon theme={theme} size="sm" dark>✈️</DynamicIcon>
-            <div className="min-w-0 leading-tight"><div className="truncate">{day.city} active route</div><div className="truncate text-[10px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
+            <div className="min-w-0 leading-tight"><div className="truncate">{day.city} active route</div><div className="truncate text-[9px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
           </div>
-          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">⌾</div>
+          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">⌾</div>
         </div>
 
-        <div className="absolute bottom-6 left-5 right-5 rounded-[30px] border border-white/10 bg-black/42 p-4 backdrop-blur-md">
-          <p className="mb-2 text-[12px] font-black uppercase tracking-[0.22em] text-white/58">Jiangnan private guide</p>
-          <h2 className="max-w-[92%] text-[34px] font-black leading-[.95] tracking-[-.055em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,.40)]">{day.title}</h2>
-          <p className="mt-2 text-[15px] font-semibold text-white/78">{day.titleZh}</p>
+        <div className="absolute bottom-5 left-5 right-[76px] rounded-[24px] border border-white/18 p-3.5 backdrop-blur-xl" style={{ background: "linear-gradient(180deg,rgba(178,181,186,.88),rgba(137,141,148,.80))", boxShadow: "0 16px 42px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.22)" }}>
+          <p className="mb-1.5 text-[10px] font-black uppercase tracking-[0.22em]" style={{ color: "rgba(8,10,12,.74)" }}>Jiangnan private guide</p>
+          <h2 className="max-w-[95%] text-[27px] font-black leading-[.96] tracking-[-.055em]" style={{ color: "#050608" }}>{day.title}</h2>
+          <p className="mt-1.5 text-[13px] font-bold" style={{ color: "rgba(5,6,8,.72)" }}>{day.titleZh}</p>
         </div>
       </div>
 
-      <div className="glass-card mt-3 rounded-[30px] p-4" style={{ background: "linear-gradient(180deg,rgba(17,19,24,.92),rgba(23,26,32,.86))", border: "1px solid rgba(255,255,255,.09)", boxShadow: "0 18px 50px rgba(0,0,0,.24)", backdropFilter: "blur(18px)" }}>
+      <div className="glass-card mt-3 rounded-[28px] p-3.5" style={{ background: "linear-gradient(180deg,rgba(17,19,24,.94),rgba(23,26,32,.88))", border: "1px solid rgba(255,255,255,.09)", boxShadow: "0 16px 42px rgba(0,0,0,.22)", backdropFilter: "blur(18px)" }}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[11px] font-black uppercase tracking-[.16em] text-white/48">Main line</div>
-            <div className="mt-1 text-[22px] font-black leading-[1.08] text-white">{day.route}</div>
-            <div className="mt-2 text-[14px] font-semibold leading-6 text-white/64">{day.routeZh}</div>
+            <div className="text-[10px] font-black uppercase tracking-[.16em]" style={{ color: "rgba(205,211,220,.58)" }}>Main line</div>
+            <div className="mt-1 text-[20px] font-black leading-[1.08]" style={{ color: "rgba(255,255,255,.96)" }}>{day.route}</div>
+            <div className="mt-2 text-[13px] font-semibold leading-5" style={{ color: "rgba(235,239,245,.66)" }}>{day.routeZh}</div>
           </div>
           <Badge style={{ background: "rgba(255,255,255,.08)", color: "white", border: "1px solid rgba(255,255,255,.12)" }}>{day.tab}</Badge>
         </div>
@@ -902,7 +899,7 @@ function JumpCard({ icon, title, zh, query, theme, onOpen, note, noteZh }) {
         </div>
       </div>
       {(note || noteZh) && <Pair en={note} zh={noteZh} className="mb-3 rounded-2xl p-3 text-sm leading-5 text-neutral-700" />}
-      {onOpen ? <button onClick={onOpen} className="w-full rounded-2xl py-3 text-xs font-black text-white" style={{ background: theme.gradient }}>{title.includes("map") || title.includes("Map") ? "Open map / 打开地图" : title.includes("Culture") ? "Open story / 打开文化页" : "Open guide / 打开攻略"}</button> : <MapButtons query={query} />}
+      {onOpen ? <button onClick={onOpen} className="w-full rounded-2xl py-3 text-xs font-black" style={{ background: theme.gradient, color: theme.deepDark }}>{title.includes("map") || title.includes("Map") ? "Open map / 打开地图" : title.includes("Culture") ? "Open story / 打开文化页" : "Open guide / 打开攻略"}</button> : <MapButtons query={query} />}
     </div>
   );
 }
@@ -992,7 +989,7 @@ function FoodPassport({ theme, passport, setPassport, dayId }) {
         {visibleItems.map(([id, icon, en, zh, city, cityZh]) => {
           const active = !!passport[id];
           return (
-            <button key={id} onClick={() => toggle(id)} className="rounded-2xl p-3 text-left transition active:scale-95" style={{ background: active ? theme.gradient : theme.tint, color: active ? "white" : "#333" }}>
+            <button key={id} onClick={() => toggle(id)} className="rounded-2xl p-3 text-left transition active:scale-95" style={{ background: active ? theme.gradient : theme.tint, color: active ? theme.deepDark : "rgba(235,239,245,.78)" }}>
               <div className="mb-2"><DynamicIcon theme={theme} size="sm" active={active}>{active ? "✅" : icon}</DynamicIcon></div>
               <div className="text-xs font-black leading-4">{en}</div>
               <div className="text-[11px] font-semibold opacity-80">{zh}</div>
@@ -1023,7 +1020,7 @@ export default function JiangnanTravelGuideApp() {
 
   useEffect(() => {
     let cancelled = false;
-    const images = collectPreloadImages();
+    const images = collectPreloadImages(dayId);
     const total = Math.max(images.length, 1);
     let loaded = 0;
     const minDelay = new Promise((resolve) => setTimeout(resolve, 1200));
@@ -1043,19 +1040,19 @@ export default function JiangnanTravelGuideApp() {
   if (!bootDone) return <SplashScreen progress={bootProgress} onEnter={() => { setBootProgress(100); setBootDone(true); }} />;
 
   return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
-    <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(242,245,248,.50)", borderColor: "rgba(255,255,255,.34)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
+    <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(15,17,22,.86)", borderColor: "rgba(255,255,255,.08)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
       const active = dayId === d.id;
       return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark } : { background: "rgba(36,40,48,.78)", color: "rgba(235,239,245,.78)", border: "1px solid rgba(255,255,255,.08)" }}>{d.tab}</button>;
     })}</div></header>
     <main key={`${day.id}-${tab}-${mood}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
-      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-bold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Route" title="Main line" zh="今日主线" right={<Badge>{theme.emoji} {theme.label} · {theme.placeZh}</Badge>} /><div className="rounded-2xl p-3 text-sm font-semibold leading-6" style={{ background: theme.tint }}>{day.route}<br /><span className="text-neutral-500">{day.routeZh}</span></div><button onClick={() => setMapOpen(true)} className="mt-3 w-full rounded-2xl py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}><p className="text-xs font-bold text-white/70">Go</p><h3 className="mt-1 text-lg font-black">Quick jump</h3><p className="mt-2 text-sm text-white/80">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
-      {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black text-white shadow-sm transition active:scale-95" style={{ background: theme.gradient }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
+      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-semibold leading-6">{day.hotel}<br /><span className="text-neutral-500">{day.hotelZh}</span></p><p className="mt-1 text-sm leading-6 text-neutral-500">{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}><p className="text-xs font-semibold opacity-70">Go</p><h3 className="mt-1 text-lg font-black" style={{ color: theme.deepDark }}>Quick jump</h3><p className="mt-2 text-sm font-medium opacity-75">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
+      {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
       {tab === "culture" && <CulturePage day={day} theme={theme} />}
       {tab === "go" && <div className="space-y-3"><JumpCard icon="🗺️" title="Day map itinerary" zh="一天地图行程" theme={theme} onOpen={() => setMapOpen(true)} note="See driving, train and walking segments in one popup." noteZh="把行车、高铁和步行段一次看清楚。" /><JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} /><JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />{uniqueJumpCards([...getSmartJumps(day, mood), ...[["🏨", "Hotel anchor", "回酒店", `${day.hotel} ${day.hotelZh} ${day.addressZh}`], ...day.jumps].map(([icon, title, zh, query]) => ({ icon, title, zh, query }))]).map((item) => <JumpCard key={`${item.title}-${item.query || item.zh}`} {...item} theme={theme} />)}</div>}
     </main>
-    <nav className="bottom-nav fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 px-3 py-3" style={{ background: "transparent" }}><div className="grid grid-cols-5 gap-1 rounded-[30px] p-2 shadow-[0_20px_60px_rgba(25,30,38,.18)] backdrop-blur-2xl" style={{ background: theme.chipDark, border: "1px solid rgba(255,255,255,.08)" }}>{tabs.map(([id, en, zh]) => {
+    <nav className="bottom-nav fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 px-3 py-3" style={{ background: "transparent" }}><div className="grid grid-cols-5 gap-1 rounded-[30px] p-2 shadow-[0_20px_60px_rgba(25,30,38,.18)] backdrop-blur-2xl" style={{ background: theme.chipDark, border: "1px solid rgba(255,255,255,.08)" }}>{tabs.map(([id, en, zh, icon]) => {
       const active = tab === id;
-      return <button key={id} onClick={() => setTab(id)} className={`rounded-2xl px-2 py-2 text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark, boxShadow: "0 10px 26px rgba(18,243,189,.20)" } : { color: "#c7cbd2" }}><span className="block">{en}</span><span className="block text-[10px] opacity-80">{zh}</span></button>;
+      return <button key={id} onClick={() => setTab(id)} className={`rounded-2xl px-1.5 py-2 text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark, boxShadow: "0 10px 26px rgba(18,243,189,.20)" } : { color: "#c7cbd2" }}><span className="block text-[15px] leading-none">{icon}</span><span className="mt-1 block">{en}</span><span className="block text-[9px] opacity-75">{zh}</span></button>;
     })}</div></nav><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /><MapItinerarySheet day={mapOpen ? day : null} theme={theme} onClose={() => setMapOpen(false)} /></div></div>;
 }
