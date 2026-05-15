@@ -29,8 +29,8 @@ const IMG = {
   dongpoHangzhou: "/assets/publicimagesappdongpo-hangzhou.jpg",
   longjingShrimp: "/assets/publicimagesapplongjing-shrimp.jpg",
   westLakeFish: "/assets/publicimagesappwestlake-fish.jpg",
-  wuzhenFood: "/assets/publicimagesappwuzhen-food.jpg",
-  wuzhenFood2: "/assets/publicimagesappwuzhen-food.png",
+  wuzhenSnacks: "/assets/publicimagesappwuzhen-snacks.jpg",
+  wuzhenLocalDishes: "/assets/publicimagesappwuzhen-local-dishes.jpg",
 
   bundFamily: "/assets/publicimagesfoodbund-family-banquet.jpg",
   liBaiCrab: "/assets/publicimagesfoodli-bai-crab.jpg",
@@ -241,8 +241,8 @@ const days = [
       { part: "Evening", partZh: "晚上", title: "Dinner + Xizha night view", zh: "晚餐 + 西栅夜景", image: IMG.wuzhenHero, place: "Dinner → optional boat ride → night-view walk → hotel", placeZh: "晚餐 → 可选摇橹船 → 夜景慢走 → 回酒店", transit: "Walk or boat inside the scenic area. Boat adds about 20–40 min plus queue.", transitZh: "景区内步行或坐船；坐船另加约20–40分钟和排队时间。", why: "Wuzhen’s night view is the main event: warm lights, bridges, and reflections on the canal.", whyZh: "乌镇夜景是重点：灯光、石桥和水面倒影是水乡最有记忆点的部分。" },
     ],
     food: [
-      { name: "Xizha snacks", zh: "乌镇西栅小吃", tag: "Local snacks", tagZh: "当地小吃", image: IMG.wuzhenFood, map: "乌镇西栅 小吃 书生羊肉面 锦记糕点铺", story: "Wuzhen snacks are small portions between walks: lamb noodles, pastries, wontons, fried snacks, and rice dumplings.", storyZh: "乌镇小吃适合边走边吃：羊肉面、糕点、馄饨、油煎小吃和粽子。", try: [["Lamb noodles", "羊肉面"], ["Dingsheng cake", "定胜糕"], ["Wontons", "馄饨"]] },
-      { name: "Wuzhen local dishes", zh: "乌镇特色菜", tag: "Local dishes", tagZh: "水乡菜", image: IMG.wuzhenFood2, map: "乌镇西栅 白水鱼 酱鸭 红烧羊肉", story: "River-town comfort food: white fish, soy-sauce duck, lamb, river shrimp, and warm pastries.", storyZh: "水乡舒适菜：白水鱼、酱鸭、羊肉、河虾和热乎的糕点。", try: [["White fish", "白水鱼"], ["Soy-sauce duck", "酱鸭"], ["Braised lamb", "红烧羊肉"]] },
+      { name: "Xizha snacks", zh: "乌镇西栅小吃", tag: "Local snacks", tagZh: "当地小吃", image: IMG.wuzhenSnacks, map: "乌镇西栅 小吃 书生羊肉面 锦记糕点铺", story: "Wuzhen snacks are small portions between walks: lamb noodles, pastries, wontons, fried snacks, and rice dumplings.", storyZh: "乌镇小吃适合边走边吃：羊肉面、糕点、馄饨、油煎小吃和粽子。", try: [["Lamb noodles", "羊肉面"], ["Dingsheng cake", "定胜糕"], ["Wontons", "馄饨"]] },
+      { name: "Wuzhen local dishes", zh: "乌镇特色菜", tag: "Local dishes", tagZh: "水乡菜", image: IMG.wuzhenLocalDishes, map: "乌镇西栅 白水鱼 酱鸭 红烧羊肉", story: "River-town comfort food: white fish, soy-sauce duck, lamb, river shrimp, and warm pastries.", storyZh: "水乡舒适菜：白水鱼、酱鸭、羊肉、河虾和热乎的糕点。", try: [["White fish", "白水鱼"], ["Soy-sauce duck", "酱鸭"], ["Braised lamb", "红烧羊肉"]] },
     ],
     references: { en: "Xizha food references", zh: "西栅美食参考", items: [["书生羊肉面", "Lamb noodles", "羊肉面"], ["锦记糕点铺", "Pastries", "糕点"], ["吴妈馄饨", "Wontons", "馄饨"], ["早茶客", "Breakfast / tea", "早茶"], ["滋啦啦油煎铺", "Pan-fried snacks", "油煎小吃"], ["舌尖葱包烩", "Scallion snack", "葱包烩"], ["杯里杯烧饼铺", "Baked flatbread", "烧饼"], ["茅老太臭豆腐", "Stinky tofu", "臭豆腐"], ["通济酱粽店", "Rice dumplings", "酱粽"]] },
     jumps: [["🚄", "Shanghai South Station", "上海南站", "上海南站"], ["🚕", "Huzhou Nanxun Station", "湖州南浔站", "湖州南浔站"], ["🌉", "Wuzhen Xizha", "乌镇西栅", "乌镇西栅"], ["🖼️", "Muxin Art Museum", "木心美术馆", "木心美术馆 乌镇"]],
