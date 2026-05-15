@@ -294,48 +294,76 @@ const days = [
 
 const tabs = [["home", "Today", "首页", "◐"], ["route", "Route", "路线", "↗"], ["taste", "Taste", "味道", "🍜"], ["culture", "Story", "文化", "◇"], ["go", "Go", "出发", "✦"]];
 
-function normalizeMapQuery(query) {
+function resolveMapTarget(query) {
   const raw = String(query || "").trim();
-  const rules = [
-    ["上海浦西万怡", "上海浦西万怡酒店"],
-    ["Courtyard by Marriott", "上海浦西万怡酒店"],
-    ["外滩家宴", "外滩家宴上海菜 城隍庙"],
-    ["李百蟹", "李百蟹外滩江景餐厅"],
-    ["Professor", "Professor Lee 港汇恒隆"],
-    ["人和馆", "人和馆 枫林路 上海"],
-    ["玉兰厢", "玉兰厢 豫园"],
-    ["杭州龙禧", "杭州龙禧福朋喜来登酒店"],
-    ["Four Points", "杭州龙禧福朋喜来登酒店"],
-    ["福缘居", "福缘居酒楼 文三西路店"],
-    ["群乐", "群乐饭店 滨安路店"],
-    ["竹间三喜", "竹间三喜 良渚"],
-    ["龙井茶园", "龙井茶园 杭州"],
-    ["龙井村", "龙井村 杭州"],
-    ["法喜寺", "杭州上天竺法喜讲寺"],
-    ["灵隐寺", "灵隐寺 杭州"],
-    ["国家版本馆", "杭州国家版本馆"],
-    ["良渚文化村", "良渚文化村 杭州"],
-    ["玉鸟集", "玉鸟集 良渚"],
-    ["乌镇西栅", "乌镇西栅景区"],
-    ["木心美术馆", "木心美术馆 乌镇"],
-    ["湖州南浔站", "湖州南浔站"],
-    ["杭州西站", "杭州西站"],
-    ["上海南站", "上海南站"],
-    ["徐家汇天主堂", "徐家汇天主堂"],
-    ["徐家汇书院", "徐家汇书院"],
-    ["南京东路", "南京东路步行街"],
-    ["豫园", "豫园"],
-    ["外滩", "外滩"],
+  const compactText = (value) => String(value || "").replaceAll(" ", "").replaceAll("·", "").replaceAll("（", "").replaceAll("）", "").replaceAll("(", "").replaceAll(")", "");
+  const compact = compactText(raw);
+  const has = (...keys) => keys.some((key) => compact.includes(compactText(key)) || raw.includes(key));
+
+  const targets = [
+    { test: () => has("上海浦西万怡", "CourtyardbyMarriottShanghaiCentral"), label: "上海浦西万怡酒店 静安区恒丰路338号", city: "上海" },
+    { test: () => has("杭州龙禧", "FourPointsbySheratonHangzhou"), label: "杭州龙禧福朋喜来登酒店 滨江区东信大道868号", city: "杭州" },
+
+    { test: () => has("外滩家宴"), label: "外滩家宴·上海菜(罗斯福公馆店)", city: "上海", apple: "https://maps.apple.com/place?_provider=57879&place-id=H2710I3F98CAC9DC265" },
+    { test: () => has("李百蟹", "蟹黄面"), label: "李百蟹·蟹黄面·江景餐厅(外滩·豫园店)", city: "上海", apple: "https://maps.apple.com/place?auid=1118786801326451&lsp=57879" },
+    { test: () => has("Professor", "LEE", "李教授"), label: "Professor Lee(港汇恒隆店)", city: "上海", apple: "https://maps.apple.com/place?auid=1118674442790248&lsp=57879" },
+    { test: () => has("人和馆"), label: "人和馆(肇嘉浜路店) 徐汇区肇嘉浜路407号", city: "上海", apple: "https://maps.apple.com/place?auid=1118368551270045&lsp=57879" },
+    { test: () => has("玉兰厢"), label: "玉兰厢 豫园商城", city: "上海" },
+    { test: () => has("南翔馒头"), label: "南翔馒头店 豫园", city: "上海" },
+    { test: () => has("绿波廊"), label: "绿波廊 豫园", city: "上海" },
+    { test: () => has("上海老饭店"), label: "上海老饭店 福佑路", city: "上海" },
+    { test: () => has("宁波汤团"), label: "宁波汤团店 豫园", city: "上海" },
+    { test: () => has("沈大成"), label: "沈大成 南京东路", city: "上海" },
+
+    { test: () => has("福缘居", "金福缘", "文三西路店"), label: "金福缘野生大鱼坊(文三西路店) 文三西路499号", city: "杭州" },
+    { test: () => has("群乐"), label: "群乐饭店(信诚路店) 滨安路1197号", city: "杭州", amap: "https://ditu.amap.com/place/B023B019A4", apple: "https://maps.apple.com/place?auid=1117323447214396&lsp=57879" },
+    { test: () => has("竹间三喜"), label: "竹间三喜 BIRLAND玉鸟集店 良渚", city: "杭州" },
+    { test: () => has("杭帮菜", "东坡肉", "龙井虾仁", "宋嫂鱼羹"), label: "杭帮菜餐厅", city: "杭州" },
+    { test: () => has("龙井茶园茶馆", "龙井茶馆", "茶馆"), label: "龙井村茶馆", city: "杭州" },
+
+    { test: () => has("徐家汇天主堂"), label: "徐家汇天主堂", city: "上海" },
+    { test: () => has("徐家汇书院"), label: "徐家汇书院", city: "上海" },
+    { test: () => has("豫园"), label: "豫园", city: "上海" },
+    { test: () => has("外滩观景", "外滩"), label: "外滩", city: "上海" },
+    { test: () => has("南京东路"), label: "南京东路步行街", city: "上海" },
+    { test: () => has("上海南站"), label: "上海南站", city: "上海" },
+
+    { test: () => has("木心美术馆"), label: "木心美术馆 乌镇西栅", city: "桐乡" },
+    { test: () => has("草木染坊"), label: "草木本色染坊 乌镇西栅", city: "桐乡" },
+    { test: () => has("书生羊肉面"), label: "书生羊肉面 乌镇西栅", city: "桐乡" },
+    { test: () => has("锦记糕点"), label: "锦记糕点铺 乌镇西栅", city: "桐乡" },
+    { test: () => has("吴妈馄饨"), label: "吴妈馄饨 乌镇西栅", city: "桐乡" },
+    { test: () => has("白水鱼", "酱鸭", "红烧羊肉"), label: "乌镇西栅景区 餐厅", city: "桐乡" },
+    { test: () => has("乌镇西栅", "西栅"), label: "乌镇西栅景区", city: "桐乡" },
+
+    { test: () => has("湖州南浔"), label: "湖州南浔站", city: "湖州" },
+    { test: () => has("杭州西站"), label: "杭州西站", city: "杭州" },
+    { test: () => has("国家版本馆", "杭州国家版本馆"), label: "杭州国家版本馆", city: "杭州" },
+    { test: () => has("良渚文化村"), label: "良渚文化村", city: "杭州" },
+    { test: () => has("玉鸟集"), label: "玉鸟集 良渚", city: "杭州" },
+    { test: () => has("法喜寺"), label: "杭州上天竺法喜讲寺", city: "杭州" },
+    { test: () => has("灵隐寺"), label: "灵隐寺", city: "杭州" },
+    { test: () => has("龙井茶园", "LongjingTeaFields"), label: "龙井茶园 龙井村", city: "杭州" },
+    { test: () => has("龙井村"), label: "龙井村", city: "杭州" },
   ];
-  const hit = rules.find(([key]) => raw.includes(key));
-  return hit ? hit[1] : raw;
+
+  const hit = targets.find((item) => item.test());
+  if (hit) return hit;
+  return { label: raw, city: "" };
 }
 
 function mapLinks(query) {
-  const safeQuery = normalizeMapQuery(query);
-  const q = encodeURIComponent(safeQuery);
+  const target = resolveMapTarget(query);
+  const display = [target.label, target.city].filter(Boolean).join(" ");
+  const q = encodeURIComponent(display);
   const me = encodeURIComponent("我的位置");
-  return { amap: `https://uri.amap.com/search?keyword=${q}&src=jiangnan-trip&callnative=1`, baidu: `https://api.map.baidu.com/direction?origin=${me}&destination=${q}&mode=driving&region=${encodeURIComponent("全国")}&output=html&src=jiangnan-trip`, apple: `https://maps.apple.com/?daddr=${q}&dirflg=d`, google: `https://www.google.com/maps/dir/?api=1&destination=${q}&travelmode=driving`, label: safeQuery };
+  return {
+    amap: target.amap || `https://uri.amap.com/search?keyword=${q}&src=jiangnan-trip&callnative=1`,
+    baidu: `https://api.map.baidu.com/direction?origin=${me}&destination=${q}&mode=driving&region=${encodeURIComponent(target.city || "全国")}&output=html&src=jiangnan-trip`,
+    apple: target.apple || `https://maps.apple.com/?q=${q}`,
+    google: `https://www.google.com/maps/search/?api=1&query=${q}`,
+    label: display,
+  };
 }
 
 function SmartImage({ src, alt, className }) {
