@@ -155,6 +155,9 @@ const days = [
     route: "Hotel → Bund dinner → The Bund → Hotel", routeZh: "酒店 → 外滩附近晚餐 → 外滩夜景 → 回酒店",
     intro: "A soft first night: historic façades, Huangpu River reflections, and the Lujiazui skyline in one walk.",
     introZh: "第一晚轻松一点：历史建筑立面、黄浦江倒影和陆家嘴天际线放在同一条夜游线里。",
+    realMaps: [
+      { title: "Hotel → The Bund", titleZh: "酒店 → 外滩", src: "/maps/d25-bund-amap.jpg", note: "Taxi about 17–21 min, around 5–6 km.", noteZh: "打车约17–21分钟，约5–6公里。" },
+    ],
     plan: [
       {
         part: "Afternoon", partZh: "下午", title: "Check in + reset", zh: "入住 + 休息", image: IMG.bundRiver,
@@ -191,6 +194,10 @@ const days = [
     hotel: "Courtyard by Marriott Shanghai Central", hotelZh: "上海浦西万怡酒店", address: "338 Hengfeng Road, Jing’an District", addressZh: "静安区恒丰路338号",
     route: "Hotel → Xujiahui → Lunch → Yu Garden → Dinner", routeZh: "酒店 → 徐家汇 → 午餐 → 豫园 → 晚餐",
     intro: "Architecture, books, garden views, and old-city food — a compact Shanghai culture day.", introZh: "建筑、书院、园林和老城厢美食，组成一个紧凑但不特种兵的上海文化日。",
+    realMaps: [
+      { title: "Hotel → Xujiahui", titleZh: "酒店 → 徐家汇", src: "/maps/d26-xujiahui-amap.jpg", note: "Taxi about 27–29 min, around 7–9 km.", noteZh: "打车约27–29分钟，约7–9公里。" },
+      { title: "Hotel → Yu Garden", titleZh: "酒店 → 豫园", src: "/maps/d26-yuyuan-amap.jpg", note: "Taxi about 18–22 min, around 5–6 km.", noteZh: "打车约18–22分钟，约5–6公里。" },
+    ],
     plan: [
       { part: "Morning", partZh: "上午", title: "Xujiahui Cathedral + Library", zh: "徐家汇天主堂 + 徐家汇书院", image: IMG.xujiahui, place: "Hotel → Xujiahui Cathedral → Xujiahui Library", placeZh: "酒店 → 徐家汇天主堂 → 徐家汇书院", transit: "Taxi 30–40 min. Use taxi as the main transfer.", transitZh: "打车约30–40分钟；本路线以打车为主。", why: "Xujiahui was shaped by Jesuit history, education, and science. The cathedral and library show two sides of that legacy.", whyZh: "徐家汇和耶稣会、教育、科学传统有关。天主堂和书院正好呈现这种历史与当代的两面。", legs: [["Taxi drop-off", "Hotel → Xujiahui Cathedral area by taxi. After getting off, walk 5–12 min between the cathedral and library.", "打车落点", "酒店 → 徐家汇天主堂区域打车到达；下车后天主堂和书院之间步行约5–12分钟。"], ["Walking link", "Cathedral → Library: about 5–10 min on foot.", "步行连接", "天主堂 → 书院：步行约5–10分钟。"]] },
       { part: "Afternoon", partZh: "下午", title: "Yu Garden", zh: "豫园", image: IMG.yuyuanPond, place: "Lunch → Yu Garden / Old City Bazaar", placeZh: "午餐 → 豫园/城隍庙区域", transit: "Taxi 25–40 min from Xujiahui. Keep the afternoon transfer simple.", transitZh: "从徐家汇打车约25–40分钟；下午转场尽量简单。", why: "Yu Garden is a Ming-dynasty private garden built around rockeries, ponds, corridors, and framed views.", whyZh: "豫园是明代私家园林，核心看山石、水池、廊道和被框景组织起来的视线。", legs: [["Taxi route", "Xujiahui area → Yu Garden. Keep the afternoon focused in the old-city area.", "打车路线", "徐家汇区域 → 豫园，下午尽量集中在老城厢。"], ["Drop-off + walk", "Ask the driver to stop near Yu Garden / Old City Bazaar, then walk inside the pedestrian area.", "下车后步行", "打车到豫园/城隍庙附近下车，再进入步行区慢逛。"]] },
@@ -211,6 +218,9 @@ const days = [
     hotel: "Passage d'Eau Hotel / Xizha Area", hotelZh: "乌镇西栅景区内酒店", address: "Xizha Scenic Area, Wuzhen", addressZh: "乌镇西栅景区内",
     route: "Shanghai hotel → Shanghai South Station → Huzhou Nanxun Station → Wuzhen Xizha", routeZh: "上海酒店 → 上海南站 → 湖州南浔站 → 乌镇西栅",
     intro: "The trip shifts from city lights to Jiangnan canals: bridges, water lanes, white walls, and slower night views.", introZh: "从城市灯光切换到江南水巷：石桥、水道、白墙和更慢的夜景。",
+    realMaps: [
+      { title: "Wuzhen Xizha walking route", titleZh: "乌镇西栅步行路线", src: "/maps/d27-wuzhen-route.jpg", note: "Main walking loop inside Xizha, linking bridges, old streets, post office, Muxin Art Museum and snack stops.", noteZh: "西栅内部步行为主，串联桥区、老街、邮局、木心美术馆和小吃点。" },
+    ],
     plan: [
       { part: "Morning", partZh: "上午", title: "Transfer to Wuzhen", zh: "上海 → 乌镇转场", image: IMG.wuzhenStreet, place: "Shanghai hotel → Shanghai South Station → Huzhou Nanxun Station → Xizha hotel", placeZh: "上海酒店 → 上海南站 → 湖州南浔站 → 西栅酒店", transit: "Taxi + high-speed train + taxi. Pure moving time is about 1 hr 35 min; plan 2–2.5 hr with station buffer.", transitZh: "打车+高铁+打车。纯移动时间约1小时35分钟；加上进站候车，建议按2–2.5小时预留。", why: "This was the fastest and most balanced transfer plan from the earlier route notes.", whyZh: "这是前面整理里性价比和速度最平衡的上海南站方案。", legs: [["1. Hotel → Shanghai South Station", "Taxi about 30 min, around ¥43. If traffic is heavy, still keep taxi as the default and leave earlier.", "1. 酒店 → 上海南站", "打车约30分钟，约43元；如果遇到堵车，仍建议以打车为主，只是提前出发。"], ["2. Shanghai South → Huzhou Nanxun", "High-speed train about 43 min, tickets from about ¥58. Reserve at least 45 min for security and boarding.", "2. 上海南 → 湖州南浔", "高铁约43分钟，票价58元起；建议至少提前45分钟到站安检候车。"], ["3. Huzhou Nanxun Station → Xizha hotel", "Taxi about 23 min, around ¥54. Direct to the hotel or scenic-area entrance.", "3. 湖州南浔站 → 西栅酒店", "打车约23分钟，约54元，直达酒店或景区入口。"]] },
       { part: "Afternoon", partZh: "下午", title: "Xizha slow walk + Muxin Art Museum", zh: "西栅慢逛 + 木心美术馆", image: IMG.muxin, place: "Xizha Service Center → water lanes → Muxin Art Museum", placeZh: "西栅服务中心 → 水巷 → 木心美术馆", transit: "Inside Xizha: walk or scenic shuttle, about 5–20 min between stops.", transitZh: "西栅内部步行或景区车，点位间约5–20分钟。", why: "Xizha is the polished night-view side of Wuzhen; Muxin Art Museum adds a quieter literary stop.", whyZh: "西栅适合夜游和慢逛，木心美术馆让水乡路线更有文学气质。", legs: [["Suggested walk", "Xizha Service Center → Water Market → Wuzhen Post Office → bridge streets → Muxin Art Museum.", "建议步行线", "西栅服务中心 → 水上集市 → 乌镇邮局 → 桥区水巷 → 木心美术馆。"], ["Optional stops", "Water Theater, Qiaoliqiao, Zhaoming Academy, Grass and Wood Dye Workshop.", "可选小点", "水剧场、桥里桥、昭明书院、草木染坊。"]] },
@@ -230,6 +240,9 @@ const days = [
     hotel: "Four Points by Sheraton Hangzhou, Binjiang", hotelZh: "杭州龙禧福朋喜来登酒店", address: "868 Dongxin Avenue, Binjiang District", addressZh: "滨江区东信大道868号",
     route: "Wuzhen Xizha → Huzhou Nanxun Station → Hangzhou West Station → Hangzhou hotel", routeZh: "乌镇西栅 → 湖州南浔站 → 杭州西站 → 杭州酒店",
     intro: "A transfer-and-culture day: move from the water town into Hangzhou, then keep the visit focused on one or two cultural areas.", introZh: "转场加文化日：从水乡进入杭州，游览集中在一到两个文化片区。",
+    realMaps: [
+      { title: "Hotel → National Archives", titleZh: "酒店 → 杭州国家版本馆", src: "/maps/d28-archives-amap.jpg", note: "Driving route about 49–53 min, around 41–42 km.", noteZh: "驾车约49–53分钟，约41–42公里。" },
+    ],
     plan: [
       { part: "Morning", partZh: "上午", title: "Transfer to Hangzhou", zh: "乌镇 → 杭州转场", image: IMG.versionHall, place: "Xizha hotel → Huzhou Nanxun Station → Hangzhou West Station → hotel", placeZh: "西栅酒店 → 湖州南浔站 → 杭州西站 → 酒店", transit: "Taxi + high-speed train + taxi. Pure moving time is about 1 hr 40 min; plan 2.5–3.5 hr with luggage and station buffer.", transitZh: "打车+高铁+打车。纯移动时间约1小时40分钟；加上行李、进站和候车，建议按2.5–3.5小时预留。", why: "This follows the earlier route note: it is faster and more comfortable than a long ground transfer.", whyZh: "按照前面给的路线，这比全程地面接驳更快也更省心。", legs: [["1. Xizha / Shui Xiang Yi → Huzhou Nanxun Station", "Taxi about 26 min, around ¥55. Direct to the station entrance is the easiest option.", "1. 西栅/水巷驿 → 湖州南浔高铁站", "打车约26分钟，约55元，直达进站口最省心。"], ["2. Huzhou Nanxun → Hangzhou West", "High-speed train about 33 min, tickets from about ¥50. Many daily trains; buy ahead if possible.", "2. 湖州南浔 → 杭州西", "高铁约33分钟，票价50元起，全天班次较多，建议提前购票。"], ["3. Hangzhou West → Four Points Binjiang", "Taxi about 39 min, around ¥127. Direct to the hotel is the lazy and comfortable choice.", "3. 杭州西站 → 杭州龙禧福朋喜来登酒店", "打车约39分钟，约127元，直达酒店门口，懒人首选。"]] },
       { part: "Afternoon", partZh: "下午", title: "National Archives + Liangzhu", zh: "杭州国家版本馆 + 良渚", image: IMG.liangzhu, place: "Hotel / station area → Hangzhou National Archives → Liangzhu Cultural Village", placeZh: "酒店/车站方向 → 杭州国家版本馆 → 良渚文化村", transit: "Use taxi between these cultural areas. Each transfer can take about 15–45 min depending on starting point.", transitZh: "这些文化片区之间建议打车，视出发点每段约15–45分钟。", why: "The National Archives focuses on books and textual heritage; Liangzhu connects to jade ritual objects, rice agriculture, and ancient water systems.", whyZh: "版本馆看典籍与中华文脉，良渚看玉器礼制、稻作农业和古代水利系统。" },
@@ -249,6 +262,9 @@ const days = [
     hotel: "Four Points by Sheraton Hangzhou, Binjiang", hotelZh: "杭州龙禧福朋喜来登酒店", address: "868 Dongxin Avenue, Binjiang District", addressZh: "滨江区东信大道868号",
     route: "Hotel → Lingyin / Faxi temple area → Longjing Tea Fields → Hotel", routeZh: "酒店 → 灵隐/法喜寺庙区 → 龙井茶园 → 回酒店",
     intro: "A quiet final day: wooded temple paths, Buddhist courtyards, tea fields, and a soft ending.", introZh: "最后一天安静收尾：山林寺庙、佛寺院落、茶园和轻松晚餐。",
+    realMaps: [
+      { title: "Hotel → Lingyin Temple", titleZh: "酒店 → 灵隐寺", src: "/maps/d29-lingyin-amap.jpg", note: "Taxi about 23 min, around 9.5 km. This map uses the real route screenshot you provided.", noteZh: "打车约23分钟，约9.5公里。此图使用你提供的真实路线截图。" },
+    ],
     plan: [
       { part: "Morning", partZh: "上午", title: "Lingyin temple route", zh: "灵隐寺庙线", image: IMG.lingyin, place: "Hotel → Lingyin / Faxi area", placeZh: "酒店 → 灵隐/法喜寺区域", transit: "Taxi 35–55 min from hotel. Use taxi here; it is simpler for this group.", transitZh: "酒店打车约35–55分钟；这一段直接打车，更适合这组人。", why: "Lingyin is one of Hangzhou’s classic Buddhist temple areas, set between wooded hills and stone grotto scenery.", whyZh: "灵隐是杭州经典佛寺区域之一，山林、寺庙和石刻景观联系在一起。", legs: [["Long version", "Beigao Peak Cableway → Ling Shun Temple → Taoguang Temple → Yongfu Temple → Lingyin Temple → Faxi direction.", "完整线", "北高峰索道 → 灵顺寺 → 韬光寺 → 永福寺 → 灵隐寺 → 法喜寺方向。"], ["Short version", "Lingyin Temple → Faxi Temple. Better if the group wants a softer morning.", "轻松线", "灵隐寺 → 法喜寺。如果想轻松一点，这个版本更合适。"]] },
       { part: "Afternoon", partZh: "下午", title: "Longjing Tea Fields", zh: "龙井茶园", image: IMG.longjingField, place: "Temple area → Longjing Tea Fields / Longjing Village", placeZh: "寺庙区域 → 龙井茶园/龙井村", transit: "Taxi 20–35 min from the West Lake / Faxi side. Return to hotel about 40–60 min.", transitZh: "从西湖/法喜寺方向打车约20–35分钟；回酒店约40–60分钟。", why: "Longjing is tied to West Lake Dragon Well tea. The landscape is the point: tea terraces, village lanes, and roasting aromas.", whyZh: "龙井对应西湖龙井茶，重点不是单个建筑，而是茶田、村路和炒茶香气。" },
@@ -275,7 +291,7 @@ function mapLinks(query) {
 
 function SmartImage({ src, alt, className }) {
   const [bad, setBad] = useState(false);
-  return bad ? <div className={`${className} flex items-center justify-center bg-gradient-to-br from-slate-200 via-pink-100 to-blue-200 text-xs font-bold text-white`}>Photo loading / 图片加载中</div> : <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setBad(true)} className={className} />;
+  return bad ? <div className={`${className} flex items-center justify-center bg-gradient-to-br from-slate-200 via-pink-100 to-blue-200 p-5 text-center text-xs font-bold text-white`}>Image not uploaded yet<br />图片还没有上传到项目</div> : <img src={src} alt={alt} loading="lazy" decoding="async" onError={() => setBad(true)} className={className} />;
 }
 
 function Pair({ en, zh, className = "" }) {
@@ -539,78 +555,38 @@ function getMapSegments(day) {
   return maps[day.id] || [];
 }
 
-function RouteMapVisual({ day, theme }) {
-  const segments = getMapSegments(day);
-  const colors = { drive: "#6f8fe8", walk: "#73b894", train: "#a78bfa" };
-  const routePoints = [
-    day.id === "d25" ? ["Hotel", "酒店"] : day.id === "d26" ? ["Hotel", "酒店"] : day.id === "d27" ? ["Shanghai", "上海"] : day.id === "d28" ? ["Wuzhen", "乌镇"] : ["Hotel", "酒店"],
-    ...segments.map((seg) => {
-      const parts = seg.title.split("→");
-      const zhParts = seg.zh.split("→");
-      return [(parts[parts.length - 1] || seg.title).trim(), (zhParts[zhParts.length - 1] || seg.zh).trim()];
-    }),
-  ].slice(0, 7);
-  const height = Math.max(420, routePoints.length * 74);
-  const startY = 50;
-  const stepY = (height - 100) / Math.max(routePoints.length - 1, 1);
-  const points = routePoints.map((point, index) => ({ x: index % 2 === 0 ? 92 : 248, y: startY + index * stepY, en: point[0], zh: point[1] }));
-  const path = points.map((p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`).join(" ");
+function RealMapGallery({ day, theme }) {
+  const maps = day.realMaps || [];
+
+  if (!maps.length) {
+    return (
+      <section className="rounded-[30px] p-4 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
+        <div className="text-sm font-semibold text-neutral-600">Real maps are not ready yet. / 真实地图暂未添加。</div>
+      </section>
+    );
+  }
 
   return (
-    <section className="rounded-[30px] p-4 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
-      <div className="mb-3 flex items-start justify-between gap-3">
-        <div>
-          <p className="text-[11px] font-black uppercase tracking-[.14em] text-neutral-500">Visual route / 图片路线</p>
-          <h4 className="mt-1 text-lg font-black tracking-[-.03em]">{day.title}</h4>
-          <p className="text-sm font-semibold text-neutral-500">{day.titleZh}</p>
-        </div>
-        <Badge>{segments.length} steps</Badge>
-      </div>
-      <div className="overflow-hidden rounded-[26px] bg-white/65 p-3">
-        <svg viewBox={`0 0 340 ${height}`} className="h-auto w-full rounded-[22px]" role="img" aria-label={`${day.title} visual route map`}>
-          <defs>
-            <linearGradient id={`route-bg-${day.id}`} x1="0" x2="1" y1="0" y2="1">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.78" />
-              <stop offset="100%" stopColor={theme.accent2} stopOpacity="0.20" />
-            </linearGradient>
-            <filter id={`soft-shadow-${day.id}`} x="-20%" y="-20%" width="140%" height="140%">
-              <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#4b5bb4" floodOpacity="0.16" />
-            </filter>
-          </defs>
-          <rect width="340" height={height} rx="28" fill={`url(#route-bg-${day.id})`} />
-          <circle cx="285" cy="60" r="54" fill={theme.accent2} opacity="0.18" />
-          <circle cx="55" cy={height - 60} r="72" fill={theme.accent} opacity="0.12" />
-          {[...Array(9)].map((_, i) => <path key={i} d={`M${-20 + i * 45} 0 C ${50 + i * 25} ${height * 0.25}, ${-20 + i * 50} ${height * 0.55}, ${75 + i * 30} ${height}`} stroke="#ffffff" strokeOpacity="0.36" strokeWidth="1" fill="none" />)}
-          <path d={path} fill="none" stroke="#ffffff" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round" opacity="0.88" filter={`url(#soft-shadow-${day.id})`} />
-          {points.slice(0, -1).map((p, i) => {
-            const next = points[i + 1];
-            const mode = segments[i]?.mode || "drive";
-            return <line key={`line-${i}`} x1={p.x} y1={p.y} x2={next.x} y2={next.y} stroke={colors[mode]} strokeWidth="7" strokeLinecap="round" strokeDasharray={mode === "walk" ? "2 12" : mode === "train" ? "16 8" : "0"} />;
-          })}
-          {points.map((p, i) => {
-            const incoming = i === 0 ? "drive" : segments[i - 1]?.mode || "drive";
-            return (
-              <g key={`${p.en}-${i}`}>
-                <circle cx={p.x} cy={p.y} r="21" fill="#fff" filter={`url(#soft-shadow-${day.id})`} />
-                <circle cx={p.x} cy={p.y} r="14" fill={colors[incoming]} />
-                <text x={p.x} y={p.y + 5} textAnchor="middle" fontSize="12" fontWeight="900" fill="#fff">{i + 1}</text>
-                <foreignObject x={p.x < 170 ? p.x + 26 : p.x - 136} y={p.y - 27} width="110" height="62">
-                  <div className="rounded-2xl bg-white/80 px-3 py-2 shadow-sm backdrop-blur" xmlns="http://www.w3.org/1999/xhtml">
-                    <div className="truncate text-[11px] font-black leading-4 text-neutral-900">{p.en}</div>
-                    <div className="truncate text-[10px] font-bold leading-4 text-neutral-500">{p.zh}</div>
-                  </div>
-                </foreignObject>
-              </g>
-            );
-          })}
-        </svg>
-      </div>
-      <div className="mt-3 grid grid-cols-3 gap-2">
-        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.drive }} />Taxi / 打车</div>
-        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.train }} />Train / 高铁</div>
-        <div className="rounded-2xl bg-white/60 p-2 text-center text-[11px] font-black text-neutral-700"><span className="mr-1 inline-block h-2.5 w-2.5 rounded-full" style={{ background: colors.walk }} />Walk / 步行</div>
-      </div>
-    </section>
+    <div className="space-y-4">
+      {maps.map((item) => (
+        <section key={item.title} className="rounded-[30px] p-4 shadow-sm ring-1 ring-white/60" style={{ background: theme.card }}>
+          <div className="mb-3 flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-black uppercase tracking-[.14em] text-neutral-500">Real route map / 真实路线图</p>
+              <h4 className="mt-1 text-lg font-black tracking-[-.03em]">{item.title}</h4>
+              <p className="text-sm font-semibold text-neutral-500">{item.titleZh}</p>
+            </div>
+            <Badge>Real map / 真实图</Badge>
+          </div>
+          <div className="overflow-hidden rounded-[26px] bg-white/65">
+            <SmartImage src={item.src} alt={item.titleZh} className="block w-full object-cover" />
+          </div>
+          <div className="mt-3 rounded-2xl p-3 text-sm leading-6 text-neutral-700" style={{ background: theme.tint }}>
+            {item.note}<br /><span className="text-neutral-500">{item.noteZh}</span>
+          </div>
+        </section>
+      ))}
+    </div>
   );
 }
 
@@ -656,9 +632,8 @@ function MapItinerarySheet({ day, theme, onClose }) {
           <button onClick={onClose} className="rounded-full bg-white/80 px-4 py-2 text-sm font-black shadow-sm">Close / 关闭</button>
         </div>
         <div className="max-h-[76vh] overflow-y-auto p-5">
-          <RouteMapVisual day={day} theme={theme} />
+          <RealMapGallery day={day} theme={theme} />
           <MapSegmentDetails day={day} theme={theme} />
-          <p className="mt-3 rounded-2xl bg-white/55 p-3 text-xs font-semibold leading-5 text-neutral-600">This is a visual itinerary map. Tap each detail row below for real navigation buttons. / 这是视觉化路线图；展开下方每段路线，可以直接打开真实导航。</p>
         </div>
       </div>
     </div>
