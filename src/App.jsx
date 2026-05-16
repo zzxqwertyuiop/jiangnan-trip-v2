@@ -137,8 +137,10 @@ const placeThemes = {
 function getTheme(dayId, mood) {
   const place = placeThemes[dayId] || placeThemes.d25;
   const mode = moodThemes[mood] || moodThemes.comfort;
-  const accent = mood === "rain" ? "#69e8d6" : mood === "active" ? "#12f3bd" : "#20e8c8";
-  const accentDeep = mood === "rain" ? "#2fb7b0" : mood === "active" ? "#03b98f" : "#16d4b8";
+  const accent = mood === "rain" ? "#4cc9ff" : mood === "active" ? "#ff9f2d" : "#20e8c8";
+  const accentDeep = mood === "rain" ? "#1677ff" : mood === "active" ? "#ff6b1a" : "#16d4b8";
+  const accentSoft = mood === "rain" ? "rgba(76,201,255,.24)" : mood === "active" ? "rgba(255,159,45,.24)" : "rgba(32,232,200,.22)";
+  const accentFaint = mood === "rain" ? "rgba(76,201,255,.14)" : mood === "active" ? "rgba(255,159,45,.14)" : "rgba(32,232,200,.12)";
   return {
     ...mode,
     placeName: place.name,
@@ -149,7 +151,10 @@ function getTheme(dayId, mood) {
     card: "linear-gradient(180deg,rgba(18,20,25,.90),rgba(24,27,33,.82))",
     tint: "linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72))",
     accent,
-    accent2: "#b8fff4",
+    accentDeep,
+    accentSoft,
+    accentFaint,
+    accent2: mood === "rain" ? "#bfeeff" : mood === "active" ? "#ffd39a" : "#b8fff4",
     gradient: `linear-gradient(135deg,${accent} 0%,${accentDeep} 100%)`,
     chipDark: "rgba(11,12,15,.92)",
     softDark: "linear-gradient(180deg,rgba(17,19,24,.90),rgba(23,26,32,.84))",
@@ -427,7 +432,7 @@ function SmoothStyles() {
       @keyframes sheetUp { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
       @keyframes softIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes viewSwitch { from { opacity: 0; transform: translateY(12px) scale(.992); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }
-      @keyframes selectedGlow { 0% { box-shadow: 0 10px 24px rgba(18,243,189,.10); } 50% { box-shadow: 0 18px 42px rgba(18,243,189,.24); } 100% { box-shadow: 0 10px 24px rgba(18,243,189,.10); } }
+      @keyframes selectedGlow { 0% { box-shadow: 0 10px 24px var(--accent-faint); } 50% { box-shadow: 0 18px 42px var(--accent-soft); } 100% { box-shadow: 0 10px 24px var(--accent-faint); } }
       @keyframes tinyFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
       @keyframes sheen { from { transform: translateX(-120%) rotate(12deg); } to { transform: translateX(170%) rotate(12deg); } }
       @keyframes iconPulse { 0%,100% { transform: scale(.72); opacity: .25; } 50% { transform: scale(1.25); opacity: .55; } }
@@ -469,7 +474,7 @@ function SmoothStyles() {
       .app-shell .bottom-nav button { position: relative; overflow: hidden; }
       .app-shell .bottom-nav button::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 18px; height: 2px; border-radius: 999px; background: currentColor; opacity: .18; transform: translateX(-50%) scaleX(0); transition: transform .24s ease; }
       .app-shell .bottom-nav button:active::after { transform: translateX(-50%) scaleX(1); }
-      .dynamic-icon { position: relative; display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 999px; color: #0d0e12; box-shadow: 0 14px 32px rgba(18,243,189,.18), inset 0 1px 0 rgba(255,255,255,.30); overflow: hidden; }
+      .dynamic-icon { position: relative; display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 999px; color: #0d0e12; box-shadow: 0 14px 32px var(--accent-soft), inset 0 1px 0 rgba(255,255,255,.30); overflow: hidden; }
       .dynamic-icon.is-dark { color: white; box-shadow: 0 14px 32px rgba(0,0,0,.20), inset 0 1px 0 rgba(255,255,255,.10); }
       .dynamic-icon__emoji { position: relative; z-index: 2; animation: tinyFloat 2.1s ease-in-out infinite; }
       .dynamic-icon__halo { position: absolute; inset: 7px; border-radius: inherit; border: 1px solid rgba(255,255,255,.44); animation: iconPulse 2.4s ease-in-out infinite; }
@@ -482,7 +487,7 @@ function SmoothStyles() {
       .text-strong { color: rgba(255,255,255,.96); }
       .text-mid { color: rgba(235,239,245,.78); }
       .text-soft { color: rgba(205,211,220,.58); }
-      .mint-panel { background: linear-gradient(135deg,#20e8c8 0%,#16d4b8 100%); color: #0b1012; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 14px 30px rgba(20,214,184,.22); }
+      .mint-panel { background: linear-gradient(135deg,var(--accent) 0%,var(--accent-deep) 100%); color: #0b1012; box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 14px 30px var(--accent-soft); }
       .hero-glow { animation: heroGlow 4.5s ease-in-out infinite; }
       .china-map-wrap { animation: loadingFloat 5s ease-in-out infinite; }
       .china-map-outline { stroke-dasharray: 1200; stroke-dashoffset: 1200; animation: mapDraw 2.4s cubic-bezier(.2,.8,.2,1) forwards; }
@@ -494,7 +499,7 @@ function SmoothStyles() {
       .app-shell .text-neutral-700, .app-shell .text-neutral-600 { color: rgba(235,239,245,.76) !important; }
       .app-shell .text-neutral-500 { color: rgba(205,211,220,.56) !important; }
       .app-shell .text-blue-950 { color: rgba(235,239,245,.86) !important; }
-      .app-shell .text-blue-500 { color: #20e8c8 !important; }
+      .app-shell .text-blue-500 { color: var(--accent) !important; }
       .app-shell .bg-white\/66, .app-shell .bg-white\/65, .app-shell .bg-white\/60 { background: linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72)) !important; border: 1px solid rgba(255,255,255,.07); }
       .app-shell .ring-white\/70, .app-shell .ring-white\/60 { --tw-ring-color: rgba(255,255,255,.08) !important; }
       .app-shell .border-white\/70, .app-shell .border-white\/60, .app-shell .border-white\/55 { border-color: rgba(255,255,255,.08) !important; }
@@ -617,14 +622,14 @@ function SplashScreen({ progress, onEnter }) {
         <div className="mb-8">
           <p className="mb-3 text-[12px] font-black uppercase tracking-[.26em] text-white/46">Jiangnan Trip</p>
           <h1 className="text-[46px] font-black leading-[.90] tracking-[-.065em] text-white">China Map<br />Loading</h1>
-          <p className="mt-4 max-w-[330px] text-sm font-medium leading-6 text-white/64">正在优先加载前三天的路线图、餐厅图和景点图片。加载完成后进入 App，其余图片继续按需加载。</p>
+          
         </div>
 
         <div className="glass-card rounded-[32px] p-4" style={{ background: "linear-gradient(180deg,rgba(27,30,36,.78),rgba(14,16,20,.72))" }}>
           <div className="mb-3 flex items-center justify-between">
             <div>
               <p className="text-[11px] font-black uppercase tracking-[.16em] text-white/46">Image preload</p>
-              <p className="mt-1 text-lg font-black text-white">First 3 days assets</p>
+              <p className="mt-1 text-lg font-black text-white">Route assets</p>
             </div>
             <div className="rounded-full px-3 py-1 text-sm font-black" style={{ background: "linear-gradient(135deg,#20e8c8,#16d4b8)", color: "#0b1012" }}>{pct}%</div>
           </div>
@@ -650,7 +655,7 @@ function MapButtons({ query }) {
   return (
     <div className="space-y-2">
       <div className="grid grid-cols-2 gap-2">
-        <a href={links.amap} target="_blank" rel="noreferrer" className={`${item} mint-shimmer`} style={{ background: "linear-gradient(135deg,#23e3c4,#0fb49c)", color: "#0d0e12", boxShadow: "0 12px 28px rgba(18,243,189,.18)" }}>Amap / 高德</a>
+        <a href={links.amap} target="_blank" rel="noreferrer" className={`${item} mint-shimmer`} style={{ background: "linear-gradient(135deg,var(--accent),var(--accent-deep))", color: "#0d0e12", boxShadow: "0 12px 28px var(--accent-soft)" }}>Amap / 高德</a>
         <a href={links.apple} target="_blank" rel="noreferrer" className={item} style={{ background: "rgba(255,255,255,.62)", color: "#111214", border: "1px solid rgba(255,255,255,.45)" }}>Apple Maps</a>
       </div>
       {more && (
@@ -718,7 +723,7 @@ function MoodSwitch({ mood, setMood, theme, day }) {
   const advice = getMoodAdvice(day, mood);
   return <section className="heavy-card rounded-[32px] p-4"><SectionTitle kicker="Route Mode" title="Choose the pace" zh="选择今天的节奏" right={<Badge>{theme.placeName} / {theme.placeZh}</Badge>} /><div className="grid grid-cols-3 gap-2">{Object.entries(moodThemes).map(([key, item]) => {
     const active = mood === key;
-    return <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={{ background: active ? theme.gradient : "linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72))", color: active ? theme.deepDark : "rgba(255,255,255,.82)", boxShadow: active ? "0 14px 35px rgba(20,214,184,.18)" : "none", border: active ? "1px solid rgba(255,255,255,.12)" : "1px solid rgba(255,255,255,.06)" }}><span className={`block text-base ${active ? "active-emoji" : ""}`}>{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-75">{item.zh}</span></button>;
+    return <button key={key} onClick={() => setMood(key)} className={`rounded-2xl px-3 py-3 text-center text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={{ background: active ? theme.gradient : "linear-gradient(180deg,rgba(36,40,48,.78),rgba(26,29,36,.72))", color: active ? theme.deepDark : "rgba(255,255,255,.82)", boxShadow: active ? "0 14px 35px var(--accent-soft)" : "none", border: active ? "1px solid rgba(255,255,255,.12)" : "1px solid rgba(255,255,255,.06)" }}><span className={`block text-base ${active ? "active-emoji" : ""}`}>{item.emoji}</span><span className="mt-1 block text-[11px]">{item.label}</span><span className="block text-[9px] opacity-75">{item.zh}</span></button>;
   })}</div><div key={`${day.id}-${mood}-advice`} className="view-switch heavy-soft mt-3 rounded-2xl p-3 text-sm leading-6"><strong className="text-white/95">{advice.action[0]}</strong><br /><span className="text-white/56">{advice.action[1]}</span><div className="mt-2 text-white/78">{advice.en}<br /><span className="text-white/56">{advice.zh}</span></div></div></section>;
 }
 
@@ -728,8 +733,8 @@ function Hero({ day, theme, openGuide }) {
       <div className="hero-scan relative h-[405px] overflow-hidden rounded-[40px] shadow-[0_24px_76px_rgba(0,0,0,.28)]">
         <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,12,.08)_0%,rgba(8,10,12,.14)_48%,rgba(8,10,12,.30)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(31,231,200,.12),transparent_32%)]" />
-        <div className="hero-glow absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#23e3c4]/22 blur-3xl" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--accent-faint),transparent_32%)]" />
+        <div className="hero-glow absolute -right-12 -top-12 h-40 w-40 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .22 }} />
 
         <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
           <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">‹</div>
@@ -1395,7 +1400,7 @@ export default function JiangnanTravelGuideApp() {
 
   if (!bootDone) return <SplashScreen progress={bootProgress} onEnter={() => { setBootProgress(100); setBootDone(true); }} />;
 
-  return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
+  return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg, "--accent": theme.accent, "--accent-deep": theme.accentDeep, "--accent-soft": theme.accentSoft, "--accent-faint": theme.accentFaint }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
     <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(15,17,22,.86)", borderColor: "rgba(255,255,255,.08)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
       const active = dayId === d.id;
       return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark } : { background: "rgba(36,40,48,.78)", color: "rgba(235,239,245,.78)", border: "1px solid rgba(255,255,255,.08)" }}>{d.tab}</button>;
@@ -1421,6 +1426,6 @@ export default function JiangnanTravelGuideApp() {
     </main>
     <nav className="bottom-nav fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 px-3 py-3" style={{ background: "transparent" }}><div className="grid grid-cols-5 gap-1 rounded-[30px] p-2 shadow-[0_20px_60px_rgba(25,30,38,.18)] backdrop-blur-2xl" style={{ background: theme.chipDark, border: "1px solid rgba(255,255,255,.08)" }}>{tabs.map(([id, en, zh, icon]) => {
       const active = tab === id;
-      return <button key={id} onClick={() => setTab(id)} className={`rounded-2xl px-1.5 py-2 text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark, boxShadow: "0 10px 26px rgba(18,243,189,.20)" } : { color: "#c7cbd2" }}><span className="block text-[15px] leading-none">{icon}</span><span className="mt-1 block">{en}</span><span className="block text-[9px] opacity-75">{zh}</span></button>;
+      return <button key={id} onClick={() => setTab(id)} className={`rounded-2xl px-1.5 py-2 text-xs font-black transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark, boxShadow: "0 10px 26px var(--accent-soft)" } : { color: "#c7cbd2" }}><span className="block text-[15px] leading-none">{icon}</span><span className="mt-1 block">{en}</span><span className="block text-[9px] opacity-75">{zh}</span></button>;
     })}</div></nav><DetailSheet item={detail} theme={theme} onClose={() => setDetail(null)} /><MapItinerarySheet day={mapOpen ? day : null} theme={theme} onClose={() => setMapOpen(false)} /></div></div>;
 }
