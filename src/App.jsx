@@ -727,39 +727,52 @@ function MoodSwitch({ mood, setMood, theme, day }) {
   })}</div><div key={`${day.id}-${mood}-advice`} className="view-switch heavy-soft mt-3 rounded-2xl p-3 text-sm leading-6"><strong className="text-white/95">{advice.action[0]}</strong><br /><span className="text-white/56">{advice.action[1]}</span><div className="mt-2 text-white/78">{advice.en}<br /><span className="text-white/56">{advice.zh}</span></div></div></section>;
 }
 
-function Hero({ day, theme, openGuide }) {
+function Hero({ day, theme, openGuide, compact = false }) {
+  const heroHeight = compact ? "h-[150px]" : "h-[405px]";
+  const heroRadius = compact ? "rounded-[28px]" : "rounded-[40px]";
+  const titleWidth = compact ? "w-[64%] max-w-[250px]" : "w-[62%] max-w-[300px]";
   return (
     <button onClick={openGuide} className="hero-card group w-full text-left transition active:scale-[.99]">
-      <div className="hero-scan relative h-[405px] overflow-hidden rounded-[40px] shadow-[0_24px_76px_rgba(0,0,0,.28)]">
-        <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+      <div className={`hero-scan relative ${heroHeight} overflow-hidden ${heroRadius} shadow-[0_24px_76px_rgba(0,0,0,.28)]`}>
+        <SmartImage src={day.hero} alt={day.titleZh} className="absolute inset-0 h-full w-full object-cover object-center transition duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,10,12,.08)_0%,rgba(8,10,12,.14)_48%,rgba(8,10,12,.30)_100%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--accent-faint),transparent_32%)]" />
         <div className="hero-glow absolute -right-12 -top-12 h-40 w-40 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .22 }} />
 
-        <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">‹</div>
-          <div className="mint-shimmer flex max-w-[218px] items-center gap-2 rounded-full px-3 py-2 text-[11px] font-black shadow-[0_10px_30px_rgba(35,227,196,.20)]" style={{ background: theme.gradient, color: theme.deepDark }}>
-            <DynamicIcon theme={theme} size="sm" dark>✈️</DynamicIcon>
-            <div className="min-w-0 leading-tight"><div className="truncate">{day.city} active route</div><div className="truncate text-[9px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
+        {compact ? (
+          <div className="absolute left-3 right-3 top-3 flex items-center justify-between">
+            <div className="mint-shimmer flex max-w-[178px] items-center gap-2 rounded-full px-2.5 py-1.5 text-[10px] font-black shadow-[0_10px_30px_rgba(35,227,196,.16)]" style={{ background: theme.gradient, color: theme.deepDark }}>
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0b1012] text-white">✈️</span>
+              <div className="min-w-0 leading-tight"><div className="truncate">{day.city} guide</div><div className="truncate text-[8px] font-bold opacity-70">{day.cityZh} · live</div></div>
+            </div>
+            <Badge style={{ background: "rgba(10,12,16,.48)", color: "white", border: "1px solid rgba(255,255,255,.16)" }}>{day.tab}</Badge>
           </div>
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">⌾</div>
-        </div>
+        ) : (
+          <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">‹</div>
+            <div className="mint-shimmer flex max-w-[218px] items-center gap-2 rounded-full px-3 py-2 text-[11px] font-black shadow-[0_10px_30px_rgba(35,227,196,.20)]" style={{ background: theme.gradient, color: theme.deepDark }}>
+              <DynamicIcon theme={theme} size="sm" dark>✈️</DynamicIcon>
+              <div className="min-w-0 leading-tight"><div className="truncate">{day.city} active route</div><div className="truncate text-[9px] font-bold opacity-70">{day.cityZh} · live guide</div></div>
+            </div>
+            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/18 bg-black/38 text-white backdrop-blur-xl">⌾</div>
+          </div>
+        )}
 
-        <div className="absolute bottom-4 left-4 w-[62%] max-w-[300px] rounded-[22px] border border-white/24 p-3 backdrop-blur-xl" style={{ background: "linear-gradient(180deg,rgba(198,200,205,.86),rgba(168,171,176,.80))", boxShadow: "0 16px 38px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.22)" }}>
-          <p className="mb-1.5 text-[9px] font-black uppercase tracking-[0.2em]" style={{ color: "rgba(8,10,12,.72)" }}>Jiangnan private guide</p>
-          <h2 className="max-w-[96%] text-[21px] font-black leading-[1.02] tracking-[-.045em]" style={{ color: "#050608" }}>{day.title}</h2>
-          <p className="mt-1.5 text-[11px] font-bold leading-4" style={{ color: "rgba(5,6,8,.70)" }}>{day.titleZh}</p>
+        <div className={`absolute ${compact ? "bottom-3 left-3" : "bottom-4 left-4"} ${titleWidth} rounded-[22px] border border-white/24 ${compact ? "p-2.5" : "p-3"} backdrop-blur-xl`} style={{ background: "linear-gradient(180deg,rgba(198,200,205,.86),rgba(168,171,176,.80))", boxShadow: "0 16px 38px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.22)" }}>
+          <p className={`${compact ? "mb-1 text-[7px] tracking-[0.16em]" : "mb-1.5 text-[9px] tracking-[0.2em]"} font-black uppercase`} style={{ color: "rgba(8,10,12,.72)" }}>Jiangnan private guide</p>
+          <h2 className={`${compact ? "max-w-[98%] text-[15px] leading-[1.02]" : "max-w-[96%] text-[21px] leading-[1.02]"} font-black tracking-[-.045em]`} style={{ color: "#050608" }}>{day.title}</h2>
+          {!compact && <p className="mt-1.5 text-[11px] font-bold leading-4" style={{ color: "rgba(5,6,8,.70)" }}>{day.titleZh}</p>}
         </div>
       </div>
 
-      <div className="glass-card mt-3 rounded-[28px] p-3.5" style={{ background: "linear-gradient(180deg,rgba(17,19,24,.94),rgba(23,26,32,.88))", border: "1px solid rgba(255,255,255,.09)", boxShadow: "0 16px 42px rgba(0,0,0,.22)", backdropFilter: "blur(18px)" }}>
+      <div className={`glass-card ${compact ? "mt-2 rounded-[22px] p-3" : "mt-3 rounded-[28px] p-3.5"}`} style={{ background: "linear-gradient(180deg,rgba(17,19,24,.94),rgba(23,26,32,.88))", border: "1px solid rgba(255,255,255,.09)", boxShadow: "0 16px 42px rgba(0,0,0,.22)", backdropFilter: "blur(18px)" }}>
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[10px] font-black uppercase tracking-[.16em]" style={{ color: "rgba(205,211,220,.58)" }}>Main line</div>
-            <div className="mt-1 text-[20px] font-black leading-[1.08]" style={{ color: "rgba(255,255,255,.96)" }}>{day.route}</div>
-            <div className="mt-2 text-[13px] font-semibold leading-5" style={{ color: "rgba(235,239,245,.66)" }}>{day.routeZh}</div>
+            <div className={`${compact ? "text-[9px] tracking-[.14em]" : "text-[10px] tracking-[.16em]"} font-black uppercase`} style={{ color: "rgba(205,211,220,.58)" }}>Main line</div>
+            <div className={`${compact ? "mt-1 line-clamp-1 text-[15px] leading-[1.05]" : "mt-1 text-[20px] leading-[1.08]"} font-black`} style={{ color: "rgba(255,255,255,.96)" }}>{day.route}</div>
+            {!compact && <div className="mt-2 text-[13px] font-semibold leading-5" style={{ color: "rgba(235,239,245,.66)" }}>{day.routeZh}</div>}
           </div>
-          <Badge style={{ background: "rgba(255,255,255,.08)", color: "white", border: "1px solid rgba(255,255,255,.12)" }}>{day.tab}</Badge>
+          {!compact && <Badge style={{ background: "rgba(255,255,255,.08)", color: "white", border: "1px solid rgba(255,255,255,.12)" }}>{day.tab}</Badge>}
         </div>
       </div>
     </button>
@@ -1410,7 +1423,7 @@ export default function JiangnanTravelGuideApp() {
       const active = dayId === d.id;
       return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark } : { background: "rgba(36,40,48,.78)", color: "rgba(235,239,245,.78)", border: "1px solid rgba(255,255,255,.08)" }}>{d.tab}</button>;
     })}</div></header>
-    <main key={`${day.id}-${tab}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
+    <main key={`${day.id}-${tab}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} compact={tab !== "home"} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
       {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-semibold leading-6" style={{ color: "rgba(235,239,245,.84)" }}>{day.hotel}<br /><span style={{ color: "rgba(255,255,255,.92)" }}>{day.hotelZh}</span></p><p className="mt-2 text-sm leading-6" style={{ color: "rgba(205,211,220,.68)" }}>{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}><p className="text-xs font-semibold opacity-70">Go</p><h3 className="mt-1 text-lg font-black" style={{ color: theme.deepDark }}>Quick jump</h3><p className="mt-2 text-sm font-medium opacity-75">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
       {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
