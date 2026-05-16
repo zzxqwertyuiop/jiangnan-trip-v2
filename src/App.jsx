@@ -898,6 +898,98 @@ function getNoticeItems(day) {
   return items[day.id] || [];
 }
 
+function getBookingItems(day) {
+  const items = {
+    d25: [
+      { level: "Suggested", zhLevel: "建议", title: "Bund dinner restaurants", zh: "外滩晚餐餐厅", note: "Reserve a table if choosing Bund Family Banquet / Li Bai Crab or another formal dinner. Different platforms show different numbers, so call once to confirm.", noteZh: "如果选外滩家宴、李百蟹或其他正餐，建议提前订位。不同平台号码可能不一致，出发前打一次确认。", phone: "外滩家宴 150-2191-8472 / 172-6936-0088；李百蟹 186-0144-5562 / 133-2801-2446", mapQuery: "外滩家宴 上海", channel: "Amap / Dianping / Trip merchant pages", channelZh: "高德/大众点评/Trip 商家页交叉确认" },
+      { level: "No ticket", zhLevel: "无需门票", title: "The Bund riverfront", zh: "外滩滨江步道", note: "Open public riverfront; no attraction booking needed, but weekends can be crowded.", noteZh: "公共滨江步道，不需要景点预约；周末人会多。" },
+    ],
+    d26: [
+      { level: "Ticket", zhLevel: "门票", title: "Yu Garden", zh: "豫园", note: "Buy / reserve the Yu Garden ticket before arrival, especially for weekends and holidays.", noteZh: "建议提前购买/预约豫园门票，周末和节假日更要提前。", phone: "021-63260830", bookUrl: "https://www.yugarden.com.cn/Page/ArticleView/message.html", bookLabel: "Official ticket info", bookLabelZh: "官方购票信息", channel: "Official mini program: 上海豫园", channelZh: "官方小程序：上海豫园" },
+      { level: "Check", zhLevel: "确认", title: "Xujiahui Cathedral + Library", zh: "徐家汇天主堂 + 徐家汇书院", note: "Usually easier than museums, but opening hours and entry controls can change. Check the same week.", noteZh: "通常比博物馆简单，但开放时间和入场管理可能变动，出行当周确认一次。", mapQuery: "徐家汇天主堂 上海" },
+      { level: "Suggested", zhLevel: "建议", title: "Xujiahui lunch restaurants", zh: "徐家汇午餐餐厅", note: "Professor Lee can be busy; Renheguan is popular and worth booking ahead if used as lunch or dinner.", noteZh: "Professor Lee 人气高；人和馆也很热门，如果作为午餐或晚餐建议提前订位。", phone: "Professor Lee 021-54015707；人和馆 021-64030731", mapQuery: "Professor Lee 港汇恒隆 上海", channel: "Dianping / Apple Maps merchant pages", channelZh: "大众点评 / Apple Maps 商家页" },
+      { level: "Suggested", zhLevel: "建议", title: "Yu Garden dinner", zh: "豫园晚餐", note: "Reserve Magnolia Chamber or popular old-city restaurants in advance.", noteZh: "玉兰厢或豫园热门老城厢餐厅建议提前订位。", phone: "玉兰厢 189-3061-8098；南翔馒头店 021-63554206", mapQuery: "玉兰厢 上海", bookUrl: "https://maps.apple.com/place?auid=1118811628705932&lsp=57879", bookLabel: "Merchant page", bookLabelZh: "商家页", channel: "Dianping / Apple Maps merchant pages", channelZh: "大众点评 / Apple Maps 商家页" },
+    ],
+    d27: [
+      { level: "Ticket", zhLevel: "门票", title: "Wuzhen Xizha", zh: "乌镇西栅", note: "Buy Xizha scenic-area ticket before entering; hotel packages may already include access.", noteZh: "进入西栅前需购买景区票；如果住景区内酒店，确认套餐是否已含门票。", phone: "0573-88731088", bookUrl: "https://www.ewuzhen.com/userCenter", bookLabel: "Official Wuzhen booking", bookLabelZh: "乌镇官方预订", channel: "Official booking site: ewuzhen.com", channelZh: "官方预订网站：ewuzhen.com" },
+      { level: "Ticket", zhLevel: "门票", title: "Muxin Art Museum", zh: "木心美术馆", note: "Museum ticket is separate from Xizha. You need valid Xizha entry first.", noteZh: "木心美术馆通常另购票，且需先有西栅景区有效入园资格。", phone: "0573-88731088", bookUrl: "https://www.ewuzhen.com/userCenter", bookLabel: "Book via Wuzhen", bookLabelZh: "经乌镇官方预约", channel: "Official Wuzhen booking site / 木心美术馆入口", channelZh: "乌镇官方预订站 / 木心美术馆入口" },
+      { level: "Suggested", zhLevel: "建议", title: "Boat ride", zh: "摇橹船", note: "Not mandatory. Book or queue on site if the group wants the night-view boat experience.", noteZh: "非必选；如果想坐夜景船，到现场排队或按景区渠道购买。", phone: "0573-88731088", bookUrl: "https://www.ewuzhen.com/userCenter", bookLabel: "Wuzhen service", bookLabelZh: "乌镇服务预订", channel: "Ask at the scenic-area dock or official service desk", channelZh: "景区码头或官方服务台确认" },
+    ],
+    d28: [
+      { level: "Conditional", zhLevel: "视情况", title: "Hangzhou National Archives", zh: "杭州国家版本馆", note: "Weekdays may be no-reservation, but weekends / holidays require real-name reservation. Check the official account before going.", noteZh: "工作日可能免预约；双休日和节假日仍需实名预约。去之前看官方公众号/小程序。", phone: "0571-88079999 / 0571-88070098", bookUrl: "https://m.hz.bendibao.com/xiuxian/167162.shtm", bookLabel: "Reservation guide", bookLabelZh: "预约说明", channel: "Official account: 杭州国家版本馆", channelZh: "官方公众号：杭州国家版本馆" },
+      { level: "If museum", zhLevel: "进馆则需", title: "Liangzhu Museum", zh: "良渚博物院", note: "If you add Liangzhu Museum, reserve a timed visit in advance. Cultural Village / Yuniao area itself is more flexible.", noteZh: "如果加良渚博物院，需要提前分时预约；良渚文化村/玉鸟集街区本身更灵活。", phone: "0571-88773875", bookUrl: "https://www.lzmuseum.cn/ZuiXinGongGao/2024934396935.html", bookLabel: "Official visit notice", bookLabelZh: "官方参观须知", channel: "WeChat mini program: 良渚古城 / 文旅壹卡通", channelZh: "微信小程序：良渚古城 / 文旅壹卡通" },
+      { level: "Suggested", zhLevel: "建议", title: "Liangzhu restaurant", zh: "良渚餐厅", note: "Reserve Zhujiansanxi or nearby restaurants if arriving around lunch / dinner peak.", noteZh: "如果正好午餐/晚餐高峰到良渚，竹间三喜或附近餐厅建议提前订位。", phone: "竹间三喜 151-5812-5435", mapQuery: "竹间三喜 杭州", bookUrl: "https://m.dianping.com/shop/1207019659?msource=applemaps", bookLabel: "Dianping", bookLabelZh: "大众点评", channel: "Dianping / local merchant pages", channelZh: "大众点评 / 本地商家页" },
+    ],
+    d29: [
+      { level: "Required", zhLevel: "必须", title: "Lingyin / Feilai Peak area", zh: "灵隐飞来峰景区", note: "Real-name, timed reservation is required. Book at least one day ahead if possible.", noteZh: "需要实名分时预约，建议至少提前一天预约。", bookUrl: "https://mdaily.hangzhou.com.cn/hzrb/2025/11/24/article_detail_1_20251124A051.html", bookLabel: "Official reservation guide", bookLabelZh: "官方预约说明", channel: "WeChat / Alipay mini program: 杭州灵隐飞来峰", channelZh: "微信/支付宝小程序：杭州灵隐飞来峰" },
+      { level: "Check", zhLevel: "确认", title: "Faxi Temple route", zh: "法喜寺方向", note: "Temple rules can change with holidays and crowd control. Confirm the latest temple-area entry rule the same week.", noteZh: "寺庙区节假日和客流管控会变化，出行当周确认最新入场规则。", mapQuery: "上天竺法喜讲寺 杭州", channel: "Confirm via the temple-area official notices before departure", channelZh: "出发前看寺庙区官方公告/现场规则" },
+      { level: "Suggested", zhLevel: "建议", title: "Dinner restaurants", zh: "杭州晚餐餐厅", note: "For Fuyuanju or Qunle, call before going; both are local-style restaurants that may be busy at meal time.", noteZh: "福缘居或群乐建议去之前电话确认；两家都属于饭点可能忙的本地餐厅。", phone: "福缘居文三西路店 0571-85176780；群乐饭店 0571-86624231", mapQuery: "福缘居酒楼 文三西路店 杭州", bookUrl: "https://m.dianping.com/shop/laEPeLJRAiEnmqQb", bookLabel: "Dianping", bookLabelZh: "大众点评", channel: "Dianping / Amap merchant pages", channelZh: "大众点评 / 高德商家页" },
+      { level: "Suggested", zhLevel: "建议", title: "Longjing tea house", zh: "龙井茶馆/茶歇", note: "Reserve if choosing a specific tea house with view seats; otherwise keep it flexible.", noteZh: "如果想坐指定观景茶馆，建议订位；普通茶歇可以现场灵活选择。", mapQuery: "龙井村茶馆 杭州", channel: "Use Amap / Dianping for current tea-house phone", channelZh: "茶馆电话以高德/大众点评实时商家页为准" },
+    ],
+  };
+  return items[day.id] || [];
+}
+
+function BookingChecklist({ day, theme }) {
+  const items = getBookingItems(day);
+  if (!items.length) return null;
+  const tone = {
+    Required: { bg: theme.gradient, color: theme.deepDark },
+    Ticket: { bg: "rgba(255,255,255,.14)", color: "rgba(255,255,255,.94)" },
+    Conditional: { bg: "rgba(255,255,255,.14)", color: "rgba(255,255,255,.94)" },
+    "If museum": { bg: "rgba(255,255,255,.14)", color: "rgba(255,255,255,.94)" },
+    Suggested: { bg: "rgba(255,255,255,.08)", color: "rgba(235,239,245,.76)" },
+    Check: { bg: "rgba(255,255,255,.08)", color: "rgba(235,239,245,.76)" },
+    "No ticket": { bg: "rgba(255,255,255,.06)", color: "rgba(205,211,220,.62)" },
+  };
+  const cleanPhone = (phone) => String(phone || "").split("/")[0].replace(/[^0-9+]/g, "");
+  return (
+    <section className="heavy-card rounded-[32px] p-4">
+      <SectionTitle kicker="Booking" title="Reservation checklist" zh="预约提醒" right={<Badge>{items.length} items / 项</Badge>} />
+      <div className="space-y-2">
+        {items.map((item) => {
+          const style = tone[item.level] || tone.Check;
+          const contactLinks = item.mapQuery ? mapLinks(item.mapQuery) : null;
+          const dialPhone = cleanPhone(item.phone);
+          return (
+            <div key={`${item.title}-${item.level}`} className="rounded-2xl p-3" style={{ background: "linear-gradient(180deg,rgba(28,31,38,.94),rgba(20,23,29,.90))", border: "1px solid rgba(255,255,255,.08)" }}>
+              <div className="mb-2 flex items-start justify-between gap-2">
+                <div>
+                  <h3 className="text-sm font-black leading-tight text-white">{item.title}</h3>
+                  <p className="text-xs font-semibold text-white/54">{item.zh}</p>
+                </div>
+                <span className="shrink-0 rounded-full px-2.5 py-1 text-[10px] font-black" style={{ background: style.bg, color: style.color }}>{item.level} / {item.zhLevel}</span>
+              </div>
+              <Pair en={item.note} zh={item.noteZh} className="text-xs leading-5" />
+              {(item.phone || item.bookUrl || item.channel || contactLinks) && (
+                <div className="mt-3 space-y-2">
+                  {item.phone && (
+                    <div className="rounded-2xl px-3 py-2 text-[11px] font-semibold leading-5" style={{ background: "rgba(255,255,255,.06)", color: "rgba(235,239,245,.72)", border: "1px solid rgba(255,255,255,.07)" }}>
+                      Phone / 电话：{item.phone}
+                    </div>
+                  )}
+                  {item.channel && (
+                    <div className="rounded-2xl px-3 py-2 text-[11px] font-semibold leading-5" style={{ background: "rgba(255,255,255,.06)", color: "rgba(235,239,245,.72)", border: "1px solid rgba(255,255,255,.07)" }}>
+                      Channel / 渠道：{item.channel}<br />{item.channelZh}
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 gap-2">
+                    {item.phone && dialPhone && <a href={`tel:${dialPhone}`} className="rounded-2xl py-2 text-center text-[11px] font-black transition active:scale-95" style={{ background: "rgba(255,255,255,.10)", color: "rgba(255,255,255,.92)", border: "1px solid rgba(255,255,255,.10)" }}>Call / 电话<br /><span className="font-semibold opacity-70">Tap to call</span></a>}
+                    {item.bookUrl && <a href={item.bookUrl} target="_blank" rel="noreferrer" className="rounded-2xl py-2 text-center text-[11px] font-black transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}>{item.bookLabel || "Book / 预约"}<br /><span className="font-semibold opacity-70">{item.bookLabelZh || "打开链接"}</span></a>}
+                    {contactLinks && <a href={contactLinks.amap} target="_blank" rel="noreferrer" className="rounded-2xl py-2 text-center text-[11px] font-black transition active:scale-95" style={{ background: "rgba(255,255,255,.10)", color: "rgba(255,255,255,.92)", border: "1px solid rgba(255,255,255,.10)" }}>Amap / 高德<br /><span className="font-semibold opacity-70">商家页</span></a>}
+                    {contactLinks && <a href={contactLinks.apple} target="_blank" rel="noreferrer" className="rounded-2xl py-2 text-center text-[11px] font-black transition active:scale-95" style={{ background: "rgba(255,255,255,.10)", color: "rgba(255,255,255,.92)", border: "1px solid rgba(255,255,255,.10)" }}>Apple Maps<br /><span className="font-semibold opacity-70">Search</span></a>}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <p className="mt-3 rounded-2xl p-3 text-xs font-semibold leading-5" style={{ background: theme.tint, color: "rgba(235,239,245,.68)" }}>Rules and phone numbers can change. Recheck Meituan / Dianping / official mini programs before departure. / 规则和电话可能变化，出发前再查一次美团、大众点评或官方小程序。</p>
+    </section>
+  );
+}
+
 function CulturePage({ day, theme }) {
   const notes = getCultureNotes(day);
   return (
@@ -1228,11 +1320,24 @@ export default function JiangnanTravelGuideApp() {
       return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark } : { background: "rgba(36,40,48,.78)", color: "rgba(235,239,245,.78)", border: "1px solid rgba(255,255,255,.08)" }}>{d.tab}</button>;
     })}</div></header>
     <main key={`${day.id}-${tab}-${mood}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
-      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-semibold leading-6" style={{ color: "rgba(235,239,245,.84)" }}>{day.hotel}<br /><span style={{ color: "rgba(255,255,255,.92)" }}>{day.hotelZh}</span></p><p className="mt-2 text-sm leading-6" style={{ color: "rgba(205,211,220,.68)" }}>{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}><p className="text-xs font-semibold opacity-70">Go</p><h3 className="mt-1 text-lg font-black" style={{ color: theme.deepDark }}>Quick jump</h3><p className="mt-2 text-sm font-medium opacity-75">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
+      {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-semibold leading-6" style={{ color: "rgba(235,239,245,.84)" }}>{day.hotel}<br /><span style={{ color: "rgba(255,255,255,.92)" }}>{day.hotelZh}</span></p><p className="mt-2 text-sm leading-6" style={{ color: "rgba(205,211,220,.68)" }}>{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><BookingChecklist day={day} theme={theme} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}><p className="text-xs font-semibold opacity-70">Go</p><h3 className="mt-1 text-lg font-black" style={{ color: theme.deepDark }}>Quick jump</h3><p className="mt-2 text-sm font-medium opacity-75">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
       {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
       {tab === "culture" && <CulturePage day={day} theme={theme} />}
-      {tab === "go" && <div className="space-y-3"><JumpCard icon="🗺️" title="Day map itinerary" zh="一天地图行程" theme={theme} onOpen={() => setMapOpen(true)} note="See driving, train and walking segments in one popup." noteZh="把行车、高铁和步行段一次看清楚。" /><JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} /><JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />{uniqueJumpCards([...getSmartJumps(day, mood), ...[["🏨", "Hotel anchor", "回酒店", `${day.hotel} ${day.hotelZh} ${day.addressZh}`], ...day.jumps].map(([icon, title, zh, query]) => ({ icon, title, zh, query }))]).map((item) => <JumpCard key={`${item.title}-${item.query || item.zh}`} {...item} theme={theme} />)}</div>}
+      {tab === "go" && (
+        <div className="space-y-3">
+          <JumpCard icon="🗺️" title="Day map itinerary" zh="一天地图行程" theme={theme} onOpen={() => setMapOpen(true)} note="See driving, train and walking segments in one popup." noteZh="把行车、高铁和步行段一次看清楚。" />
+          <JumpCard icon="📌" title="Reservation checklist" zh="预约提醒" theme={theme} onOpen={() => setTab("home")} note="Check which places need tickets, reservations, calls or table booking." noteZh="查看哪些地点需要门票、预约、电话或订位。" />
+          <JumpCard icon="✨" title="Spot + Food Guide" zh="景点与美食详细介绍" theme={theme} onOpen={() => setDetail(guide)} />
+          <JumpCard icon="🏛️" title="Culture notes" zh="文化科普页" theme={theme} onOpen={() => setTab("culture")} note="Read the cultural background before choosing a route." noteZh="先看文化背景，再决定怎么逛。" />
+          {uniqueJumpCards([
+            ...getSmartJumps(day, mood),
+            ...day.jumps.map(([icon, title, zh, query]) => ({ icon, title, zh, query, note: `Navigate to ${title}.`, noteZh: `导航到${zh}。` })),
+          ]).map((card) => (
+            <JumpCard key={`${card.title}-${card.query || card.zh}`} icon={card.icon} title={card.title} zh={card.zh} query={card.query} theme={theme} note={card.note} noteZh={card.noteZh} />
+          ))}
+        </div>
+      )}
     </main>
     <nav className="bottom-nav fixed bottom-0 left-1/2 z-40 w-full max-w-[430px] -translate-x-1/2 px-3 py-3" style={{ background: "transparent" }}><div className="grid grid-cols-5 gap-1 rounded-[30px] p-2 shadow-[0_20px_60px_rgba(25,30,38,.18)] backdrop-blur-2xl" style={{ background: theme.chipDark, border: "1px solid rgba(255,255,255,.08)" }}>{tabs.map(([id, en, zh, icon]) => {
       const active = tab === id;
