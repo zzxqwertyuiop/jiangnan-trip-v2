@@ -445,7 +445,7 @@ function SmoothStyles() {
       @keyframes pinPulse { 0%,100% { transform: scale(.72); opacity: .28; } 50% { transform: scale(1.25); opacity: .78; } }
       @keyframes loadingFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
       .app-shell { -webkit-tap-highlight-color: transparent; }
-      .app-shell section, .app-shell article { transition: transform .22s ease, box-shadow .22s ease, background .45s ease; color: rgba(235,239,245,.82); }
+      .app-shell section, .app-shell article { transition: transform .16s ease, box-shadow .18s ease, background .22s ease; color: rgba(235,239,245,.82); }
       .app-shell { color: rgba(235,239,245,.82); }
       .app-shell h1, .app-shell h2, .app-shell h3, .app-shell h4, .app-shell strong { color: rgba(255,255,255,.96) !important; }
       .app-shell section p, .app-shell section div, .app-shell article p, .app-shell article div { color: inherit; }
@@ -455,18 +455,18 @@ function SmoothStyles() {
       .app-shell p, .app-shell li, .app-shell summary, .app-shell div { text-shadow: none; }
       .app-shell .readable-card { color: rgba(255,255,255,.84); }
       .app-shell section:active, .app-shell article:active { transform: scale(.997); }
-      .app-shell button, .app-shell a { transition: transform .18s ease, opacity .18s ease, background .28s ease, color .28s ease, box-shadow .28s ease; }
+      .app-shell button, .app-shell a { transition: transform .14s ease, opacity .14s ease, background .18s ease, color .18s ease, box-shadow .18s ease; }
       .app-shell button:active, .app-shell a:active { transform: scale(.97); }
-      .app-shell img { transition: transform .7s cubic-bezier(.2,.8,.2,1), opacity .35s ease; }
+      .app-shell img { transition: transform .42s cubic-bezier(.2,.8,.2,1), opacity .22s ease; }
       .app-shell .hero-card:hover img, .app-shell .food-card:hover img { transform: scale(1.035); }
       .app-shell details { transition: background .25s ease, transform .2s ease; }
       .app-shell details[open] { animation: softIn .22s ease both; }
       .app-shell summary::-webkit-details-marker { display: none; }
       .app-shell .sheet-panel { animation: sheetUp .28s cubic-bezier(.2,.8,.2,1) both; }
       .app-shell .soft-enter { animation: softIn .28s ease both; }
-      .app-shell .view-switch { animation: viewSwitch .34s cubic-bezier(.2,.8,.2,1) both; }
-      .app-shell .active-pill { position: relative; overflow: hidden; animation: selectedGlow 1.8s ease-in-out infinite; }
-      .app-shell .active-pill::before { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 45%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent); animation: sheen 1.7s ease-in-out infinite; }
+      .app-shell .view-switch { animation: viewSwitch .20s cubic-bezier(.2,.8,.2,1) both; }
+      .app-shell .active-pill { position: relative; overflow: hidden; animation: selectedGlow 1.2s ease-in-out infinite; }
+      .app-shell .active-pill::before { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 45%; background: linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent); animation: sheen 1.15s ease-in-out infinite; }
       .app-shell .active-pill > span, .app-shell .active-pill > div { position: relative; z-index: 1; }
       .app-shell .active-emoji { display: inline-block; animation: tinyFloat 1.5s ease-in-out infinite; }
       .app-shell .route-toggle { transition: transform .25s ease, background .25s ease; }
@@ -1398,14 +1398,19 @@ export default function JiangnanTravelGuideApp() {
     return () => { cancelled = true; };
   }, []);
 
+  useEffect(() => {
+    if (!bootDone) return;
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [bootDone, dayId, tab]);
+
   if (!bootDone) return <SplashScreen progress={bootProgress} onEnter={() => { setBootProgress(100); setBootDone(true); }} />;
 
-  return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-700" style={{ background: theme.bg, "--accent": theme.accent, "--accent-deep": theme.accentDeep, "--accent-soft": theme.accentSoft, "--accent-faint": theme.accentFaint }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
+  return <div className="app-shell min-h-screen text-neutral-950 transition-all duration-300" style={{ background: theme.bg, "--accent": theme.accent, "--accent-deep": theme.accentDeep, "--accent-soft": theme.accentSoft, "--accent-faint": theme.accentFaint }}><SmoothStyles /><div className="relative mx-auto min-h-screen max-w-[430px] overflow-hidden" style={{ background: theme.shell, border: "1px solid rgba(255,255,255,.34)", boxShadow: "0 30px 90px rgba(48,55,66,.18)" }}><div className="pointer-events-none absolute -right-24 top-12 h-64 w-64 rounded-full blur-3xl" style={{ background: theme.accent2, opacity: .24 }} /><div className="pointer-events-none absolute -left-24 top-80 h-72 w-72 rounded-full blur-3xl" style={{ background: theme.accent, opacity: .14 }} />
     <header className="sticky top-0 z-30 border-b px-5 pb-3 pt-5 backdrop-blur-2xl" style={{ background: "rgba(15,17,22,.86)", borderColor: "rgba(255,255,255,.08)" }}><div className="flex items-start justify-between gap-3"><div><p className="text-[11px] font-black uppercase tracking-[.20em] text-neutral-500">Jiangnan private guide</p><h1 className="mt-1 bg-clip-text text-[31px] font-black leading-tight tracking-[-.05em] text-transparent" style={{ backgroundImage: theme.gradient }}>Jiangnan Trip</h1><p className="mt-1 text-sm font-medium text-neutral-500">Places · Routes · Taste · Story</p></div><button onClick={() => setMapOpen(true)} className="rounded-full px-4 py-2 text-sm font-black shadow-sm transition active:scale-95" style={{ background: theme.chipDark, color: "white" }}>Map / 地图</button></div><div className="mt-4 flex gap-2 overflow-x-auto pb-1">{days.map((d) => {
       const active = dayId === d.id;
       return <button key={d.id} onClick={() => { setDayId(d.id); setTab("home"); setOpenStep(0); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-bold shadow-sm transition active:scale-95 ${active ? "active-pill" : ""}`} style={active ? { background: theme.gradient, color: theme.deepDark } : { background: "rgba(36,40,48,.78)", color: "rgba(235,239,245,.78)", border: "1px solid rgba(255,255,255,.08)" }}>{d.tab}</button>;
     })}</div></header>
-    <main key={`${day.id}-${tab}-${mood}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
+    <main key={`${day.id}-${tab}`} className="view-switch relative z-10 space-y-5 px-5 pb-28 pt-5"><Hero day={day} theme={theme} openGuide={() => setDetail(guide)} /><SectionTitle kicker={day.city} title={pageTitle[0]} zh={pageTitle[1]} right={<Badge style={{ background: theme.tint }}>{day.cityZh}</Badge>} />
       {tab === "home" && <div className="space-y-5"><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Hotel" title="Hotel + anchor" zh="酒店与起点" /><p className="text-sm font-semibold leading-6" style={{ color: "rgba(235,239,245,.84)" }}>{day.hotel}<br /><span style={{ color: "rgba(255,255,255,.92)" }}>{day.hotelZh}</span></p><p className="mt-2 text-sm leading-6" style={{ color: "rgba(205,211,220,.68)" }}>{day.address}<br />{day.addressZh}</p><div className="mt-3"><MapButtons query={`${day.hotel} ${day.hotelZh} ${day.addressZh}`} /></div></section><MoodSwitch mood={mood} setMood={setMood} theme={theme} day={day} /><section className="rounded-[34px] p-4 shadow-[0_18px_56px_rgba(75,91,180,.11)] ring-1 ring-white/70" style={{ background: theme.card }}><SectionTitle kicker="Tiny missions" title="Tiny missions" zh="今日小任务" right={<Badge>Play / 好玩</Badge>} /><div className="space-y-2">{day.missions.map(([i, t, e, z]) => <div key={t} className="rounded-2xl p-3 text-sm leading-6" style={{ background: theme.tint }}><strong>{i} {t}</strong><br />{e}<br /><span className="text-neutral-500">{z}</span></div>)}</div></section><section className="grid grid-cols-2 gap-3"><button onClick={() => setTab("route")} className="rounded-[28px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Route</p><h3 className="mt-1 text-lg font-black">Loose route</h3><p className="mt-2 text-sm text-neutral-500">上午 / 下午 / 晚上</p></button><button onClick={() => setTab("go")} className="rounded-[28px] p-4 text-left shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}><p className="text-xs font-semibold opacity-70">Go</p><h3 className="mt-1 text-lg font-black" style={{ color: theme.deepDark }}>Quick jump</h3><p className="mt-2 text-sm font-medium opacity-75">导航 / 美食 / 景点</p></button><button onClick={() => setTab("culture")} className="col-span-2 rounded-[30px] p-4 text-left shadow-sm ring-1 ring-white/70 transition active:scale-95" style={{ background: theme.card }}><p className="text-xs font-bold text-neutral-500">Culture</p><h3 className="mt-1 text-lg font-black">Open culture notes</h3><p className="mt-2 text-sm text-neutral-500">Culture notes · 建筑 / 园林 / 水乡 / 茶</p></button></section></div>}
       {tab === "route" && <div className="space-y-3"><button onClick={() => setMapOpen(true)} className="w-full rounded-[28px] py-3 text-xs font-black shadow-sm transition active:scale-95" style={{ background: theme.gradient, color: theme.deepDark }}>Open day map / 打开一天地图行程</button>{day.plan.map((s, i) => <RouteCard key={s.title} step={s} index={i} theme={theme} open={openStep === i} onToggle={() => setOpenStep(openStep === i ? -1 : i)} />)}</div>}
       {tab === "taste" && <div className="space-y-3"><FoodPassport theme={theme} passport={passport} setPassport={setPassport} dayId={day.id} />{day.food.map((f) => <FoodCard key={f.name} item={f} theme={theme} onOpen={setDetail} />)}<ReferenceCard refs={day.references} theme={theme} /></div>}
